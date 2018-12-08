@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: 'Indenizou',
-    siteUrl: process.env.REACT_APP_URL,
+    siteUrl: 'http://indenizou.alia.ml',
   },
   plugins: [
     'gatsby-plugin-sass',
@@ -39,7 +39,6 @@ module.exports = {
         background_color: process.env.REACT_APP_THEME,
       },
     },
-    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
@@ -58,6 +57,7 @@ module.exports = {
         cookieDomain: 'indenizou.com',
       },
     },
+    'gatsby-plugin-sitemap',
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
     // 'gatsby-plugin-offline',

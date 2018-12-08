@@ -5,7 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "up": "npm upgrade && npm prune && npm dedupe",
-    "push": "rsync -avz --perms --chmod=a+rx --progress --delete ./build/ lion@alia.ml:/opt/indenizou/ ",
+    "push": "rsync -avz --perms --chmod=a+rx --progress --delete ./public/ lion@alia.ml:/opt/indenizou/",
     "deploy": "npm run build && npm run push",
     "build": "gatsby build",
     "develop": "gatsby develop",

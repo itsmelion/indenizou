@@ -1,6 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import Layout from 'components/Layout';
+import Footer from 'components/Footer/Footer';
 import 'main.scss';
 
 const teststyle = {
@@ -14,6 +15,7 @@ const IndexPage = () => (
     <header row="" align="center center" style={teststyle}>
       <h1>Hey, Welcome!</h1>
     </header>
+    <Footer />
   </Layout>
 );
 
