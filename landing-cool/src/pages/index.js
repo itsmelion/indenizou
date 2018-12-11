@@ -6,7 +6,7 @@ import 'main.scss';
 
 const teststyle = {
   height: '90vh',
-  backgroundColor: process.env.REACT_APP_THEME,
+  backgroundColor: 'gray',
   color: 'white',
 };
 

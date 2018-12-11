@@ -1,7 +1,12 @@
+require('dotenv').config();
+const app = require('./data');
+
 module.exports = {
   siteMetadata: {
-    title: 'Indenizou',
-    siteUrl: 'http://indenizou.alia.ml',
+    title: app.name,
+    siteUrl: `http://${ app.domain }`,
+    defaultLang: app.defaultLang,
+    app,
   },
   plugins: [
     'gatsby-plugin-sass',
@@ -22,27 +27,45 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
-      resolve: 'gatsby-plugin-manifest',
+      resolve: 'gatsby-plugin-favicon',
       options: {
-        short_name: 'Indenizou',
-        name: 'Indenizou.com',
-        icons: [
-          {
-            src: 'favicon.ico',
-            sizes: '64x64 32x32 24x24 16x16',
-            type: 'image/x-icon',
-          },
-        ],
-        start_url: '/',
+        logo: './src/images/icons/icon-512x512.png',
+
+        // WebApp Manifest Configuration
+        short_name: app.name,
+        name: app.name,
         display: 'minimal-ui',
-        theme_color: process.env.REACT_APP_THEME,
-        background_color: process.env.REACT_APP_THEME,
+        appName: null, // Inferred with your package.json
+        appDescription: null,
+        developerName: null,
+        developerURL: null,
+        dir: 'auto',
+        lang: app.defaultLang,
+        background_color: app.theme,
+        theme_color: app.theme,
+        background: app.theme,
+        orientation: 'any',
+        start_url: '/',
+        version: '1.0',
+
+        icons: {
+          android: true,
+          appleIcon: true,
+          appleStartup: true,
+          coast: false,
+          favicons: true,
+          firefox: true,
+          opengraph: true,
+          twitter: true,
+          yandex: false,
+          windows: true,
+        },
       },
     },
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
-        trackingId: process.env.REACT_APP_ANALYTICS,
+        trackingId: app.analytics,
         // Puts tracking script in the head instead of the body
         head: false,
         // Setting this parameter is optional
@@ -54,7 +77,7 @@ module.exports = {
         // Any additional create only fields (optional)
         sampleRate: 5,
         siteSpeedSampleRate: 10,
-        cookieDomain: 'indenizou.com',
+        cookieDomain: app.domain,
       },
     },
     'gatsby-plugin-sitemap',

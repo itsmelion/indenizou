@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faBars } from '@fortawesome/free-solid-svg-icons';
-import { contact } from '../../data/hero';
-import texts from './Topbar.i18n';
+import { Link } from 'gatsby';
 import logo from './logo.svg';
-import Hex from '../Hex/Hex';
 import './Topbar.scss';
 
 class Topbar extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
-    this.lang = localStorage.getItem('lang');
     this.state = {
       collapsed: false,
     };
@@ -19,18 +15,17 @@ class Topbar extends Component {
 
   closeMenu = () => this.setState({ collapsed: false });
 
-  toggle = () =>
-    this.setState(({ collapsed }) => ({
-      collapsed: !collapsed,
-    }));
+  toggle = () => this.setState(({ collapsed }) => ({
+    collapsed: !collapsed,
+  }));
 
-  render() {
+  render () {
     const collapse = this.state.collapsed ? 'opened' : 'closed';
 
     return (
       <nav hide-print="" id="topbar" className={collapse}>
         <div className="contain row nowrap" align="between center">
-          <NavLink
+          <Link
             flex="none"
             id="nav-logo"
             onClick={this.closeMenu}
@@ -38,12 +33,10 @@ class Topbar extends Component {
             align="start end"
             to="/"
           >
-            <Hex>
-              <img src={logo} alt="Alia logo" />
-            </Hex>
+            <img src={logo} alt="Alia logo" />
 
             <span className="beta-tag">beta</span>
-          </NavLink>
+          </Link>
 
           <button
             type="button"
@@ -56,18 +49,10 @@ class Topbar extends Component {
             <FontAwesomeIcon className="icon-menu" icon={faBars} />
           </button>
 
-          <ul flex="" align="end" className={`tabs ${collapse}`}>
-            <NavLink to="/portfolio" onClick={this.closeMenu}>
-              {texts.portfolio[this.lang]}
-            </NavLink>
-
-            <NavLink to="/resume" onClick={this.closeMenu}>
-              {texts.resume[this.lang]}
-            </NavLink>
-
-            <a className="default-to-action" href={contact.agenda}>
-              {texts.book[this.lang]}
-            </a>
+          <ul flex="" align="end" className={`tabs ${ collapse }`}>
+            <Link to="/" onClick={this.closeMenu}>
+              menu Item
+            </Link>
           </ul>
         </div>
       </nav>

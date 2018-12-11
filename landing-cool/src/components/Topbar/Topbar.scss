@@ -1,13 +1,11 @@
-@import 'styles/vars.scss';
-
 nav#topbar {
   position: fixed;
   width: 100%;
   top: 0;
   padding: .25rem;
-  color: $white7;
-  border: 1pt solid rgba($pink, .2);
-  background: $nightsong;
+  color: lightgray;
+  border: 1pt solid rgba(white, .2);
+  background: black;
   z-index: 900;
   font-size: .9rem;
 
@@ -21,7 +19,7 @@ nav#topbar {
 
   #nav-toggle {
     height: 100%;
-    background-color: lighten($nightsong, 8%);
+    background-color: lighten(white, 8%);
     padding: .5em 1em;
   }
 
@@ -45,7 +43,7 @@ nav#topbar {
       padding: .5em 1.5em;
       color: currentColor;
       border: 1pt solid transparent;
-      border-radius: $radius * 3;
+      border-radius: 6pt * 3;
       line-height: 1.2;
       text-align: center;
       user-select: none;
@@ -53,12 +51,12 @@ nav#topbar {
       margin: .5em;
 
       &.active, &:hover {
-        border: 1pt solid rgba($dalaran, .5);
+        border: 1pt solid rgba(magenta, .5);
       }
     }
 
-    @media #{$mobile} {
-      background-color: $nightsong;
+    @media screen and (max-width: 48rem) {
+      background-color: gray;
       padding: 2em;
       padding-top: 5rem;
       flex-direction: column;
@@ -103,13 +101,3 @@ nav#topbar {
     bottom: .5em;
   }
 }
-
-.default-to-action {
-  border-radius: $radius;
-  background-color: $dalaran;
-}
-
-// @keyframes slide-in {
-//   from { transform: translateX(-100%); }
-//   to { transform: translateX(0); }
-// }

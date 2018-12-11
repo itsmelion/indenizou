@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import Topbar from 'components/Topbar/Topbar';
 import { StaticQuery, graphql } from 'gatsby';
 
 const Layout = ({ children }) => (
@@ -17,16 +18,8 @@ const Layout = ({ children }) => (
     `}
     render={data => (
       <>
-        <Helmet
-          title={data.site.siteMetadata.title}
-          meta={[
-            { name: 'description', content: 'Sample' },
-            { name: 'keywords', content: 'sample, something' },
-          ]}
-        >
-          <html lang={process.env.REACT_APP_DEFAULT_LANG} prefix="og:http://ogp.me/ns#" />
-        </Helmet>
-
+        <Helmet title={data.site.siteMetadata.title} />
+        <Topbar />
         {children}
       </>
     )}
