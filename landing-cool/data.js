@@ -9,5 +9,4 @@ const appData = {
   keywords: process.env.KEYWORDS,
 };
 
-export default appData;
 module.exports = appData;

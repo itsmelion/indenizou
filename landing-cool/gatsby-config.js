@@ -5,7 +5,6 @@ module.exports = {
   siteMetadata: {
     title: app.name,
     siteUrl: `http://${ app.domain }`,
-    defaultLang: app.defaultLang,
     app,
   },
   plugins: [
