@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './SignUp.scss';
@@ -22,10 +23,25 @@ class SignUp extends PureComponent {
         method="post"
         className={`form ${ className } ${ isCompact }`}
       >
+        <h4 className="mb1">
+          😨 Conta pra gente o que aconteceu.
+          <br />
+          Daí, é só ligar o piloto automático ;)
+          <br />
+          🛬🛫✈️🛩✈︎
+        </h4>
+
+
         <label className="input" htmlFor="email">
           <span>e-mail</span>
-          {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
-          <input autoComplete="email" autoFocus type="email" name="email" id="email" placeholder="fulana@email.com" />
+          <input
+            autoFocus
+            autoComplete="email"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="fulana@email.com"
+          />
         </label>
 
         <fieldset className="radio-group">
@@ -44,6 +60,8 @@ class SignUp extends PureComponent {
             <input type="radio" name="cancelamento" id="cancelamento" />
           </label>
         </fieldset>
+
+        <button className="button default" type="submit">Quero minha indenização!</button>
       </form>
     );
   }
