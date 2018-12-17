@@ -1,0 +1,64 @@
+@import '~flamework/src/vars';
+@import 'vars.scss';
+
+.form {
+  padding: 2rem;
+  border-radius: $radius;
+  background-color: white;
+  color: $black8;
+  @include shadow;
+
+  input {
+    padding: .5em;
+    border: 1.5pt solid $black3;
+    border-radius: $radius;
+    outline: none;
+    font-weight: 600;
+    width: 100%;
+
+    &:focus {
+      border-color: $primary;
+    }
+  }
+
+  .input {
+    > span {
+      font-size: 70%;
+      padding-left: .65rem;
+    }
+  }
+}
+
+.compact {
+  background-color: $primary;
+}
+
+.radio-group {
+  margin: 1rem 0;
+
+  label {
+    display: inline-block;
+    margin: .2rem;
+    padding: .25rem .5rem;
+    border-radius: $radius * 3;
+    cursor: pointer;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    &:hover {
+      background-color: rgba($primary, .4);
+    }
+  }
+
+  input {
+    width: auto;
+    margin-left: .5em;
+    display: none;
+  }
+}

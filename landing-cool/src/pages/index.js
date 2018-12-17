@@ -3,18 +3,11 @@ import React from 'react';
 import Layout from 'components/Layout';
 import Footer from 'components/Footer/Footer';
 import 'main.scss';
-
-const teststyle = {
-  height: '90vh',
-  backgroundColor: 'gray',
-  color: 'white',
-};
+import Header from 'components/Header/Header';
 
 const IndexPage = () => (
   <Layout>
-    <header row="" align="center center" style={teststyle}>
-      <h1>Hey, Welcome!</h1>
-    </header>
+    <Header />
     <Footer />
   </Layout>
 );
