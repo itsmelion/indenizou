@@ -3,34 +3,66 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './SignUp.scss';
 
-class SignUp extends PureComponent {
-  // constructor (props) {
-  //   super(props);
-  //   this.state = {};
-  // }
-  handleRadio () {
+const problems = [
+  'cancelamento', 'atraso', 'Extravio de Bagagem', 'outros',
+];
 
+let options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  mode: 'cors',
+  cache: 'default',
+};
+
+class SignUp extends PureComponent {
+  constructor (props) {
+    super(props);
+    this.email = React.createRef();
+    this.phone = React.createRef();
   }
 
+  state = { problema: 'atraso' };
+
+  handleRadio = e => this.setState(({ problema: e.target.value }));
+
+  handleSubmit = e => {
+    const { url } = this.props;
+    const { problema } = this.state;
+    e.preventDefault();
+
+    options = Object.assign(options, {
+      body: JSON.stringify({
+        email: this.email.current.value,
+        phone: this.phone.current.value,
+        problema,
+      }),
+    });
+
+    fetch(url, options)
+      .then(r => console.log('posted!', r));
+  };
+
   render () {
-    const { url, className, compact } = this.props;
+    const { className, compact } = this.props;
+    const { problema } = this.state;
     const isCompact = compact ? 'compact' : false;
 
     return (
       <form
         autoComplete="on"
-        action={url}
-        method="post"
+        onSubmit={this.handleSubmit}
         className={`form ${ className } ${ isCompact }`}
       >
         <h4 className="mb1">
-          😨 Conta pra gente o que aconteceu.
+          <span role="img" aria-label="preocupado">😨</span>
           <br />
-          Daí, é só ligar o piloto automático ;)
+          Conta pra gente o que aconteceu.
           <br />
-          🛬🛫✈️🛩✈︎
+          Daí, é só ligar o piloto automático
+          <span role="img" aria-label="avião">🛬🛫✈️🛩</span>
         </h4>
-
 
         <label className="input" htmlFor="email">
           <span>e-mail</span>
@@ -40,28 +72,49 @@ class SignUp extends PureComponent {
             type="email"
             name="email"
             id="email"
+            ref={this.email}
             placeholder="fulana@email.com"
+            required
           />
         </label>
 
+        <label className="input" htmlFor="phone">
+          <span>Telefone (whatsapp)</span>
+          <input
+            autoComplete="tel"
+            pattern="[0-9]"
+            type="tel"
+            name="phone"
+            minLength="9"
+            maxLength="14"
+            id="phone"
+            ref={this.phone}
+            placeholder="+55 31 9 8287-5204"
+            list="defaultTels"
+          />
+
+          <datalist id="defaultTels">
+            <option value="+55 31 9 8888-8888" />
+          </datalist>
+        </label>
+
         <fieldset className="radio-group">
-          <label htmlFor="bagagem">
-            <span>Bagagem</span>
-            <input type="radio" name="bagagem" id="bagagem" />
-          </label>
-
-          <label htmlFor="atraso">
-            <span>Atraso</span>
-            <input type="radio" name="atraso" id="atraso" defaultChecked />
-          </label>
-
-          <label htmlFor="cancelamento">
-            <span>Cancelamento</span>
-            <input type="radio" name="cancelamento" id="cancelamento" />
-          </label>
+          {problems.map(problem => (
+            <label key={problem} htmlFor={problem} className={(problema === problem).toString()}>
+              <span>{problem}</span>
+              <input
+                type="radio"
+                name={problem}
+                id={problem}
+                value={problem}
+                checked={problema === problem}
+                onChange={this.handleRadio}
+              />
+            </label>
+          ))}
         </fieldset>
 
-        <button className="button default" type="submit">Quero minha indenização!</button>
+        <button className="button primary" type="submit">Quero minha indenização!</button>
       </form>
     );
   }
@@ -69,8 +122,8 @@ class SignUp extends PureComponent {
 
 SignUp.propTypes = {
   url: PropTypes.string,
-  compact: PropTypes.bool,
   className: PropTypes.string,
+  compact: PropTypes.bool,
 };
 
 SignUp.defaultProps = {

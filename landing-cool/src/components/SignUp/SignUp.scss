@@ -42,6 +42,12 @@
     padding: .25rem .5rem;
     border-radius: $radius * 3;
     cursor: pointer;
+    user-select: none;
+    color: darken($alt, 20%);
+    background-color: rgba($alt, .1);
+    @include transition;
+
+    > span { text-transform: capitalize }
 
     &:first-of-type {
       margin-left: 0;
@@ -52,13 +58,19 @@
     }
 
     &:hover {
-      background-color: rgba($primary, .4);
+      background-color: rgba($alt, .25);
+    }
+
+    &.true {
+      background-color: rgba($alt, .5);
+      font-weight: 600;
+      transform: scale(1.05);
     }
   }
 
   input {
-    width: auto;
-    margin-left: .5em;
+    // width: auto;
+    // margin-left: .5em;
     display: none;
   }
 }
