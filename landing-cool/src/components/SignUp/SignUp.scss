@@ -6,6 +6,8 @@
   border-radius: $radius;
   background-color: white;
   color: $black8;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   @include shadow;
 
   input {

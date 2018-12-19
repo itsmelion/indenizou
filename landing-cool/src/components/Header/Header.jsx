@@ -8,7 +8,7 @@ const Header = React.memo(() => (
       <div className="hero">
         <h1>Deu ruim?</h1>
         <h2>Aqui sua indenização chega voando!</h2>
-        <h3>A gente te ajuda, é grátis, entao peça agora a sua!</h3>
+        <h3>A gente te ajuda, <b>é grátis</b>, entao peça agora a sua!</h3>
       </div>
 
       <SignUp />

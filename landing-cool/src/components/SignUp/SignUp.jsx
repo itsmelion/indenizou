@@ -1,11 +1,9 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import SelectIssue from 'components/SelectIssue/SelectIssue';
+import ThankYou from './ThankYou';
 import './SignUp.scss';
-
-const problems = [
-  'cancelamento', 'atraso', 'Extravio de Bagagem', 'outros',
-];
 
 let options = {
   method: 'POST',
@@ -23,7 +21,7 @@ class SignUp extends PureComponent {
     this.phone = React.createRef();
   }
 
-  state = { problema: 'atraso' };
+  state = { problema: 'atraso', submitted: false };
 
   handleRadio = e => this.setState(({ problema: e.target.value }));
 
@@ -41,13 +39,17 @@ class SignUp extends PureComponent {
     });
 
     fetch(url, options)
-      .then(r => console.log('posted!', r));
+      .then(() => this.setState(({ submitted: true })))
+      .catch(() => this.setState(({ submitted: true })))
+      .finally(() => setTimeout(() => this.setState(({ submitted: false })), 4000));
   };
 
   render () {
     const { className, compact } = this.props;
-    const { problema } = this.state;
+    const { problema, submitted } = this.state;
     const isCompact = compact ? 'compact' : false;
+
+    if (submitted) return ThankYou;
 
     return (
       <form
@@ -57,11 +59,7 @@ class SignUp extends PureComponent {
       >
         <h4 className="mb1">
           <span role="img" aria-label="preocupado">😨</span>
-          <br />
-          Conta pra gente o que aconteceu.
-          <br />
-          Daí, é só ligar o piloto automático
-          <span role="img" aria-label="avião">🛬🛫✈️🛩</span>
+          &nbsp;Conta pra gente o que aconteceu.
         </h4>
 
         <label className="input" htmlFor="email">
@@ -82,11 +80,10 @@ class SignUp extends PureComponent {
           <span>Telefone (whatsapp)</span>
           <input
             autoComplete="tel"
-            pattern="[0-9]"
             type="tel"
             name="phone"
             minLength="9"
-            maxLength="14"
+            maxLength="18"
             id="phone"
             ref={this.phone}
             placeholder="+55 31 9 8287-5204"
@@ -94,25 +91,11 @@ class SignUp extends PureComponent {
           />
 
           <datalist id="defaultTels">
-            <option value="+55 31 9 8888-8888" />
+            <option value="31911110000" />
           </datalist>
         </label>
 
-        <fieldset className="radio-group">
-          {problems.map(problem => (
-            <label key={problem} htmlFor={problem} className={(problema === problem).toString()}>
-              <span>{problem}</span>
-              <input
-                type="radio"
-                name={problem}
-                id={problem}
-                value={problem}
-                checked={problema === problem}
-                onChange={this.handleRadio}
-              />
-            </label>
-          ))}
-        </fieldset>
+        <SelectIssue handler={this.handleRadio} selected={problema} />
 
         <button className="button primary" type="submit">Quero minha indenização!</button>
       </form>
