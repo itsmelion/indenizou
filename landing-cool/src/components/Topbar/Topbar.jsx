@@ -34,8 +34,6 @@ class Topbar extends Component {
             to="/"
           >
             <img src={logo} alt="Alia logo" />
-
-            <span className="beta-tag">beta</span>
           </Link>
 
           <button

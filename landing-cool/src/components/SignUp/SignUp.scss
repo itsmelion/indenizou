@@ -10,7 +10,7 @@
   margin-bottom: 1rem;
   @include shadow;
 
-  input {
+  input, textarea {
     padding: .5em;
     border: 1.5pt solid $black3;
     border-radius: $radius;

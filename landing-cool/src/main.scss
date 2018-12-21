@@ -11,3 +11,25 @@
   color: white;
   font-weight: 600;
 }
+
+.facebook {
+  font-size: .9rem;
+  background-color: $facebook;
+  color: white;
+  font-weight: 400;
+  @include shadow;
+}
+
+.google {
+  font-size: .9rem;
+  background-color: white;
+  color: $google;
+  font-weight: 400;
+  @include shadow;
+}
+
+.button {
+  .svg-inline--fa {
+    margin-right: .5em;
+  }
+}

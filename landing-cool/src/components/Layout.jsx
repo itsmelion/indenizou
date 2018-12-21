@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import Topbar from 'components/Topbar/Topbar';
+// import Topbar from 'components/Topbar/Topbar';
 import { StaticQuery, graphql } from 'gatsby';
 
 const Layout = ({ children }) => (
@@ -19,7 +19,7 @@ const Layout = ({ children }) => (
     render={data => (
       <>
         <Helmet title={data.site.siteMetadata.title} />
-        <Topbar />
+        {/* <Topbar /> */}
         {children}
       </>
     )}

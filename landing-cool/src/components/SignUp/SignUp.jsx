@@ -1,7 +1,10 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import SelectIssue from 'components/SelectIssue/SelectIssue';
+import SocialLogin from 'components/SocialLogin/SocialLogin';
 import ThankYou from './ThankYou';
 import './SignUp.scss';
 
@@ -19,6 +22,8 @@ class SignUp extends PureComponent {
     super(props);
     this.email = React.createRef();
     this.phone = React.createRef();
+    this.description = React.createRef();
+    console.log(this.description);
   }
 
   state = { problema: 'atraso', submitted: false };
@@ -33,7 +38,8 @@ class SignUp extends PureComponent {
     options = Object.assign(options, {
       body: JSON.stringify({
         email: this.email.current.value,
-        phone: this.phone.current.value,
+        telefone: this.phone.current.value,
+        descricao: (this.description.current && this.description.current.value) || null,
         problema,
       }),
     });
@@ -62,6 +68,8 @@ class SignUp extends PureComponent {
           &nbsp;Conta pra gente o que aconteceu.
         </h4>
 
+        <SocialLogin />
+
         <label className="input" htmlFor="email">
           <span>e-mail</span>
           <input
@@ -77,7 +85,7 @@ class SignUp extends PureComponent {
         </label>
 
         <label className="input" htmlFor="phone">
-          <span>Telefone (whatsapp)</span>
+          <span><FontAwesomeIcon icon={faWhatsapp} />&nbsp;Telefone </span>
           <input
             autoComplete="tel"
             type="tel"
@@ -86,7 +94,7 @@ class SignUp extends PureComponent {
             maxLength="18"
             id="phone"
             ref={this.phone}
-            placeholder="+55 31 9 8287-5204"
+            placeholder="31 9 8287-5204"
             list="defaultTels"
           />
 
@@ -96,6 +104,18 @@ class SignUp extends PureComponent {
         </label>
 
         <SelectIssue handler={this.handleRadio} selected={problema} />
+
+        {problema === 'outros' && (
+          <label className="input" htmlFor="description">
+            <span>Outros</span>
+            <textarea
+              autoComplete="off"
+              name="description"
+              id="description"
+              ref={this.description}
+            />
+          </label>
+        )}
 
         <button className="button primary" type="submit">Quero minha indenização!</button>
       </form>
