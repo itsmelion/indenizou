@@ -2,7 +2,7 @@ import React from 'react';
 import SignUp from 'components/SignUp/SignUp';
 import styles from './Header.module.scss';
 
-const Header = React.memo(() => (
+const Header = (
   <header row="" className={styles.header}>
     <div flex="" contain="" row="" align="around center">
       <div className="hero">
@@ -14,6 +14,6 @@ const Header = React.memo(() => (
       <SignUp />
     </div>
   </header>
-));
+);
 
 export default Header;

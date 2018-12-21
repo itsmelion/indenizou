@@ -9,7 +9,7 @@ const fontStack = `
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
 `;
 
-const PoweredBy = () => (
+const PoweredBy = (
   <p
     className="p1"
     style={{

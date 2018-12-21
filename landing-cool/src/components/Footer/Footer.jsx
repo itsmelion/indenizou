@@ -3,7 +3,7 @@ import logo from 'images/gatsby-icon.png';
 import PoweredBy from './PoweredBy';
 import './Footer.scss';
 
-const Footer = React.memo(() => (
+const Footer = (
   <footer id="Footer" hide-print="">
     <div className="contain column footer" align="between start">
       <img width="28" src={logo} alt="Logo Indenizou" />
@@ -15,8 +15,8 @@ const Footer = React.memo(() => (
       </a>
     </div>
 
-    <PoweredBy />
+    {PoweredBy}
   </footer>
-));
+);
 
 export default Footer;
