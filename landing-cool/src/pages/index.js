@@ -2,14 +2,17 @@
 import React from 'react';
 import Layout from 'components/Layout';
 import Footer from 'components/Footer/Footer';
-import 'main.scss';
 import Header from 'components/Header/Header';
+import HowItWorks from 'components/HowItWorks/HowItWorks';
+import 'main.scss';
 
-const IndexPage = () => (
+const IndexPage = React.memo(() => (
   <Layout>
-    <Header />
-    <Footer />
+    {Header}
+    {HowItWorks}
+    {/* <Cases /> */}
+    {Footer}
   </Layout>
-);
+));
 
 export default IndexPage;
