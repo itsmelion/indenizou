@@ -61,6 +61,7 @@ class SignUp extends PureComponent {
       <form
         autoComplete="on"
         onSubmit={this.handleSubmit}
+        flex="auto"
         className={`form ${ className } ${ isCompact }`}
       >
         <h4 className="mb1">

@@ -4,11 +4,11 @@ import styles from './Header.module.scss';
 
 const Header = (
   <header row="" className={styles.header}>
-    <div flex="" contain="" row="" align="around center">
-      <div className="hero">
+    <div contain="" row="" align="around center">
+      <div className="p1 hero">
         <h1>Deu ruim?</h1>
         <h2>Aqui sua indenização chega voando!</h2>
-        <h3>A gente te ajuda, <b>é grátis</b>, entao peça agora a sua!</h3>
+        <h3>A ajuda <b>é grátis</b>, entao peça agora a sua!</h3>
       </div>
 
       <SignUp />

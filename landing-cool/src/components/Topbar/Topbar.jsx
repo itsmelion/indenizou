@@ -20,6 +20,7 @@ class Topbar extends Component {
   }));
 
   render () {
+    // eslint-disable-next-line react/destructuring-assignment
     const collapse = this.state.collapsed ? 'opened' : 'closed';
 
     return (
@@ -33,7 +34,7 @@ class Topbar extends Component {
             align="start end"
             to="/"
           >
-            <img src={logo} alt="Alia logo" />
+            <img src={logo} alt="logo Indenizou" />
           </Link>
 
           <button

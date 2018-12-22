@@ -1,0 +1,18 @@
+@import '~flamework/src/vars';
+
+#HowItWorks {
+  padding: 12vmin 0 0;
+  background-color: #72CACE;
+  color: white;
+
+  .highlight {
+    color: #F15657
+  }
+
+  .paperPlanes {
+    max-height: 60vmin;
+    @media #{$mobile} {
+      max-height: none
+    }
+  }
+}
