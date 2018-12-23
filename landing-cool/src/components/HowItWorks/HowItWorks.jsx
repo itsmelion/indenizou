@@ -25,7 +25,7 @@ const HowItWorks = (
 
     <div
       className="row paperPlanes"
-      align="end center"
+      align="end end"
       flex="60"
       mobile-align="center center"
       mobile-flex="100"
