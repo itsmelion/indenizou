@@ -3,19 +3,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import Network from 'network';
+// import chimp from 'mailchimp';
 import SelectIssue from 'components/SelectIssue/SelectIssue';
 import SocialLogin from 'components/SocialLogin/SocialLogin';
 import ThankYou from './ThankYou';
 import './SignUp.scss';
-
-let options = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  mode: 'cors',
-  cache: 'default',
-};
 
 class SignUp extends PureComponent {
   constructor (props) {
@@ -23,7 +16,6 @@ class SignUp extends PureComponent {
     this.email = React.createRef();
     this.phone = React.createRef();
     this.description = React.createRef();
-    console.log(this.description);
   }
 
   state = { problema: 'atraso', submitted: false };
@@ -35,16 +27,14 @@ class SignUp extends PureComponent {
     const { problema } = this.state;
     e.preventDefault();
 
-    options = Object.assign(options, {
-      body: JSON.stringify({
-        email: this.email.current.value,
-        telefone: this.phone.current.value,
-        descricao: (this.description.current && this.description.current.value) || null,
-        problema,
-      }),
-    });
+    const data = {
+      email: this.email.current.value,
+      telefone: this.phone.current.value,
+      descricao: (this.description.current && this.description.current.value) || null,
+      problema,
+    };
 
-    fetch(url, options)
+    Network.post(url, data)
       .then(() => this.setState(({ submitted: true })))
       .catch(() => this.setState(({ submitted: true })))
       .finally(() => setTimeout(() => this.setState(({ submitted: false })), 4000));
