@@ -10,6 +10,12 @@
   margin-bottom: 1rem;
   @include shadow;
 
+  @media #{$mobile} {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
   input, textarea {
     padding: .5em;
     border: 1.5pt solid $black3;

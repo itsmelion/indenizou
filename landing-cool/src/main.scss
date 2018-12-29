@@ -4,6 +4,9 @@
 :root, html, body {
   font-weight: 400;
   font-size: 110%;
+  @media #{$mobile} {
+    font-size: 105%;
+  }
 }
 
 .button.primary {

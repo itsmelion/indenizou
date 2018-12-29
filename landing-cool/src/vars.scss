@@ -1,10 +1,21 @@
-$primary: #0c8dd2;
+$primary: #1094dc;
 $alt: #f15672;
+
+$pink: #FF57A4;
+$blue: #525DEA;
 
 // Brands
 $linkedin: #0077b5;
 $facebook: #3B5998;
-$google: #dc5d0e;
+$google: #fa680d;
 $whatsapp: #3ecb29;
 $instagram: #24292e;
 $github: #24292e;
+
+@mixin gradient {
+  background-image: linear-gradient(-90deg, #4B28C4 0%, #4619B9 46%, #3F02A8 100%);
+}
+
+@mixin pink-gradient {
+  background-image: linear-gradient(-10deg, #8B3FAE 0%, #9140AE 15%, #A043AC 34%, #BB49AA 55%, #DF50A7 78%, #FF57A4 100%);
+}
