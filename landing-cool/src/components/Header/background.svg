@@ -1,5 +1,5 @@
 
-<svg width="1367px" height="536px" viewBox="0 0 1367 536" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg viewBox="0 0 1366 534" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
         <linearGradient x1="49.9999414%" y1="101.370139%" x2="49.9999414%" y2="-0.337879533%" id="linearGradient-1">
             <stop stop-color="#FFFFFF" offset="0.332897%"></stop>
@@ -16,11 +16,6 @@
             <stop stop-color="#FDF2FC" offset="37.93%"></stop>
             <stop stop-color="#FBE1F7" offset="100%"></stop>
         </linearGradient>
-        <linearGradient x1="49.999634%" y1="101.574794%" x2="49.999634%" y2="20.4027141%" id="linearGradient-4">
-            <stop stop-color="#4B28C4" offset="0.332897%"></stop>
-            <stop stop-color="#4619B9" offset="46.29%"></stop>
-            <stop stop-color="#3F02A8" offset="100%"></stop>
-        </linearGradient>
     </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Landing-Cool" transform="translate(0.000000, -28.000000)">
@@ -30,9 +25,9 @@
                     <path d="M7.24,136 C0.69,136 -2.52,127.87 2.38,123.52 C5.86,120.43 11.58,118.19 20.99,118.95 C46.92,121.05 38.53,82.02 67.89,75.15 C99.65,67.72 101.64,105.35 121.21,105.45 C133.77,105.51 143.7,88.67 162.88,97.97 C182.41,107.44 185.8,130.2 201.56,124.81 C208.6,122.41 214.94,121.35 220.17,121.64 C229.37,122.16 228.83,135.99 219.61,135.99 L7.24,135.99 L7.24,136 Z" id="Path" fill="url(#linearGradient-2)"></path>
                     <path d="M1247.49,98 C1257.99,98 1263.1,84.96 1255.22,78 C1249.65,73.08 1240.5,69.52 1225.49,70.73 C1184.02,74.08 1187.85,2.81 1150.46,0.67 C1098.37,-2.3 1096.48,48.98 1065.16,49.14 C1045.07,49.24 1029.18,22.3 998.5,37.17 C967.27,52.31 961.84,88.72 936.62,80.11 C925.44,76.29 915.36,74.6 907.03,75.04 C892.2,75.82 892.89,98 907.74,98 L1247.49,98 Z" id="Path" fill="url(#linearGradient-3)"></path>
                 </g>
-                <g id="wave_blue" transform="translate(0.000000, 201.000000)">
+                <g id="wave_blue" transform="translate(0.000000, 200.000000)">
                     <path d="M0,123.65 C39.29,29.79 196.29,-30.98 415.13,17.31 C643.19,67.64 740.59,159.5 847.72,159.5 C1082.15,159.5 1142.47,4.05 1366.01,69.73 L1366.01,275 L0,275 L0,123.65 Z" id="Path" fill="#525DEA"></path>
-                    <path d="M0,209.33 C48.51,119.29 154.19,63.13 370.42,122.02 C586.65,180.91 707.34,225.43 847.72,225.43 C1082.15,225.43 1215.27,41.98 1366.01,87.9 L1366.01,335 L0,335 L0,209.33 Z" id="Path" fill="url(#linearGradient-4)"></path>
+                    <path d="M0,209.33 C48.51,119.29 154.19,63.13 370.42,122.02 C586.65,180.91 707.34,225.43 847.72,225.43 C1082.15,225.43 1215.27,41.98 1366.01,87.9 L1366.01,335 L0,335 L0,209.33 Z" id="Path" fill="#4619B9"></path>
                 </g>
             </g>
         </g>

@@ -1,11 +1,9 @@
+@import 'vars.scss';
+
 #HowItWorks {
   padding: 12vmin 0 0;
-  background-color: #72CACE;
+  background-color: $primary;
   color: white;
-
-  .highlight {
-    color: #F15657
-  }
 
   .paperPlanes {
     width: 100%;

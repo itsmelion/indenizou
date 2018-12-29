@@ -1,9 +1,19 @@
 import React from 'react';
 import './HowItWorks.scss';
-import paperPlanes from './459488-PFXJLC-361.jpg';
+import paperPlanes from './paper_planes-desktop.svg';
 
 const HowItWorks = (
   <section row="" id="HowItWorks">
+    <div
+      className="row paperPlanes"
+      align="end end"
+      flex="60"
+      mobile-align="center center"
+      mobile-flex="100"
+    >
+      <img src={paperPlanes} alt="Aviõezinhos de papel, e outro em destaque / vantagem" />
+    </div>
+
     <div flex="" className="p2">
       <h2>Como funciona?</h2>
 
@@ -21,16 +31,6 @@ const HowItWorks = (
       </p>
 
       <p>Maravilha não é mesmo?</p>
-    </div>
-
-    <div
-      className="row paperPlanes"
-      align="end end"
-      flex="60"
-      mobile-align="center center"
-      mobile-flex="100"
-    >
-      <img src={paperPlanes} alt="Aviõezinhos de papel, e outro em destaque / vantagem" />
     </div>
   </section>
 );
