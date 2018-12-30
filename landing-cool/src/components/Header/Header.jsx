@@ -8,12 +8,12 @@ import suitcase from './case.svg';
 
 const Header = (
   <header id="header" row="">
-    <div className="contain row" align="around center">
+    <div row="nowrap" mobile-column="" className="contain" align="around center">
       <div mobile-flex="100" className="p1 hero">
         <div className="ph2">
-          <h1>Deu ruim?</h1>
-          <h2>Aqui sua indenização chega voando!</h2>
-          <h3>A ajuda <b>é grátis</b>, entao peça agora a sua!</h3>
+          <h4>Deu ruim?</h4>
+          <h1><b>Aqui sua indenização chega voando!</b></h1>
+          <h2>A ajuda <b>é grátis</b>, entao peça agora a sua!</h2>
         </div>
 
         <div className="artwork">

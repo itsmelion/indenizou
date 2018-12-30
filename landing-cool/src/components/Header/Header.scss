@@ -1,7 +1,7 @@
 @import '~flamework/src/vars';
 
 $case: 300px;
-$plane: 280px;
+$plane: 380px;
 $plane-ratio: 2.27;
 $case-ratio: 1.59;
 
@@ -15,8 +15,11 @@ $case-ratio: 1.59;
   background-position: bottom center;
   background-repeat: no-repeat;
 
+  h1 { line-height: 1.1 }
+
   @media #{$mobile} {
     background-image: none;
+    padding-bottom: 0;
 
     .contain, .hero {
       padding: 0;
@@ -43,7 +46,7 @@ $case-ratio: 1.59;
 
   @media #{$mobile} {
     width: $case / 2 + $plane / 2 + 18px;
-    height: $case / 2 / $case-ratio + $plane / 2 / $plane-ratio + 100px;
+    height: $case / 2 / $case-ratio + $plane / 2 / $plane-ratio + 80px;
   }
 
   img {

@@ -51,12 +51,10 @@ class SignUp extends PureComponent {
       <form
         autoComplete="on"
         onSubmit={this.handleSubmit}
-        flex="auto"
         className={`form ${ className } ${ isCompact }`}
       >
         <h4 className="mb1">
-          <span role="img" aria-label="preocupado">😨</span>
-          &nbsp;Conta pra gente o que aconteceu.
+          Sua indenização <b>grátis</b> e sem burocracia
         </h4>
 
         <SocialLogin />
@@ -98,7 +96,8 @@ class SignUp extends PureComponent {
 
         {problema === 'outros' && (
           <label className="input" htmlFor="description">
-            <span>Outros</span>
+            <span><span role="img" aria-label="preocupado">😨</span>
+          &nbsp;Conta pra gente o que aconteceu.</span>
             <textarea
               autoComplete="off"
               name="description"
