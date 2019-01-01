@@ -1,8 +1,11 @@
 @import '~flamework/src/vars';
+@import 'vars.scss';
 
 #Footer {
-  background-color: #ffffff;
-  color: $black8;
+  // background-color: #272834;
+  background-color: darken($primary, 30%);
+  color: $white7;
+  font-size: .85rem;
 
   @media #{$mobile} {
     text-align: center;
@@ -11,6 +14,12 @@
   .footer {
     padding-top: 5rem;
     padding-bottom: 5rem;
+  }
+
+  .link {
+    &:hover {
+      color: lighten($primary, 30%);
+    }
   }
 
   .footer-hero {

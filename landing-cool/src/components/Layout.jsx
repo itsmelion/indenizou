@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-// import Topbar from 'components/Topbar/Topbar';
 import { StaticQuery, graphql } from 'gatsby';
+// import Topbar from 'components/Topbar/Topbar';
 
 const Layout = ({ children }) => (
   <StaticQuery

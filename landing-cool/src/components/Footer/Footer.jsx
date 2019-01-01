@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from 'images/gatsby-icon.png';
+import logo from 'images/logo-color.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faFacebookSquare } from '@fortawesome/free-brands-svg-icons';
 import PoweredBy from './PoweredBy';
@@ -7,21 +7,21 @@ import './Footer.scss';
 
 const Footer = (
   <footer id="Footer" hide-print="">
-    <div className="contain column footer" align="between start" mobile-align="center center">
+    <div className="contain row footer" align="between start" mobile-align="center center">
       <a row="nowrap" align="center center" className="link mb05" href="//indenizou.com/sobre">
-        <img className="mr05" width="28" src={logo} alt="Logo Indenizou" />
+        <img className="mr05" width="24" src={logo} alt="Logo Indenizou" />
         <p>indenizou</p>
       </a>
 
       <div className="column mobile-row mb1" align="start end" mobile-align="start start">
         <a className="link p05" href="//instagram.com/indenizou">
-          <FontAwesomeIcon className="mr05" icon={faInstagram} />
           @indenizou
+          <FontAwesomeIcon className="ml05" icon={faInstagram} />
         </a>
 
         <a className="link p05" href="//instagram.com/indenizou">
-          <FontAwesomeIcon className="mr05" icon={faFacebookSquare} />
           Facebook
+          <FontAwesomeIcon className="ml05" icon={faFacebookSquare} />
         </a>
       </div>
 
