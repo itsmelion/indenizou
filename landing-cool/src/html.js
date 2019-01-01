@@ -2,54 +2,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const {
-  DEFAULT_LANG,
-  DOMAIN,
-  EMAIL,
-  AUTHOR,
-  DESCRIPTION,
-  NAME,
-  KEYWORDS,
-  FACEBOOK_APP,
-} = process.env;
+const app = require('../data');
 
 const HTML = ({
   htmlAttributes, headComponents, bodyAttributes,
   preBodyComponents, body, postBodyComponents,
 }) => (
   <html
-    lang={DEFAULT_LANG}
+    dir="ltr"
+    lang={app.defaultLang}
     prefix="og:http://ogp.me/ns#"
     {...htmlAttributes}
   >
     <head>
+      <base href="/" />
       <meta charSet="utf-8" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
       <meta
         name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=no"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
       <meta name="robots" content="INDEX, FOLLOW" />
 
-      <link rel="alternate" hrefLang={DEFAULT_LANG} href={`${ DOMAIN }?lang=${ DEFAULT_LANG }`} />
-      <link rel="alternate" hrefLang="x-default" href={DOMAIN} />
-      <meta property="og:locale" content={DEFAULT_LANG} />
-      <meta httpEquiv="content-language" content={DEFAULT_LANG} />
+      <link rel="alternate" hrefLang={app.defaultLang} href={`${ app.domain }?lang=${ app.defaultLang }`} />
+      <link rel="alternate" hrefLang="x-default" href={app.domain} />
+      <meta property="og:locale" content={app.defaultLang} />
+      <meta httpEquiv="content-language" content={app.defaultLang} />
 
-      <meta name="reply-to" content={EMAIL} />
-      <meta name="author" content={AUTHOR} />
+      <meta name="reply-to" content={app.email} />
+      <meta name="author" content={app.author} />
 
       <meta name="fragment" content="!" />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={`http://${ DOMAIN }`} />
-      <meta name="description" content={DESCRIPTION} />
-      <meta property="og:description" content={DESCRIPTION} />
-      <meta name="application-name" content={NAME} />
-      <meta property="og:site_name" content={NAME} />
-      <meta property="og:title" content={NAME} />
-      <meta property="twitter:title" content={NAME} />
-      <meta name="keywords" content={KEYWORDS} />
-      <meta property="fb:app_id" content={FACEBOOK_APP} />
+      <meta property="og:url" content={`http://${ app.domain }`} />
+      <meta name="description" content={app.description} />
+      <meta property="og:description" content={app.description} />
+      <meta name="application-name" content={app.name} />
+      <meta property="og:site_name" content={app.name} />
+      <meta property="og:title" content={app.name} />
+      <meta property="twitter:title" content={app.name} />
+      <meta name="keywords" content={app.keywords} />
+      <meta property="fb:app_id" content={app.facebookApp} />
 
       {headComponents}
     </head>
