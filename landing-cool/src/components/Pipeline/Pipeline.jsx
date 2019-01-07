@@ -30,7 +30,9 @@ const pipeline = [
 
 const Pipeline = (
   <div contain="">
-    <ol id="Pipeline" align="around start" className="pv2 row">
+    <h3 className="mt1">Passo a Passo:</h3>
+
+    <ol id="Pipeline" align="around start" className="pt1 pb2 row">
       {pipeline.map(({ step, icon, description }) => (
         <li flex="20" mobile-flex="80" key={step}>
           <h6>{step}</h6>
