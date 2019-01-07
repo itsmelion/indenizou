@@ -20,7 +20,7 @@ class Mailchimp {
    * }
   */
   subscribeUser (list = this.list, data) {
-    return Network.post(`${ this.api }/lists/9e67587f52/members/`, data)
+    return Network.post(`${ this.api }/lists/${ list }/members/`, data)
       .then(
         () => console.info('User subscribed at list'),
         e => new Error('Could not Subscribe user', e),
