@@ -2,22 +2,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const app = require('../data');
+
 const HTML = ({
   htmlAttributes, headComponents, bodyAttributes,
   preBodyComponents, body, postBodyComponents,
 }) => (
   <html
-    lang={process.env.REACT_APP_DEFAULT_LANG}
+    dir="ltr"
+    lang={app.defaultLang}
     prefix="og:http://ogp.me/ns#"
     {...htmlAttributes}
   >
     <head>
+      <base href="/" />
       <meta charSet="utf-8" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
+      <meta name="robots" content="INDEX, FOLLOW" />
+
+      <link rel="alternate" hrefLang={app.defaultLang} href={`${ app.domain }?lang=${ app.defaultLang }`} />
+      <link rel="alternate" hrefLang="x-default" href={app.domain} />
+      <meta property="og:locale" content={app.defaultLang} />
+      <meta httpEquiv="content-language" content={app.defaultLang} />
+
+      <meta name="reply-to" content={app.email} />
+      <meta name="author" content={app.author} />
+
+      <meta name="fragment" content="!" />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={`http://${ app.domain }`} />
+      <meta name="description" content={app.description} />
+      <meta property="og:description" content={app.description} />
+      <meta name="application-name" content={app.name} />
+      <meta property="og:site_name" content={app.name} />
+      <meta property="og:title" content={app.name} />
+      <meta property="twitter:title" content={app.name} />
+      <meta name="keywords" content={app.keywords} />
+      <meta property="fb:app_id" content={app.facebookApp} />
+
       {headComponents}
     </head>
     <body {...bodyAttributes}>

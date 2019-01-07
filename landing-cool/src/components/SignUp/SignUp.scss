@@ -74,7 +74,8 @@
     }
 
     &.true {
-      background-color: rgba($alt, .5);
+      background-color: rgba($alt, .4);
+      color: darken($alt, 30%);
       font-weight: 600;
       transform: scale(1.05);
     }

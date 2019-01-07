@@ -57,7 +57,7 @@ class SignUp extends PureComponent {
           Sua indenização <b>grátis</b> e sem burocracia
         </h4>
 
-        <SocialLogin />
+        {SocialLogin}
 
         <label className="input" htmlFor="email">
           <span>e-mail</span>

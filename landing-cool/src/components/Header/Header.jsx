@@ -13,7 +13,7 @@ const Header = (
         <div className="ph2">
           <h4>Deu ruim?</h4>
           <h1><b>Aqui sua indenização chega voando!</b></h1>
-          <h2>A ajuda <b>é grátis</b>, entao peça agora a sua!</h2>
+          <h2>A ajuda <b>é grátis</b>, então peça agora a sua!</h2>
         </div>
 
         <div className="artwork">

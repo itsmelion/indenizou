@@ -28,7 +28,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-favicon',
       options: {
-        logo: './src/images/icons/icon-512x512.png',
+        logo: './src/images/icons/og-image.png',
 
         // WebApp Manifest Configuration
         short_name: app.name,
@@ -36,8 +36,8 @@ module.exports = {
         display: 'minimal-ui',
         appName: null, // Inferred with your package.json
         appDescription: null,
-        developerName: null,
-        developerURL: null,
+        developerName: app.AUTHOR,
+        developerURL: app.AUTHOR_URL,
         dir: 'auto',
         lang: app.defaultLang,
         background_color: app.theme,
