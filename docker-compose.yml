@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  db:
+    image: mongo
+    ports:
+      - '27017:27017'
+
+  api:
+    build:
+      context: ./api
+      args:
+        - NODE_ENV=development
+        - PORT=1800
+    command: nodemon
+    env_file:
+      - ./api/.env
+    ports:
+      - 1800:1800
+    volumes:
+      - ./api:/usr/src/api
+    links:
+      - emails
+    depends_on:
+      - db
+
+  emails:
+    build:
+      context: ./emails
+      args:
+        - NODE_ENV=development
+        - PORT=1801
+    command: nodemon
+    env_file:
+      - ./emails/.env
+    ports:
+      - 1801:1801
+    volumes:
+      - ./emails:/usr/src/emails
+    depends_on:
+      - db
+

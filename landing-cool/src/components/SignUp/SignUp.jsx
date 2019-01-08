@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import Network from 'network';
-// import chimp from 'mailchimp';
 import SelectIssue from 'components/SelectIssue/SelectIssue';
 import SocialLogin from 'components/SocialLogin/SocialLogin';
 import ThankYou from './ThankYou';
@@ -28,10 +27,10 @@ class SignUp extends PureComponent {
     e.preventDefault();
 
     const data = {
-      email: this.email.current.value,
-      telefone: this.phone.current.value,
-      descricao: (this.description.current && this.description.current.value) || null,
-      problema,
+      EMAIL: this.email.current.value,
+      PHONE: this.phone.current.value,
+      PROBLEMA: problema,
+      OUTROS: (this.description.current && this.description.current.value) || null,
     };
 
     Network.post(url, data)
@@ -65,7 +64,7 @@ class SignUp extends PureComponent {
             autoFocus
             autoComplete="email"
             type="email"
-            name="email"
+            name="EMAIL"
             id="email"
             ref={this.email}
             placeholder="fulana@email.com"
@@ -78,7 +77,7 @@ class SignUp extends PureComponent {
           <input
             autoComplete="tel"
             type="tel"
-            name="phone"
+            name="PHONE"
             minLength="9"
             maxLength="18"
             id="phone"
@@ -100,14 +99,14 @@ class SignUp extends PureComponent {
           &nbsp;Conta pra gente o que aconteceu.</span>
             <textarea
               autoComplete="off"
-              name="description"
+              name="OUTROS"
               id="description"
               ref={this.description}
             />
           </label>
         )}
 
-        <button className="button primary" type="submit">Quero minha indenização!</button>
+        <input value="Quero minha indenização!" name="subscribe" className="button primary" type="submit" />
       </form>
     );
   }

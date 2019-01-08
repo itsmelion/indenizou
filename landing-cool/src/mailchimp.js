@@ -1,9 +1,20 @@
+// import axios from 'axios';
 import Network from 'network';
 
 class Mailchimp {
   constructor (config = {}) {
     this.list = config.list || process.env.MAILCHIMP_LIST || 'samplelist';
-    this.api = 'https://api.mailchimp.com/3.0';
+    this.api = 'https://us7.api.mailchimp.com/3.0';
+    this.options = {
+      mode: 'no-cors',
+      withCredentials: true,
+      credentials: 'include',
+      crossdomain: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: process.env.MAILCHIMP_AUTH,
+      },
+    };
   }
 
 
@@ -19,12 +30,17 @@ class Mailchimp {
    *   }
    * }
   */
-  subscribeUser (list = this.list, data) {
-    return Network.post(`${ this.api }/lists/${ list }/members/`, data)
+  subscribeUser (data, list = this.list) {
+    return Network.post(
+      'https://indenizou.us7.list-manage.com/subscribe/post?u=41fbe73c16e8812fc47a541af&id=5a902846d0',
+      null,
+      data,
+    )
       .then(
-        () => console.info('User subscribed at list'),
+        () => console.info('User were subscribed at list'),
         e => new Error('Could not Subscribe user', e),
-      );
+      )
+      .catch(e => new Error('Could not Subscribe user', e));
   }
 
 
@@ -46,19 +62,26 @@ class Mailchimp {
         This address bounced and has been removed from the list.
   */
   checkUser (list = this.list, user) {
-    return Network.get(`${ this.api }/lists/${ list }/members/${ user }`)
+    return Network.get(`${ this.api }/lists/${ list }/members/${ user }`, this.options)
       .catch(e => new Error('Could not FETCH user', e));
   }
 
   updateUser (list = this.list, user, data = {}) {
-    return Network.patch(`${ this.api }/lists/${ list }/members/${ user }`, data)
+    return Network.patch(`${ this.api }/lists/${ list }/members/${ user }`, this.options, data)
       .catch(e => new Error('Could not UPDATE user', e));
   }
 
   deleteUser (list = this.list, user) {
     return Network.patch(
       `${ this.api }/lists/${ list }/members/${ user }`,
+      this.options,
       { status: 'cleaned' },
+    ).catch(e => new Error('Could not DELETE user', e));
+  }
+
+  COMPLETELY_REMOVE_USER (list = this.list, user) {
+    return Network.delete(
+      `${ this.api }/lists/${ list }/members/${ user }`,
     ).catch(e => new Error('Could not DELETE user', e));
   }
 }

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-const app = require('defaults.json');
+const app = require('../../../../defaults.json');
 
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback (response) {
