@@ -12,7 +12,6 @@ services:
       args:
         - NODE_ENV=development
         - PORT=1800
-    command: nodemon
     env_file:
       - ./api/.env
     ports:
@@ -30,7 +29,6 @@ services:
       args:
         - NODE_ENV=development
         - PORT=1801
-    command: nodemon
     env_file:
       - ./emails/.env
     ports:

@@ -1,6 +1,6 @@
 FROM node:alpine
 
-RUN echo '🐳 => Building Indenizou API...'
+RUN echo '🐳 => Building Indenizou EMAILS...'
 # Create app directory
 WORKDIR /home/emails
 
