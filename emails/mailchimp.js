@@ -28,7 +28,6 @@ class Mailchimp {
       merge_fields: {
         NAME: body.name,
         PHONE: body.phone,
-        EMAIL: body.email,
         CONTACTBY: body.contactby,
         ASSUNTO: body.assunto,
         OUTROS: body.outros,
@@ -37,18 +36,14 @@ class Mailchimp {
 
     return axios({
       method: 'post',
-      url: `${ this.api }/lists/${ list }/manage`,
+      url: `${ this.api }/lists/${ list }/members`,
       data,
       auth: {
         username: this.username,
         password: this.password,
       },
     })
-      .then(
-        () => console.info('User were subscribed at list'),
-        () => new Error('Could not Subscribe user'),
-      )
-      .catch(() => new Error('Could not Subscribe user'));
+    .catch(r => r.response.data);
   }
 
 

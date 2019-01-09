@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './SelectIssue.module.scss';
 
 const problems = [
-  'cancelamento', 'atraso', 'Extravio de Bagagem', 'outros',
+  'cancelamento','overbooking', 'atraso', 'extravio de bagagem', 'outros',
 ];
 
 const SelectIssue = React.memo(({ selected, handler }) => (

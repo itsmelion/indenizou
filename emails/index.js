@@ -3,78 +3,57 @@ const http = require('http');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const log = require('./log');
-const File = require('./model');
+const Customer = require('./model');
+const Mailchimp = require('./mailchimp');
 
 const app = express();
 
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
-app.use(cors()); // allow cors
+app.use(cors());
 
-app.get('/', (req, res) => {
-  return res.format({
-    html: () => res.send('Developed with love, at <a href="https://alia.ml">ΛLIΛ<a>'),
-    json: () => res.jsonp({
-      body: "Successful the JSON Request!"
-    }),
-  });
+const mongoParams = { useNewUrlParser: true, useCreateIndex: true };
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.DB_URL, mongoParams);
+
+const server = http.createServer(app);
+
+app.get('/', (req, res) => res.format({
+  html: () => res.send('Developed with love, at <a href="https://alia.ml/">ΛLIΛ<a>'),
+  json: () => res.jsonp({
+    body: "Awesome! Success at your JSON Request!"
+  }),
+}));
+
+app.post('/subscribe', async (req, res) => {
+  log.debug('\n\n Subscribing customer \n');
+  let subscriber, status;
+
+  try {
+    subscriber = await Mailchimp.subscribeUser(req.body);
+    status = subscriber.status;
+  }
+  catch(e) { throw new Error(e); }
+
+  if (status >= 300) return res.status(status).json(subscriber);
+
+  log.debug('Saving customer on DB');
+
+  try {
+    subscriber = await Customer.create(req.body)
+      .catch(e => log.error(e));
+    return res.status(status).json(subscriber);
+  }
+  catch(e) { throw new Error(e); }
 });
 
-app.get('/files', async (req, res) => {
-  const files = await File.find().lean();
-  return res.json(files);
+app.get('/subscribers', async (req, res) => {
+  const customer = await Customer.find().lean();
+  return res.json(customer);
 });
 
-app.post('/files', async (req, res) => {
-  const { body } = req;
-
-  log.debug('new file uploaded');
-
-  const file = await File.create({
-    name: body.fileName,
-    status: 'uploaded',
-  });
-
-  log.debug('uploaded file registered');
-
-  file.set({ status: 'encoding' }).save();
-
-  return res.json({ id: file._id, status: 'encoding' });
-});
-
-app.post('/files/:fileId/encoding', async (req, res) => {
-  const { fileId } = req.params;
-  const { outputs } = req.body;
-
-  log.debug('Webhook notification');
-
-  const file = await File.findOne({ _id: fileId });
-
-  const parsedOutputs = outputs.map(output => ({
-    _id: output.id,
-    url: output.url,
-    format: output.label,
-  }));
-
-  file.set({ encoderOutputs: parsedOutputs, status: 'completed' }).save();
-  const { _id } = file.toObject();
-
-  log.debug('Videos converted and saved with success ✅');
-  return res.json({ status: 'completed' });
-});
-
-app.get('/files/:fileId', async (req, res) => {
-  const { fileId } = req.params;
-
-
-  const file = await File.findById(fileId).lean()
-    .catch(e => log.error('Not found file', e));
-
-  return res.json(file);
-});
-
-
-http.createServer(app).listen(process.env.PORT, process.env.HOST, () => {
+server.listen(process.env.PORT, process.env.HOST, () => {
   log.info(`🖥️ Indenizou EMAILS up at: ${process.env.HOST}:${process.env.PORT}`);
 });

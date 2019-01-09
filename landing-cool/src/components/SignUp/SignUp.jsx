@@ -29,8 +29,9 @@ class SignUp extends PureComponent {
     const data = {
       EMAIL: this.email.current.value,
       PHONE: this.phone.current.value,
-      PROBLEMA: problema,
+      ASSUNTO: problema,
       OUTROS: (this.description.current && this.description.current.value) || null,
+      CONTACTBY: 'email',
     };
 
     Network.post(url, data)
