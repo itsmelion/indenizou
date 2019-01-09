@@ -11,13 +11,13 @@ services:
       context: ./api
       args:
         - NODE_ENV=development
-        - PORT=1800
     env_file:
       - ./api/.env
     ports:
       - 1800:1800
     volumes:
-      - ./api:/usr/src/api
+      - ./api:/usr/src/app
+      - /usr/src/app/node_modules
     links:
       - emails
     depends_on:
@@ -28,13 +28,13 @@ services:
       context: ./emails
       args:
         - NODE_ENV=development
-        - PORT=1801
     env_file:
       - ./emails/.env
     ports:
       - 1801:1801
     volumes:
-      - ./emails:/usr/src/emails
+      - ./emails:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       - db
 
