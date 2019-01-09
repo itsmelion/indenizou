@@ -15,14 +15,19 @@ ENV NODE_ENV $NODE_ENV
 # where available (npm@5+)
 COPY package*.json /usr/src/app
 
-RUN npm install
+RUN npm cache verify && \
+npm install
 # If you are building your code for production
 # RUN npm install --only=production
+
+ENV PATH /opt/node_modules/.bin:$PATH
 
 # Bundle app source
 COPY . /usr/src/app
 
-EXPOSE 1801
+ARG PORT=1801
+ENV PORT $PORT
+EXPOSE $PORT
 
 CMD [ "npm", "start" ]
 RUN echo '🐳 => Indenizou EMAILS container built! ✅'
