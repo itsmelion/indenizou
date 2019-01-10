@@ -6,6 +6,10 @@ class Mailchimp {
     this.username = config.username || process.env.MAILCHIMP_USER;
     this.password = config.password || process.env.MAILCHIMP_KEY;
     this.api = 'https://us7.api.mailchimp.com/3.0';
+    this.auth = {
+      username: this.username,
+      password: this.password,
+    };
   }
 
 
@@ -25,6 +29,7 @@ class Mailchimp {
     const data = {
       email_address: body.email,
       status: 'subscribed',
+      tags: body.tags,
       merge_fields: {
         NAME: body.name,
         PHONE: body.phone,
@@ -37,11 +42,8 @@ class Mailchimp {
     return axios({
       method: 'post',
       url: `${ this.api }/lists/${ list }/members`,
+      auth: this.auth,
       data,
-      auth: {
-        username: this.username,
-        password: this.password,
-      },
     })
     .catch(r => r.response.data);
   }
@@ -64,25 +66,29 @@ class Mailchimp {
     **  cleaned
         This address bounced and has been removed from the list.
   */
-  checkUser (list = this.list, user) {
+  getUser (list = this.list, user) {
     return axios({
       url: `${ this.api }/lists/${ list }/members/${ user }`,
-      auth: {
-        username: this.username,
-        password: this.password,
-      },
+      auth: this.auth,
     })
       .catch(() => new Error('Could not FETCH user'));
+  }
+
+  getMembers (list = this.list, params = {}) {
+    return axios({
+      url: `${ this.api }/lists/${ list }/members`,
+      params,
+      auth: this.auth,
+    })
+    .then(r => ({ total: r.total_items, members: r.members }))
+    .catch(() => new Error('Could not FETCH members'));
   }
 
   updateUser (list = this.list, user, data = {}) {
     return axios({
       method: 'patch',
       url: `${ this.api }/lists/${ list }/members/${ user }`,
-      auth: {
-        username: this.username,
-        password: this.password,
-      },
+      auth: this.auth,
       data,
     })
       .catch(() => new Error('Could not UPDATE user'));
@@ -92,10 +98,7 @@ class Mailchimp {
     return axios({
       method: 'patch',
       url: `${ this.api }/lists/${ list }/members/${ user }`,
-      auth: {
-        username: this.username,
-        password: this.password,
-      },
+      auth: this.auth,
       data: { status: 'cleaned' },
     }).catch(() => new Error('Could not DELETE user'));
   }
@@ -104,10 +107,7 @@ class Mailchimp {
     return axios({
       method: 'delete',
       url: `${ this.api }/lists/${ list }/members/${ user }`,
-      auth: {
-        username: this.username,
-        password: this.password,
-      },
+      auth: this.auth,
     })
     .catch(r => r.response.data);
   }
@@ -121,11 +121,8 @@ class Mailchimp {
     return axios({
       method: 'post',
       url: `${ this.api }/lists/${ list }/segments`,
+      auth: this.auth,
       data,
-      auth: {
-        username: this.username,
-        password: this.password,
-      },
     })
     .catch(r => r.response.data);
   }
@@ -134,10 +131,7 @@ class Mailchimp {
     return axios({
       method: 'get',
       url: `${ this.api }/lists/${ list }/members/${ subscriber }/tags`,
-      auth: {
-        username: this.username,
-        password: this.password,
-      },
+      auth: this.auth,
     })
     .then(r => r.tags)
     .catch(r => r.response.data);
@@ -148,10 +142,7 @@ class Mailchimp {
     return axios({
       method: 'post',
       url: `${ this.api }/lists/${ list }/segments/${ segment }/members`,
-      auth: {
-        username: this.username,
-        password: this.password,
-      },
+      auth: this.auth,
       data,
     })
     .catch(r => r.response.data);
@@ -161,10 +152,7 @@ class Mailchimp {
     return axios({
       method: 'delete',
       url: `${ this.api }/lists/${ list }/segments/${ segment }/members/${ subscriber }`,
-      auth: {
-        username: this.username,
-        password: this.password,
-      },
+      auth: this.auth,
     })
     .catch(r => r.response.data);
   }

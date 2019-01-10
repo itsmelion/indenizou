@@ -4,27 +4,15 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const log = require('./log');
-const File = require('./model');
-
+const chimpHook = require('./handlers/emails-hooks');
 const app = express();
 
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 app.use(cors()); // allow cors
 
-app.get('/', (req, res) => {
-  return res.format({
-    html: () => res.send('Developed with love, at <a href="https://alia.ml">ΛLIΛ<a>'),
-    json: () => res.jsonp({
-      body: "Successful the JSON Request!"
-    }),
-  });
-});
-
-app.get('/files', async (req, res) => {
-  const files = await File.find().lean();
-  return res.json(files);
-});
+app.get('/hooks/email', (req, res) => res.status(200).send('OK'));
+app.post('/hooks/email', chimpHook.chimpEventsHandler);
 
 app.post('/files', async (req, res) => {
   const { body } = req;

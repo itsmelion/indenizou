@@ -11,9 +11,18 @@ const schema = new mongoose.Schema({
   contactby: { type: String },
   assunto: {
     type: String,
-    enum: ['cancelamento', 'outros', 'extravio de bagagem', 'atraso', 'overbooking'],
+    enum: ['cancelamento', 'atraso', 'overbooking', 'extravio de bagagem', 'outros'],
     required: [true, 'É necessário fornecer o assunto']
-  }
+  },
+  tags: { type: Array },
+
+  id: { type: String },
+  unique_email_id: { type: String },
+  status: {
+    type: String,
+    enum: ['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional'],
+    required: [true, 'É necessário fornecer o status de inscricao'],
+  },
 
 }, { versionKey: false, timestamps: true });
 
