@@ -17,12 +17,15 @@ const schema = new mongoose.Schema({
   tags: { type: Array },
 
   id: { type: String },
+  list_id: { type: String },
+  campaign_id: { type: String },
   unique_email_id: { type: String },
   status: {
     type: String,
     enum: ['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional'],
     required: [true, 'É necessário fornecer o status de inscricao'],
   },
+  abuse: { type: Boolean, default: false }
 
 }, { versionKey: false, timestamps: true });
 
