@@ -1,36 +1,27 @@
 const Boom = require('boom');
 const log = require('../log');
+const Customer = require('../models/customer');
 
 exports.chimpEventsHandler = async ({ body: { type, data } }, res) => {
-  log.info(`\n\n==> INFO: Webhook from MailChimp\n Type: ${ type }\n\n`);
-
   switch (type) {
     case 'subscribe':
-      subscribe(data);
-      break;
+      return subscribe(data)(res);
 
     case 'unsubscribe':
-      unsubscribe(data);
-      break;
+      return unsubscribe(data)(res);
 
     case 'profile':
-      profile(data);
-      break;
+      return profile(data)(res);
 
     case 'upemail':
-      updateEmail(data);
-      break;
+      return updateEmail(data)(res);
 
     case 'cleaned':
-      cleaned(data);
-      break;
+      return cleaned(data)(res);
 
     default:
-      res.status(501).send(Boom.notImplemented(`Type: ${type} was not implemented yet.`));
-      break;
+      return res.status(501).send(Boom.notImplemented(`Type: ${type} was not implemented yet.`));
   }
-
-  return res.status(200).send('OK from ALIA');
 };
 
 const customerObj = (data, status) => ({
@@ -52,26 +43,39 @@ const removeEmpty = obj =>
     else if (val == null) delete obj[key]
 })
 
+const saveData = (data, res) => {
+  const opt = { new: true, upsert: true };
+
+  return Customer.findOneAndUpdate({ id: data.id, email: data.email }, data, opt)
+    .then(() => res.status(201).end())
+    .catch(e => res.send(Boom.internal('Internal Error at finding or saving entity on DB', e)));
+}
+
 const subscribe = data => {
   const customer = removeEmpty(customerObj(data, 'subscribed'));
+  return res => saveData(customer, res);
 };
 
 const unsubscribe = data => {
   const customer = removeEmpty(customerObj(data, 'unsubscribed'));
   if (data.reason === 'abuse') customer.abuse = true;
+  return res => saveData(customer, res);
 };
 
 const profile = data => {
   const customer = removeEmpty(customerObj(data));
+  return res => saveData(customer, res);
 };
 
 const updateEmail = data => {
   data.id = data.new_id;
   data.email = data.new_email;
   const customer = removeEmpty(customerObj(data));
+  return res => saveData(customer, res);
 };
 
 const cleaned = data => {
   const customer = removeEmpty(customerObj(data));
   if (data.reason === 'abuse') customer.abuse = true;
+  return res => saveData(customer, res);
 };
