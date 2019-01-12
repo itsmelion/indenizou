@@ -6,23 +6,6 @@ services:
     ports:
       - '27017:27017'
 
-  api:
-    build:
-      context: ./api
-      args:
-        - NODE_ENV=development
-    env_file:
-      - ./api/.env
-    ports:
-      - 1800:1800
-    volumes:
-      - ./api:/usr/src/app
-      - /usr/src/app/node_modules
-    links:
-      - emails
-    depends_on:
-      - db
-
   emails:
     build:
       context: ./emails
