@@ -5,12 +5,12 @@ const Mailchimp = require('./mailchimp-api');
 exports.subscribe = async (req, res) => {
   let subscriber;
 
-  // subscriber = await Mailchimp.subscribeUser(req.body)
-  //   .catch(({ status: n }) => res.status(n).json(Boom.boomify(subscriber, { statusCode: n })));
+  subscriber = await Mailchimp.subscribeUser(req.body)
+    .catch(({ status: n }) => res.status(n).json(Boom.boomify(subscriber, { statusCode: n })));
 
-  // const { status, id, unique_email_id } = subscriber;
+  const { status, id, unique_email_id } = subscriber;
 
-  subscriber = await Customer.create(Object.assign(req.body, { id: 'as2', unique_email_id: 'as2', status: 'subscribed' }))
+  subscriber = await Customer.create(Object.assign(req.body, { id, unique_email_id, status }))
     .catch(e => res.status(400).json(Boom.badRequest(e)));
 
   return res.status(201).json(subscriber);
