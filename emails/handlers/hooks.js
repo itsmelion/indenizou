@@ -48,20 +48,24 @@ const removeEmpty = obj => Object.keys(obj)
 async function saveData (data, res) {
   const opt = { new: true, upsert: true };
   const query = data.id ? { id: data.id } : { email: data.email || data.old_email };
+  const notFound = e => {
+    log.error('Customer not Found');
+    return res.status(404).json(Boom.notFound('Customer not Found', e));
+  };
 
-  log.debug('finding dude');
   const customer = await Customer.findOne(query, undefined, opt)
-  .catch(err => res.status(400).json(Boom.badRequest(err)));
+  .catch(e => notFound(e));
 
-  if(!customer) return res.send(Boom.notFound('Customer not found'));
-
-  log.debug('saving dude');
+  if(!customer) notFound();
 
   if (data.new_id) customer.id = data.new_id; delete customer.new_id;
   if (data.new_email) customer.email = data.new_email; delete customer.new_email; delete customer.old_email;
 
   const savedCustomer = await customer.set({ ...customer, ...data }).save()
-  .catch(e => res.send(Boom.internal('Internal Error at saving entity on DB', e)));
+  .catch(e => {
+    log.error('Internal Error at saving entity on DB');
+    return res.send(Boom.internal('Internal Error at saving entity on DB', e))
+  });
 
   return res.status(201).json(savedCustomer);
 };
