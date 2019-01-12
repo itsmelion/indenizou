@@ -8,7 +8,7 @@ const schema = new mongoose.Schema({
   email: { type: String, lowercase: true, trim: true, unique: true },
   phone: { type: String, lowercase: true, trim: true, unique: true },
   outro: { type: String },
-  contactby: { type: String },
+  contactby: { type: String, default: 'email', enum: ['email', 'whatsapp', 'phone'] },
   assunto: {
     type: String,
     enum: ['cancelamento', 'atraso', 'overbooking', 'extravio de bagagem', 'outros'],
