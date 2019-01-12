@@ -15,11 +15,17 @@ app.use(cors());
 
 const mongoParams = { useNewUrlParser: true, useCreateIndex: true };
 mongoose.connect(process.env.DB_URL, mongoParams);
+mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const server = http.createServer(app);
 
+// Actions
 app.post('/subscribe', Lists.subscribe);
 app.get('/subscribers', Lists.subscribers);
+
+// Webhooks
+app.get('/hooks/email', (req, res) => res.status(200).send('OK'));
+app.post('/hooks/email', chimpHook.chimpEventsHandler);
 
 server.listen(process.env.PORT, process.env.HOST, () => {
   log.info(`🖥️ Indenizou EMAILS up at: ${process.env.HOST}:${process.env.PORT}`);
