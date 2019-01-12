@@ -40,6 +40,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-helmet": "^5.2.0",
+    "react-social-login": "^3.4.3",
     "react-tooltip": "^3.9.2"
   },
   "devDependencies": {

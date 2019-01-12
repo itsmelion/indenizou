@@ -1,12 +1,12 @@
 import React from 'react';
 import SocialLogin from 'react-social-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 const Button = ({ children, triggerLogin, ...props }) => (
-  <button type="button" onClick={triggerLogin} className="button facebook" {...props}>
-    <FontAwesomeIcon icon={faFacebook} />
-    Facebook
+  <button type="button" onClick={triggerLogin} className="button google" {...props}>
+    <FontAwesomeIcon icon={faGoogle} />
+    Google
   </button>
 );
 
