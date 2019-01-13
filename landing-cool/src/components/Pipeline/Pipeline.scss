@@ -1,8 +1,16 @@
 @import '~flamework/src/vars';
 
 #Pipeline {
+  font-size: .8rem;
+  padding-top: 20%;
+  padding-bottom: 5rem;
+  background-image: url(./wave.svg);
+  background-position: center -1%;
+  background-size: 101% auto;
+  background-repeat: no-repeat;
+
   li {
-    padding: 1em;
+    padding: .5em;
     &:first-of-type {
       padding-left: 0;
     }

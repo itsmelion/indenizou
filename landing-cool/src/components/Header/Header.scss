@@ -12,7 +12,7 @@ $case-ratio: 1.59;
   background-color: white;
   background-image: url(./background.svg);
   background-size: 101% auto;
-  background-position: bottom center;
+  background-position: center 101%;
   background-repeat: no-repeat;
 
   h1 { line-height: 1.1 }
@@ -29,7 +29,7 @@ $case-ratio: 1.59;
       width: 100%;
       background-color: white;
       background-image: url(./background.svg);
-      background-size: auto $case / 2 / $case-ratio + $plane / 2 / $plane-ratio + 100px;
+      background-size: cover;
       background-repeat: no-repeat;
     }
   }
