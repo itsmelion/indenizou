@@ -10,16 +10,17 @@ const fontStack = `
 `;
 
 const PoweredBy = (
-  <p
-    className="p1"
+  <a
+    className="p1 link block"
     style={{
       fontFamily: fontStack,
       textAlign: 'center',
       fontSize: '.7rem',
     }}
+    href="https://alia.ml/"
   >
     Powered by ΛLIΛ
-  </p>
+  </a>
 );
 
 export default PoweredBy;

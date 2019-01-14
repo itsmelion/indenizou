@@ -7,39 +7,39 @@ import './Footer.scss';
 
 const Footer = (
   <footer id="Footer" hide-print="">
-    <div className="contain row footer" align="between start" mobile-align="center center">
-      <a row="nowrap" align="center center" className="link mb05" href="//indenizou.com/sobre">
+    <div className="contain mobile-column row footer" align="between start" mobile-align="center center">
+      <a row="nowrap" align="center center" className="link mb1" href="//indenizou.com/">
         <img className="mr05" width="24" src={logo} alt="Logo Indenizou" />
-        <p>indenizou</p>
+        <p>Indenizou</p>
       </a>
 
-      <div className="column mobile-row mb1" align="start end" mobile-align="start start">
+      <div className="column mobile-row mb1 mobile-wrap" align="start end" mobile-align="start start">
         <a className="link p05" href="//instagram.com/indenizou">
           @indenizou
           <FontAwesomeIcon className="ml05" icon={faInstagram} />
         </a>
 
-        <a className="link p05" href="//instagram.com/indenizou">
+        <a className="link p05" href="//facebook.com/indenizou">
           Facebook
           <FontAwesomeIcon className="ml05" icon={faFacebookSquare} />
         </a>
       </div>
 
-      <div className="column mobile-row" align="start end" mobile-align="start start">
-        <a className="link p05" href="//indenizou.com/sobre">
+      <div column="" align="start end" mobile-align="start center">
+        <a className="link p05" href="//indenizou.com/quem-somos">
         Sobre a Indenizou
         </a>
 
-        <a className="link p05" href="//indenizou.com/sobre">
-        Casos de sucesso
+        <a className="link p05" href="//indenizou.com/direitos">
+        Quais são os meus direitos?
         </a>
 
-        <a className="link p05" href="//indenizou.com">
-        Item 1
+        <a className="link p05" href="//indenizou.com/noticias">
+        Notícias
         </a>
 
-        <a className="link p05" href="//indenizou.com">
-        item 2
+        <a className="link p05" href="//indenizou.com/contato">
+        Contato
         </a>
       </div>
     </div>
