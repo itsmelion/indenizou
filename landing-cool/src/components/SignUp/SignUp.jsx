@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import Network from 'network';
+import axios from 'axios';
 import SelectIssue from 'components/SelectIssue/SelectIssue';
 import SocialLogin from 'components/SocialLogin/SocialLogin';
 import ThankYou from './ThankYou';
@@ -34,7 +34,7 @@ class SignUp extends PureComponent {
       CONTACTBY: 'email',
     };
 
-    Network.post(url, data)
+    axios.post(url, data)
       .then(() => this.setState(({ submitted: true })))
       .catch(() => this.setState(({ submitted: true })))
       .finally(() => setTimeout(() => this.setState(({ submitted: false })), 4000));
