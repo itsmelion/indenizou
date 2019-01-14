@@ -1,0 +1,26 @@
+@import '~flamework/src/vars';
+
+#Cases {
+  ul {
+    font-size: .75em;
+  }
+
+  h5 {
+    color: $black8;
+  }
+
+  li {
+    border-radius: $radius;
+    color: $black8;
+    width: 20em;
+    margin: 1em .5em;
+    padding: 1em;
+    article {
+      font-style: italic;
+    }
+    sub {
+      color: $black3;
+    }
+    @include shadow();
+  }
+}
