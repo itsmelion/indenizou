@@ -31,6 +31,14 @@
   @include shadow;
 }
 
+.whatsapp {
+  font-size: .9rem;
+  color: white;
+  background-color: $whatsapp;
+  font-weight: 400;
+  @include shadow;
+}
+
 .button {
   .svg-inline--fa {
     margin-right: .5em;

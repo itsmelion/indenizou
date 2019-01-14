@@ -1,5 +1,16 @@
+@import 'vars.scss';
+
 #SocialLogin {
-  button {
+  button, label {
     margin: .25rem;
+    line-height: 1;
+    padding: .6em .8em;
+  }
+
+  .whatsapp.true {
+    transition: .2s;
+    transform: rotateX(360deg);
+    backface-visibility: visible;
+    background-color: $whatsapp-green;
   }
 }

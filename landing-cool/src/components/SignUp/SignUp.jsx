@@ -17,13 +17,20 @@ class SignUp extends PureComponent {
     this.description = React.createRef();
   }
 
-  state = { problema: 'atraso', submitted: false };
+  state = {
+    problema: 'atraso',
+    submitted: false,
+    error: false,
+    contactby: false,
+  };
+
+  handleContactBy = () => this.setState(({ contactby }) => ({ contactby: !contactby }));
 
   handleRadio = e => this.setState(({ problema: e.target.value }));
 
   handleSubmit = e => {
     const { url } = this.props;
-    const { problema } = this.state;
+    const { problema, contactby } = this.state;
     e.preventDefault();
 
     const data = {
@@ -31,7 +38,7 @@ class SignUp extends PureComponent {
       PHONE: this.phone.current.value,
       ASSUNTO: problema,
       OUTROS: (this.description.current && this.description.current.value) || null,
-      CONTACTBY: 'email',
+      CONTACTBY: contactby ? 'whatsapp' : 'email',
     };
 
     axios.post(url, data)
@@ -42,7 +49,7 @@ class SignUp extends PureComponent {
 
   render () {
     const { className, compact } = this.props;
-    const { problema, submitted } = this.state;
+    const { problema, submitted, contactby } = this.state;
     const isCompact = compact ? 'compact' : false;
 
     if (submitted) return ThankYou;
@@ -57,7 +64,7 @@ class SignUp extends PureComponent {
           Sua indenização <b>grátis</b> e sem burocracia
         </h4>
 
-        {SocialLogin}
+        <SocialLogin contactbyHandler={this.handleContactBy} contactby={contactby} />
 
         <label className="input" htmlFor="email">
           <span>e-mail</span>
@@ -73,7 +80,7 @@ class SignUp extends PureComponent {
           />
         </label>
 
-        <label className="input" htmlFor="phone">
+        <label className={`input phone-${ contactby }`} htmlFor="phone">
           <span><FontAwesomeIcon icon={faWhatsapp} />&nbsp;Telefone </span>
           <input
             autoComplete="tel"
@@ -96,8 +103,11 @@ class SignUp extends PureComponent {
 
         {problema === 'outros' && (
           <label className="input" htmlFor="description">
-            <span><span role="img" aria-label="preocupado">😨</span>
-          &nbsp;Conta pra gente o que aconteceu.</span>
+            <span>
+              <span role="img" aria-label="preocupado">😨</span>
+              &nbsp;Conta pra gente o que aconteceu.
+            </span>
+
             <textarea
               autoComplete="off"
               name="OUTROS"

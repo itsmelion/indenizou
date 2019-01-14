@@ -34,9 +34,37 @@
   }
 
   .input {
+    display: block;
     > span {
       font-size: 70%;
       padding-left: .65rem;
+    }
+  }
+
+  .check {
+    overflow: hidden;
+    input {
+      position: absolute;
+      z-index: -1;
+      left: -899%;
+    }
+  }
+
+  .phone-false {
+    @include transition();
+    overflow: hidden;
+    max-height: 0;
+  }
+
+  .phone-true {
+    @include transition();
+    overflow: hidden;
+    max-height: none;
+    padding: .2em;
+    input {
+      background-color: $whatsapp-chat-bubble;
+      border-color: darken($whatsapp-chat-bubble, 15%);
+      @include shadow();
     }
   }
 }

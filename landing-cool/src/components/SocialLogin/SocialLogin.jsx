@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import Facebook from './Facebook/Facebook';
 import Google from './Google/Google';
 
@@ -10,7 +10,7 @@ import './SocialLogin.scss';
 const handleSocialLogin = user => console.log(user);
 const handleSocialLoginFailure = err => console.error(err);
 
-const SocialLogin = (
+const SocialLogin = React.memo(({ contactbyHandler, contactby }) => (
   <div id="SocialLogin" row="nowrap">
     <Facebook
       provider="facebook"
@@ -29,7 +29,19 @@ const SocialLogin = (
     >
       Login with Facebook
     </Google>
+
+    <label htmlFor="contactby" className={`button inline whatsapp check ${ contactby }`}>
+      <input
+        checked={contactby}
+        type="checkbox"
+        name="CONTACTBY"
+        id="contactby"
+        onChange={contactbyHandler}
+      />
+      <FontAwesomeIcon icon={faWhatsapp} />
+      Atendimento via WhatsApp
+    </label>
   </div>
-);
+));
 
 export default SocialLogin;
