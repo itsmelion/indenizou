@@ -42,7 +42,7 @@
     "semi": ["warn", "always"],
     "template-curly-spacing": ["error", "always"],
     "arrow-parens": ["error", "as-needed"],
-
+    "lines-between-class-members": "off",
     "space-before-function-paren": [
       "error",
       {

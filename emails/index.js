@@ -21,6 +21,12 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 const server = http.createServer(app);
 
 // Actions
+app.post('/chatbot', (req, res) => {
+  log.debug('\nRequest from Huggy!\n\n');
+  log.debug(req.body.messages.actionSendRequest);
+  res.status(200).end();
+});
+
 app.post('/subscribe', Lists.subscribe);
 app.get('/subscribers', Lists.subscribers);
 

@@ -1,6 +1,7 @@
-/* eslint-disable jsx-a11y/no-autofocus */
+/* eslint-disable jsx-a11y/no-autofocus, jsx-a11y/label-has-associated-control, jsx-a11y/label-has-for */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import PhoneInput from 'react-phone-number-input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import axios from 'axios';
@@ -13,29 +14,28 @@ class SignUp extends PureComponent {
   constructor (props) {
     super(props);
     this.email = React.createRef();
-    this.phone = React.createRef();
     this.description = React.createRef();
   }
 
   state = {
     problema: 'atraso',
+    phone: '',
     submitted: false,
-    error: false,
     contactby: false,
   };
 
   handleContactBy = () => this.setState(({ contactby }) => ({ contactby: !contactby }));
-
+  handlePhone = phone => this.setState({ phone });
   handleRadio = e => this.setState(({ problema: e.target.value }));
 
   handleSubmit = e => {
     const { url } = this.props;
-    const { problema, contactby } = this.state;
+    const { problema, contactby, phone } = this.state;
     e.preventDefault();
 
     const data = {
       EMAIL: this.email.current.value,
-      PHONE: this.phone.current.value,
+      PHONE: phone,
       ASSUNTO: problema,
       OUTROS: (this.description.current && this.description.current.value) || null,
       CONTACTBY: contactby ? 'whatsapp' : 'email',
@@ -82,21 +82,22 @@ class SignUp extends PureComponent {
 
         <label className={`input phone-${ contactby }`} htmlFor="phone">
           <span><FontAwesomeIcon icon={faWhatsapp} />&nbsp;Telefone </span>
-          <input
+          <PhoneInput
+            country="BR"
+            displayInitialValueAsLocalNumber
             autoComplete="tel"
-            type="tel"
+            national="true"
+            international={false}
+            showCountrySelect={false}
             name="PHONE"
-            minLength="9"
-            maxLength="18"
+            placeholder="31 92222 2222"
+            minLength="11"
+            maxLength="15"
             id="phone"
-            ref={this.phone}
-            placeholder="31 9 8287-5204"
-            list="defaultTels"
+            type="tel"
+            onChange={this.handlePhone}
+            required={contactby}
           />
-
-          <datalist id="defaultTels">
-            <option value="31911110000" />
-          </datalist>
         </label>
 
         <SelectIssue handler={this.handleRadio} selected={problema} />
@@ -130,7 +131,7 @@ SignUp.propTypes = {
 };
 
 SignUp.defaultProps = {
-  url: 'https://api.alia.ml/indenizou/leads',
+  url: 'https://api.indenizou.alia.ml/subscribe',
   className: '',
   compact: false,
 };

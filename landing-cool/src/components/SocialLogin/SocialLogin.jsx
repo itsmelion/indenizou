@@ -11,7 +11,7 @@ const handleSocialLogin = user => console.log(user);
 const handleSocialLoginFailure = err => console.error(err);
 
 const SocialLogin = React.memo(({ contactbyHandler, contactby }) => (
-  <div id="SocialLogin" row="nowrap">
+  <div id="SocialLogin" row="">
     <Facebook
       provider="facebook"
       appId={app.facebookApp}
