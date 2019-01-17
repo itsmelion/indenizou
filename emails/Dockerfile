@@ -20,7 +20,7 @@ npm install
 # If you are building your code for production
 # RUN npm install --only=production
 
-ENV PATH /opt/node_modules/.bin:$PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # Bundle app source
 COPY . /usr/src/app

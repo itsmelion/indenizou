@@ -4,7 +4,7 @@
   "main": "./index.js",
   "scripts": {
     "start": "nodemon -L",
-    "deploy": "rsync -az --exclude 'node_modules*' --exclude '.env' ./ lion@alia.ml:/opt/indenizou/emails --progress --itemize-changes"
+    "deploy": "rsync -az --exclude 'node_modules*' --exclude '.env' ./ lion@alia.ml:/home/lion/indenizou/emails --progress --itemize-changes"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -15,7 +15,7 @@
     "dotenv-extended": "^2.3.0",
     "express": "4.16.4",
     "loglevel": "^1.6.1",
-    "mongoose": "^5.4.3",
+    "mongoose": "^5.4.4",
     "shortid": "^2.2.14"
   },
   "devDependencies": {

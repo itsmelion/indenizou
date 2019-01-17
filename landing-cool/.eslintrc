@@ -33,6 +33,7 @@
     "no-console": ["warn", { "allow": ["warn", "info"] }],
     "react/prop-types": 0,
     "react/jsx-one-expression-per-line": 0,
+    "react/no-multi-comp": "off",
     "class-methods-use-this": 0,
     "no-var": "error",
     "no-unused-vars": 1,
