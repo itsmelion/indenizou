@@ -1,0 +1,11 @@
+@import 'vars.scss';
+
+.list {
+  color: $whatsapp;
+  li {
+    background-color: #fbfbfb;
+    &:nth-of-type(odd) {
+      background-color: #f5f5f5;
+    }
+  }
+}
