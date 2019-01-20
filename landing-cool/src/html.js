@@ -17,14 +17,14 @@ const HTML = ({
       <base href="/" />
       <meta charSet="utf-8" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+      <meta name="robots" content="INDEX, FOLLOW" />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
-      <meta name="robots" content="INDEX, FOLLOW" />
 
-      <link rel="alternate" hrefLang={app.defaultLang} href={`${ app.domain }?lang=${ app.defaultLang }`} />
-      <link rel="alternate" hrefLang="x-default" href={app.domain} />
+      <link rel="alternate" hrefLang={app.defaultLang} href={`https://${ app.domain }?lang=${ app.defaultLang }`} />
+      <link rel="alternate" hrefLang="x-default" href={`https://${ app.domain }`} />
       <meta property="og:locale" content={app.defaultLang} />
       <meta httpEquiv="content-language" content={app.defaultLang} />
 

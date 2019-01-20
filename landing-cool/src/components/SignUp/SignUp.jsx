@@ -134,7 +134,7 @@ class SignUp extends PureComponent {
         <input
           value="Quero minha indenização!"
           name="subscribe"
-          className={`button primary ${contactby && !phone}`}
+          className={`button primary ${ contactby && !phone }`}
           type="submit"
           disabled={contactby && !phone}
         />
