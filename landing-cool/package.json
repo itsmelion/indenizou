@@ -5,13 +5,9 @@
   "main": "./src/index.js",
   "scripts": {
     "up": "npm upgrade && npm prune && npm dedupe",
-    "push": "rsync -avz --perms --chmod=a+rx --progress --delete ./public/ lion@alia.ml:/opt/indenizou/",
-    "deploy": "npm run build && npm run push",
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "start": "npm run develop",
-    "format": "prettier --write \"src/**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run develop"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
@@ -25,6 +21,7 @@
     "dotenv": "^6.2.0",
     "flamework": "^3.1.0",
     "gatsby": "^2.0.91",
+    "gatsby-cli": "^2.4.8",
     "gatsby-image": "^2.0.26",
     "gatsby-plugin-favicon": "^3.1.5",
     "gatsby-plugin-google-analytics": "^2.0.9",
@@ -53,12 +50,11 @@
     "@babel/plugin-transform-classes": "^7.2.2",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
-    "@babel/preset-react": "^7.0.0",
-    "prettier": "^1.15.3"
+    "@babel/preset-react": "^7.0.0"
   },
   "optionalDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.12.0",
+    "eslint": "^5.12.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-react-app": "^3.0.6",
     "eslint-config-standard": "^12.0.0",
@@ -69,22 +65,16 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
-    "stylelint": "^9.10.0",
+    "stylelint": "^9.10.1",
     "stylelint-config-recommended-scss": "^3.2.0",
     "stylelint-scss": "^3.5.1"
   },
   "browserslist": [
-    ">1%",
+    ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
   ],
-  "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
-      "prettier --single-quote --trailing-comma all --write",
-      "git add"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/itsmelion/portfolio.git"

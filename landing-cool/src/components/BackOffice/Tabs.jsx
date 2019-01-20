@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 class TabWrapper extends Component {
   state = {
-    value: 0,
+    value: false,
   };
 
   handleChange = (event, value) => {
     this.setState({ value });
   };
 
-  render() {
+  render () {
     const { value } = this.state;
 
     return (
       <div>
         <Tabs
+          component="nav"
           value={value}
           onChange={this.handleChange}
           indicatorColor="primary"
@@ -25,29 +25,21 @@ class TabWrapper extends Component {
           variant="scrollable"
           scrollButtons="auto"
         >
-          <Tab label="Item One" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
-          <Tab label="Item Four" />
-          <Tab label="Item Five" />
-          <Tab label="Item Six" />
-          <Tab label="Item Seven" />
+          <Tab label="Item" value="Item One" />
+          <Tab label="Item" value="Item Two" />
+          <Tab label="Item" value="Item Three" />
+          <Tab label="Item" value="Item Four" />
+          <Tab label="Item" value="Item Five" />
         </Tabs>
 
-        {value === 0 && <div>Item One</div>}
-        {value === 1 && <div>Item Two</div>}
-        {value === 2 && <div>Item Three</div>}
-        {value === 3 && <div>Item Four</div>}
-        {value === 4 && <div>Item Five</div>}
-        {value === 5 && <div>Item Six</div>}
-        {value === 6 && <div>Item Seven</div>}
+        {value === 'Item One' && <div>Item One</div>}
+        {value === 'Item Two' && <div>Item Two</div>}
+        {value === 'Item Three' && <div>Item Three</div>}
+        {value === 'Item Four' && <div>Item Four</div>}
+        {value === 'Item Five' && <div>Item Five</div>}
       </div>
     );
   }
 }
-
-TabWrapper.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default TabWrapper;

@@ -9,6 +9,7 @@ const app = express();
 
 const Lists = require('./handlers/subscriptions');
 const Webhooks = require('./handlers/hooks');
+const Accounts = require('./handlers/users');
 
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
@@ -33,6 +34,11 @@ app.get('/subscribers', Lists.subscribers);
 // Webhooks
 app.get('/hooks/email', (req, res) => res.status(200).send('OK'));
 app.post('/hooks/email', Webhooks.chimpEventsHandler);
+
+// Users
+app.post('/accounts', Accounts.createUser);
+app.get('/accounts/:userID/settings', Accounts.userSettings);
+
 
 server.listen(process.env.PORT, process.env.HOST, () => {
   log.info(`🖥️ Indenizou EMAILS up at: ${process.env.HOST}:${process.env.PORT}`);
