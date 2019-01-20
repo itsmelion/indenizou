@@ -5,7 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "up": "npm upgrade && npm prune && npm dedupe",
-    "build": "echo $NODE_ENV && gatsby build",
+    "build": "gatsby build",
     "develop": "gatsby develop",
     "start": "npm run develop"
   },
