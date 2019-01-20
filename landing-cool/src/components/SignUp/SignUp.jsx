@@ -15,6 +15,7 @@ class SignUp extends PureComponent {
     super(props);
     this.email = React.createRef();
     this.description = React.createRef();
+    this.name = '';
   }
 
   state = {
@@ -28,6 +29,13 @@ class SignUp extends PureComponent {
   handlePhone = phone => this.setState({ phone });
   handleRadio = e => this.setState(({ problema: e.target.value }));
 
+  handleSocialLogin = ({ _profile: u }) => {
+    console.log(u);
+    this.email.current.value = u.email;
+    this.name = u.name;
+    u.phone && this.handlePhone(u.phone);
+  }
+
   handleSubmit = e => {
     const { url } = this.props;
     const { problema, contactby, phone } = this.state;
@@ -39,6 +47,7 @@ class SignUp extends PureComponent {
       ASSUNTO: problema,
       OUTROS: (this.description.current && this.description.current.value) || null,
       CONTACTBY: contactby ? 'whatsapp' : 'email',
+      NAME: this.name,
     };
 
     axios.post(url, data)
@@ -49,7 +58,7 @@ class SignUp extends PureComponent {
 
   render () {
     const { className, compact } = this.props;
-    const { problema, submitted, contactby } = this.state;
+    const { problema, submitted, contactby, phone } = this.state;
     const isCompact = compact ? 'compact' : false;
 
     if (submitted) return ThankYou;
@@ -64,7 +73,11 @@ class SignUp extends PureComponent {
           Sua indenização <b>grátis</b> e sem burocracia
         </h4>
 
-        <SocialLogin contactbyHandler={this.handleContactBy} contactby={contactby} />
+        <SocialLogin
+          handleSocialLogin={this.handleSocialLogin}
+          contactbyHandler={this.handleContactBy}
+          contactby={contactby}
+        />
 
         <label className="input" htmlFor="email">
           <span>e-mail</span>
@@ -118,7 +131,13 @@ class SignUp extends PureComponent {
           </label>
         )}
 
-        <input value="Quero minha indenização!" name="subscribe" className="button primary" type="submit" />
+        <input
+          value="Quero minha indenização!"
+          name="subscribe"
+          className={`button primary ${contactby && !phone}`}
+          type="submit"
+          disabled={contactby && !phone}
+        />
       </form>
     );
   }

@@ -1,34 +1,29 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import Facebook from './Facebook/Facebook';
-import Google from './Google/Google';
+import Facebook from './Facebook';
+import Google from './Google';
 
 import app from '../../../defaults.json';
 import './SocialLogin.scss';
 
-const handleSocialLogin = user => console.log(user);
-const handleSocialLoginFailure = err => console.error(err);
+const handleSocialLoginFailure = err => new Error(err);
 
-const SocialLogin = React.memo(({ contactbyHandler, contactby }) => (
+const SocialLogin = memo(({ contactbyHandler, contactby, handleSocialLogin }) => (
   <div id="SocialLogin" row="">
     <Facebook
       provider="facebook"
       appId={app.facebookApp}
       onLoginSuccess={handleSocialLogin}
       onLoginFailure={handleSocialLoginFailure}
-    >
-      Login with Facebook
-    </Facebook>
+    />
 
     <Google
       provider="google"
       appId={app.googleAppId}
       onLoginSuccess={handleSocialLogin}
       onLoginFailure={handleSocialLoginFailure}
-    >
-      Login with Facebook
-    </Google>
+    />
 
     <label htmlFor="contactby" className={`button inline whatsapp check ${ contactby }`}>
       <input
