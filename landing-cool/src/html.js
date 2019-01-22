@@ -1,7 +1,10 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
+import chatLauncher, { widgetUrl } from 'chatbot';
 import app from '../data';
+
+const isProd = true || process.env.NODE_ENV === 'production';
 
 const HTML = ({
   htmlAttributes, headComponents, bodyAttributes,
@@ -53,6 +56,7 @@ const HTML = ({
         dangerouslySetInnerHTML={{ __html: body }}
       />
       {postBodyComponents}
+      {isProd && <script dangerouslySetInnerHTML={{ __html: chatLauncher }} />}
     </body>
   </html>
 );

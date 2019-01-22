@@ -4,8 +4,7 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "standard",
-    "airbnb",
-    "react-app"
+    "airbnb"
   ],
   "plugins": ["standard", "import", "react"],
   "settings": { "import/resolver": { "node": { "paths": ["src/"] } } },
