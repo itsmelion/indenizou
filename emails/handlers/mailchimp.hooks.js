@@ -1,6 +1,6 @@
 const Boom = require('boom');
 const log = require('../log');
-const Customer = require('../models/customer');
+const Customer = require('../models/customer.model');
 
 exports.chimpEventsHandler = async ({ body }, res) => {
   switch (body.type) {
