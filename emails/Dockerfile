@@ -15,8 +15,13 @@ ENV NODE_ENV $NODE_ENV
 # where available (npm@5+)
 COPY package*.json /usr/src/app
 
-RUN npm cache verify && \
-npm install
+RUN apk --no-cache add --virtual native-deps \
+  g++ gcc libgcc libstdc++ linux-headers make python && \
+  npm install --quiet node-gyp -g &&\
+  npm cache verify && \
+  npm install --quiet && \
+  apk del native-deps
+
 # If you are building your code for production
 # RUN npm install --only=production
 
