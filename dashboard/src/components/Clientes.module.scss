@@ -1,0 +1,10 @@
+@import 'styles/vars.scss';
+
+.list {
+  li {
+    background-color: darken(white, 5%);
+    &:nth-of-type(odd) {
+      background-color: darken(white, 10%);
+    }
+  }
+}

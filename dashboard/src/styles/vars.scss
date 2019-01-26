@@ -1,0 +1,87 @@
+$gutter:              1rem;
+$container-width:     74rem;
+$mobile-breakpoint:   69rem; // ~780px
+$desktop-breakpoint:  $mobile-breakpoint + 0.01;
+$mobile:  "screen and (max-width: #{$mobile-breakpoint})";
+$desktop: "screen and (min-width: #{$desktop-breakpoint})";
+
+$radius: 12pt;
+
+$black: #170f23;
+$black1: rgba($black, .1);
+$black3: rgba($black, .25);
+$black5: rgba($black, .5);
+$black8: rgba($black, .75);
+
+$white: #fff;
+$white1: rgba($white, .1);
+$white3: rgba($white, .3);
+$white5: rgba($white, .6);
+$white7: rgba($white, .8);
+
+$pink: #b951ce;
+$dalaran: #7e409d;
+$darnassus: rgb(39, 29, 62);
+$ysera: #59DFB3;
+$alliance: #19B5FF;
+$nightsong: #201a2e;
+
+$primary: $pink;
+$base: #211b2b; // 25242B
+$background: #211b2b;
+$strip-background: rgba($pink,0.1);
+
+$base-font: 'Assistant', 'Segoe UI', 'Open Sans',
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  "Roboto",
+  "Helvetica Neue", Arial, sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$base-line-height: 1.4 !default;
+$base-font-size: 100% !default;
+
+
+$indenizou: #005ac8;
+$pink: #ff3b93;
+$blue: #4619B9;
+$poolparty: #72CACE;
+$sky: #1094dc;
+$cranberry: #f15672;
+
+$primary: $blue;
+$alt: $pink;
+
+// Brands
+$linkedin: #0077b5;
+$facebook: #3B5998;
+$google: #cc4E0F;
+$whatsapp-teal: #128C7E;
+$whatsapp-green: #25D366;
+$whatsapp-chat-background: #ECE5DD;
+$whatsapp-chat-bubble: #DCF8C6;
+$whatsapp: $whatsapp-teal;
+$instagram: #24292e;
+$github: #24292e;
+
+@mixin gradient {
+  background-image: linear-gradient(-90deg, $blue 0%, darken($blue, 10%) 100%);
+}
+
+@mixin pink-gradient {
+  background-image: linear-gradient(-10deg, #8B3FAE 0%, #9140AE 15%, #A043AC 34%, #BB49AA 55%, #DF50A7 78%, #FF57A4 100%);
+}
+
+// Font size mixin for REM output with PX fallback
+@mixin font-size($size) {
+  font-size: $size * $base-font-size;
+  font-size: #{$size}rem;
+}
+
+@mixin absolute {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

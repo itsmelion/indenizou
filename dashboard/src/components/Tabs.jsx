@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+// import Tabs from '@material-ui/core/Tabs';
+// import Tab from '@material-ui/core/Tab';
 
 class TabWrapper extends Component {
   state = {
@@ -11,11 +11,12 @@ class TabWrapper extends Component {
     this.setState({ value });
   };
 
-  render () {
+  render() {
     const { value } = this.state;
 
     return (
       <div>
+        {/*
         <Tabs
           component="nav"
           value={value}
@@ -31,6 +32,7 @@ class TabWrapper extends Component {
           <Tab label="Item" value="Item Four" />
           <Tab label="Item" value="Item Five" />
         </Tabs>
+        */}
 
         {value === 'Item One' && <div>Item One</div>}
         {value === 'Item Two' && <div>Item Two</div>}
