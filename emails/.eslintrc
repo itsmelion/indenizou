@@ -12,5 +12,9 @@
       "jsx": false,
       "modules": true
     }
+  },
+  "rules": {
+    "object-curly-newline": "warn",
+    "import/no-unresolved": "warn"
   }
 }

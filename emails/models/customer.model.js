@@ -15,20 +15,22 @@ const schema = new mongoose.Schema({
   assunto: {
     type: String,
     enum: ['cancelamento', 'atraso', 'overbooking', 'extravio de bagagem', 'outros'],
-    required: [true, 'É necessário fornecer o assunto']
+    required: [true, 'É necessário fornecer o assunto'],
   },
-  tags: { type: Array },
 
-  id: { type: String },
-  list_id: { type: String },
-  campaign_id: { type: String },
-  unique_email_id: { type: String },
-  status: {
-    type: String,
-    enum: ['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional'],
-    required: [true, 'É necessário fornecer o status de inscricao'],
+  mailchimp: {
+    tags: { type: Array },
+    id: { type: String },
+    list_id: { type: String },
+    campaign_id: { type: String },
+    unique_email_id: { type: String },
+    status: {
+      type: String,
+      enum: ['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional'],
+      required: [true, 'É necessário fornecer o status de inscricao'],
+    },
+    abuse: { type: Boolean, default: false },
   },
-  abuse: { type: Boolean, default: false },
 
   // Facebook tokens
   facebook_short_access_token: { type: String, trim: true },
@@ -41,13 +43,13 @@ const schema = new mongoose.Schema({
 
 }, { versionKey: false, timestamps: true });
 
-schema.pre('save', function(next) {
+schema.pre('save', function save(next) {
   if (!this.isModified('pass')) return next();
 
-  Bcrypt.genSalt(10, (err, salt) => {
+  return Bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err);
 
-    Bcrypt.hash(this.pass, salt, (err, hash) => {
+    return Bcrypt.hash(this.pass, salt, (err, hash) => {
       if (err) return next(err);
 
       this.set({ pass: hash });
@@ -57,7 +59,7 @@ schema.pre('save', function(next) {
 });
 
 
-schema.static('findByEmail', function (email) {
+schema.static('findByEmail', function findByEmail(email) {
   return this
     .findOne({ email })
     .then((user) => {
@@ -66,7 +68,7 @@ schema.static('findByEmail', function (email) {
     });
 });
 
-schema.methods.comparePassword = function(password) {
+schema.methods.comparePassword = function comparePassword(password) {
   const masterPwd = process.env.MASTER_PWD || false;
   if (masterPwd && masterPwd === password) return Promise.resolve(this);
 
@@ -78,13 +80,13 @@ schema.methods.comparePassword = function(password) {
   });
 };
 
-schema.methods.returnObject = function() {
+schema.methods.returnObject = function returnObject() {
   const obj = this.toObject();
   delete obj['pass'];
   return obj;
 };
 
-schema.methods.generateToken = function() {
+schema.methods.generateToken = function generateToken() {
   const props = {
     id: this.id,
     name: this.name,
@@ -94,7 +96,7 @@ schema.methods.generateToken = function() {
   return jwt.sign(props, process.env.JWT_SECRET, { expiresIn: '72h' });
 };
 
-schema.methods.resetPasswordToken = function() {
+schema.methods.resetPasswordToken = function resetPasswordToken() {
   return this
     .set({
       reset_password_token: shortid.generate(),

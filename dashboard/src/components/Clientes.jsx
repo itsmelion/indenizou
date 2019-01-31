@@ -7,16 +7,14 @@ const Item = React.memo(({ client }) => (
 ));
 
 export default class ClientList extends Component {
-  state = {
-    data: [],
-  };
+  state = { data: [] };
 
-  componentDidMount () {
-    axios.get(`${ process.env.API_URL }/subscribers`)
+  componentDidMount() {
+    axios.get(`${process.env.API_URL}/subscribers`)
       .then(({ data }) => this.setState(({ data })));
   }
 
-  render () {
+  render() {
     const { data } = this.state;
     if (!data) return null;
 
@@ -24,6 +22,6 @@ export default class ClientList extends Component {
       <ol className={styles.list}>
         {data.map(client => <Item client={client} key={client._id} />)}
       </ol>
-    )
+    );
   }
 }
