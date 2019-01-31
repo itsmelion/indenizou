@@ -53,6 +53,8 @@ typings/
 
 # dotenv environment variables file
 .env*
+!.end.defaults
+!.end.schema
 
 # gatsby files
 .cache/

@@ -29,7 +29,7 @@ const SelectIssue = React.memo(({ selected, handler }) => (
 ));
 
 SelectIssue.propTypes = {
-  selected: PropTypes.string.isRequired,
+  selected: PropTypes.string,
   handler: PropTypes.func.isRequired,
 };
 
