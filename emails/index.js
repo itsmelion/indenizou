@@ -28,9 +28,9 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 const server = http.createServer(app);
 
 // Chatbot
-app.post('/chatbot', authBot, ChatbotHooks);
-app.post('/chatbot/user', authBot, ChatbotHooks);
-app.post('/chatbot/indicacao', authBot, ChatbotHooks);
+app.post('/chatbot', authBot, ChatbotHooks.saveData);
+app.post('/chatbot/user', authBot, ChatbotHooks.saveData);
+app.post('/chatbot/indicacao', authBot, ChatbotHooks.saveData);
 
 app.post('/subscribe', Lists.subscribe);
 app.get('/subscribers', Lists.subscribers);

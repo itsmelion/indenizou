@@ -1,5 +1,5 @@
 const Boom = require('boom');
-const Customer = require('../models/customer');
+const Customer = require('../models/customer.model');
 const Mailchimp = require('./mailchimp-api');
 
 exports.subscribe = async (req, res) => {

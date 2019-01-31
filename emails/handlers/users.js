@@ -1,5 +1,5 @@
 const Boom = require('boom');
-const Users = require('../models/user');
+const Users = require('../models/user.model');
 
 exports.userSettings = async (req, res) => {
   const _id = req.params.user;
