@@ -1,6 +1,8 @@
 const Boom = require('boom');
 const Customer = require('../models/customer.model');
+const { pipelines } = require('../models/customer.model');
 const Mailchimp = require('./mailchimp-api');
+const keyBy = require('lodash').keyBy;
 
 exports.subscribe = async (req, res) => {
   let subscriber;
@@ -23,3 +25,10 @@ exports.subscribers = async (req, res) => {
   const customer = await Customer.find().lean();
   return res.json(customer);
 };
+
+exports.byStatus = async (req, res) => {
+  const customer = await Customer.find().lean();
+  return res.json(keyBy(customer, 'status'));
+};
+
+exports.status = (req, res) => res.json(pipelines);

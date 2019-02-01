@@ -4,6 +4,9 @@ const Bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Email = require('../libs/email');
 
+const pipelines = ['joined', 'contacted', 'pending', 'processing', 'completed'];
+exports.pipelines = pipelines;
+
 const schema = new mongoose.Schema({
   _id: { type: String, default: shortid.generate },
   pass: { type: String, required: [false, 'Must provide a PassKey'], select: false },
@@ -16,6 +19,12 @@ const schema = new mongoose.Schema({
     type: String,
     enum: ['cancelamento', 'atraso', 'overbooking', 'extravio de bagagem', 'outros'],
     required: [true, 'É necessário fornecer o assunto'],
+  },
+
+  status: {
+    type: String,
+    enum: pipelines,
+    required: [true, 'É necessário fornecer o status de inscricao'],
   },
 
   mailchimp: {

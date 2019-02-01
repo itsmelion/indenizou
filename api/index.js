@@ -33,6 +33,8 @@ app.post('/chatbot/indicacao', authBot, ChatbotHooks.saveData);
 
 app.post('/subscribe', Lists.subscribe);
 app.get('/subscribers', Lists.subscribers);
+app.get('/clients', Lists.byStatus);
+app.get('/pipelines', Lists.status);
 
 // ChimpHooks
 app.get('/hooks/email', (req, res) => res.status(200).send('OK'));

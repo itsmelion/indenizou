@@ -1,6 +1,6 @@
 FROM node:alpine
 
-RUN echo '🐳 => Building Indenizou EMAILS...'
+RUN echo '🐳 => Building Indenizou API...'
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -35,4 +35,4 @@ ENV PORT $PORT
 EXPOSE $PORT
 
 CMD [ "npm", "start" ]
-RUN echo '🐳 => Indenizou EMAILS container built! ✅'
+RUN echo '🐳 => Indenizou API built! ✅'
