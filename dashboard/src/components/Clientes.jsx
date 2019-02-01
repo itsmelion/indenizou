@@ -10,7 +10,7 @@ export default class ClientList extends Component {
   state = { data: [] };
 
   componentDidMount() {
-    axios.get(`${process.env.API_URL}/subscribers`)
+    axios.get(`${process.env.REACT_APP_API_URL}/subscribers`)
       .then(({ data }) => this.setState(({ data })));
   }
 

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 class TabWrapper extends Component {
-  state = {
-    value: false,
-  };
+  state = { value: false };
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -16,7 +14,6 @@ class TabWrapper extends Component {
 
     return (
       <div>
-        {/*
         <Tabs
           component="nav"
           value={value}
@@ -26,13 +23,12 @@ class TabWrapper extends Component {
           variant="scrollable"
           scrollButtons="auto"
         >
-          <Tab label="Item" value="Item One" />
+          <Tab label="status" value="Item One" />
           <Tab label="Item" value="Item Two" />
           <Tab label="Item" value="Item Three" />
           <Tab label="Item" value="Item Four" />
           <Tab label="Item" value="Item Five" />
         </Tabs>
-        */}
 
         {value === 'Item One' && <div>Item One</div>}
         {value === 'Item Two' && <div>Item Two</div>}

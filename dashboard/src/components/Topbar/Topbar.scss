@@ -2,36 +2,20 @@
 @import 'styles/vars.scss';
 
 nav#topbar {
-  position: fixed;
   width: 100%;
-  top: 0;
-  padding: .25rem;
+  padding: .2rem;
   color: $black8;
   background: darken(white, 2%);
-  z-index: 900;
   font-size: .9rem;
   @include shadow;
 
-  button {
-    appearance: none;
-    color: currentColor;
-    border: 0;
-    background-color: transparent;
-    cursor: pointer;
+  @media #{$mobile} {
+    background-color: darken(white, 2%);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
-
-  #nav-toggle {
-    height: 100%;
-    background-color: darken(white, 5%);
-    padding: .5em 1em;
-  }
-
-  .above-left, .above-right,  {
-    z-index: 999;
-  }
-
-  .above-left { left: 0; }
-  .above-right { right: 0; }
 
   .tabs {
     display: flex;
@@ -51,60 +35,21 @@ nav#topbar {
       text-align: center;
       user-select: none;
       cursor: pointer;
-      margin: .5em;
+      margin: .25em .5em;
 
       &.active, &:hover {
-        border: 1pt solid rgba($indenizou, .5);
+        border-color: $indenizou;
+        background-color: $indenizou;
+        color: white;
       }
-    }
-
-    @media #{$mobile} {
-      background-color: darken(white, 2%);
-      padding: 2em;
-      padding-top: 5rem;
-      flex-direction: column;
-      position: fixed;
-      width: auto;
-      overflow-y: auto;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      transition: transform .2s cubic-bezier(0.165, 0.84, 0.44, 1);
-      transform: translateX(100%);
-
-      &.opened { transform: translateX(0); }
-    }
-  }
-
-  &.opened {
-    #nav-toggle {
-      .icon-closed { display: inline; }
-      .icon-menu { display: none; }
-    }
-  }
-
-  &.closed {
-    #nav-toggle {
-      .icon-closed { display: none; }
-      .icon-menu { display: inline; }
     }
   }
 }
 
 #nav-logo {
   position: relative;
-  width: 3em;
+  display: block;
+  width: 2em;
   height: 100%;
   color: $indenizou;
 }
-
-.default-to-action {
-  border-radius: $radius;
-  background-color: $indenizou;
-}
-
-// @keyframes slide-in {
-//   from { transform: translateX(-100%); }
-//   to { transform: translateX(0); }
-// }
