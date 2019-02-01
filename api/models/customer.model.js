@@ -3,9 +3,9 @@ const shortid = require('shortid');
 const Bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Email = require('../libs/email');
+const config = require('../config');
 
-const pipelines = ['joined', 'contacted', 'pending', 'processing', 'completed'];
-exports.pipelines = pipelines;
+const isProd = process.env.NODE_ENV === 'production';
 
 const schema = new mongoose.Schema({
   _id: { type: String, default: shortid.generate },
@@ -23,8 +23,8 @@ const schema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: pipelines,
-    required: [true, 'É necessário fornecer o status de inscricao'],
+    enum: config.pipelines,
+    required: [true, 'É necessário fornecer a etapa do pipeline'],
   },
 
   mailchimp: {
@@ -36,7 +36,7 @@ const schema = new mongoose.Schema({
     status: {
       type: String,
       enum: ['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional'],
-      required: [true, 'É necessário fornecer o status de inscricao'],
+      required: [isProd, 'É necessário fornecer o status de inscricao'],
     },
     abuse: { type: Boolean, default: false },
   },

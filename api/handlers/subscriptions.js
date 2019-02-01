@@ -1,20 +1,26 @@
 const Boom = require('boom');
+const { groupBy } = require('lodash');
 const Customer = require('../models/customer.model');
-const { pipelines } = require('../models/customer.model');
 const Mailchimp = require('./mailchimp-api');
-const keyBy = require('lodash').keyBy;
+const config = require('../config');
 
 exports.subscribe = async (req, res) => {
+  const { sandbox } = req.body;
+  const chimpData = null;
   let subscriber;
 
-  subscriber = await Mailchimp.subscribeUser(req.body)
-    .catch(({ status: n }) => res.status(n).json(Boom.boomify(subscriber, { statusCode: n })));
+  if (!sandbox) {
+    subscriber = await Mailchimp.subscribeUser(req.body)
+      .catch(({ status: n }) => res.status(n).json(Boom.boomify(subscriber, { statusCode: n })));
 
-  const { status, id, unique_email_id } = subscriber;
+    chimpData.mailchimp.status = subscriber.status;
+    chimpData.mailchimp.id = subscriber.id;
+    chimpData.mailchimp.unique_email_id = subscriber.unique_email_id;
+  }
 
   subscriber = await Customer.create(Object.assign(
     req.body,
-    { mailchimp: { id, unique_email_id, status } },
+    chimpData,
   ))
     .catch(e => res.status(400).json(Boom.badRequest(e)));
 
@@ -28,7 +34,7 @@ exports.subscribers = async (req, res) => {
 
 exports.byStatus = async (req, res) => {
   const customer = await Customer.find().lean();
-  return res.json(keyBy(customer, 'status'));
+  return res.json(groupBy(customer, 'status'));
 };
 
-exports.status = (req, res) => res.json(pipelines);
+exports.status = (req, res) => res.json(config.pipelines);
