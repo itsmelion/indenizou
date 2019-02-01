@@ -1,0 +1,21 @@
+@import '~flamework/src/vars';
+
+.card {
+  background-color: white;
+  margin: .1rem 0;
+  padding: .4rem;
+}
+
+.tag {
+  background-color: #efefef;
+  font-size: .8em;
+  padding: .2em .5em .4em;
+  border-radius: 1em;
+  line-height: 1;
+}
+
+.contactby {
+  margin-top: .5em;
+  font-size: .8em;
+  color: $black5;
+}

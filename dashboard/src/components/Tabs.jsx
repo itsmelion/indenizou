@@ -34,8 +34,7 @@ class TabWrapper extends Component {
           {pipeline.map(status => <Tab label={status} value={status} />)}
         </Tabs>
 
-        {pipeline.map(status => <Tab label={status} value={status} />)}
-        {value === 'Item One' && <ClientList  />}
+        {value === 'Item One' && <ClientList />}
         {value === 'Item Two' && <div>Item Two</div>}
         {value === 'Item Three' && <div>Item Three</div>}
         {value === 'Item Four' && <div>Item Four</div>}

@@ -1,18 +1,6 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
+import Pipeline from 'components/Pipeline/Pipeline';
 
-const Tabs = lazy(() => import('components/Tabs'));
-const ClientList = lazy(() => import('components/Clientes'));
+const Clientes = () => <Pipeline />;
 
-const Clients = () => (
-  <main contain="">
-    <h1>Lista de Clientes</h1>
-    <section column="" align="start start">
-      <Suspense fallback={<div>Loading...</div>}>
-        <Tabs />
-        <ClientList />
-      </Suspense>
-    </section>
-  </main>
-);
-
-export default Clients;
+export default Clientes;
