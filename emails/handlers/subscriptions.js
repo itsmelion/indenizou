@@ -10,7 +10,10 @@ exports.subscribe = async (req, res) => {
 
   const { status, id, unique_email_id } = subscriber;
 
-  subscriber = await Customer.create(Object.assign(req.body, { mailchimp: { id, unique_email_id, status } }))
+  subscriber = await Customer.create(Object.assign(
+    req.body,
+    { mailchimp: { id, unique_email_id, status } },
+  ))
     .catch(e => res.status(400).json(Boom.badRequest(e)));
 
   return res.status(201).json(subscriber);

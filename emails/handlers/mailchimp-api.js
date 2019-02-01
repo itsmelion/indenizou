@@ -1,7 +1,8 @@
+// @ts-nocheck
 const axios = require('axios');
 
 class Mailchimp {
-  constructor (config = {}) {
+  constructor(config = {}) {
     this.list = config.list || process.env.MAILCHIMP_LIST;
     this.username = config.username || process.env.MAILCHIMP_USER;
     this.password = config.password || process.env.MAILCHIMP_KEY;
@@ -25,7 +26,7 @@ class Mailchimp {
    *   }
    * }
   */
-  subscribeUser (body, list = this.list) {
+  subscribeUser(body, list = this.list) {
     const data = {
       email_address: body.email,
       status: 'subscribed',
@@ -41,11 +42,12 @@ class Mailchimp {
 
     return axios({
       method: 'post',
-      url: `${ this.api }/lists/${ list }/members`,
+      url: `${this.api}/lists/${list}/members`,
       auth: this.auth,
       data,
     })
-    .catch(r => r.response.data);
+      .then(r => r.data)
+      .catch(r => r.response.data);
   }
 
 
@@ -66,95 +68,95 @@ class Mailchimp {
     **  cleaned
         This address bounced and has been removed from the list.
   */
-  getUser (list = this.list, user) {
+  getUser(list = this.list, user) {
     return axios({
-      url: `${ this.api }/lists/${ list }/members/${ user }`,
+      url: `${this.api}/lists/${list}/members/${user}`,
       auth: this.auth,
     })
       .catch(() => new Error('Could not FETCH user'));
   }
 
-  getMembers (list = this.list, params = {}) {
+  getMembers(list = this.list, params = {}) {
     return axios({
-      url: `${ this.api }/lists/${ list }/members`,
+      url: `${this.api}/lists/${list}/members`,
       params,
       auth: this.auth,
     })
-    .then(r => ({ total: r.total_items, members: r.members }))
-    .catch(() => new Error('Could not FETCH members'));
+      .then(r => ({ total: r.total_items, members: r.members }))
+      .catch(() => new Error('Could not FETCH members'));
   }
 
-  updateUser (list = this.list, user, data = {}) {
+  updateUser(list = this.list, user, data = {}) {
     return axios({
       method: 'patch',
-      url: `${ this.api }/lists/${ list }/members/${ user }`,
+      url: `${this.api}/lists/${list}/members/${user}`,
       auth: this.auth,
       data,
     })
       .catch(() => new Error('Could not UPDATE user'));
   }
 
-  deleteUser (list = this.list, user) {
+  deleteUser(list = this.list, user) {
     return axios({
       method: 'patch',
-      url: `${ this.api }/lists/${ list }/members/${ user }`,
+      url: `${this.api}/lists/${list}/members/${user}`,
       auth: this.auth,
       data: { status: 'cleaned' },
     }).catch(() => new Error('Could not DELETE user'));
   }
 
-  COMPLETELY_REMOVE_USER (list = this.list, user) {
+  COMPLETELY_REMOVE_USER(list = this.list, user) {
     return axios({
       method: 'delete',
-      url: `${ this.api }/lists/${ list }/members/${ user }`,
+      url: `${this.api}/lists/${list}/members/${user}`,
       auth: this.auth,
     })
-    .catch(r => r.response.data);
+      .catch(r => r.response.data);
   }
 
-  createTag (list = this.list, name) {
+  createTag(list = this.list, name) {
     const data = {
       name,
-      Static_segment: []
+      Static_segment: [],
     };
 
     return axios({
       method: 'post',
-      url: `${ this.api }/lists/${ list }/segments`,
+      url: `${this.api}/lists/${list}/segments`,
       auth: this.auth,
       data,
     })
-    .catch(r => r.response.data);
+      .catch(r => r.response.data);
   }
 
-  viewTags (list = this.list, subscriber) {
+  viewTags(list = this.list, subscriber) {
     return axios({
       method: 'get',
-      url: `${ this.api }/lists/${ list }/members/${ subscriber }/tags`,
+      url: `${this.api}/lists/${list}/members/${subscriber}/tags`,
       auth: this.auth,
     })
-    .then(r => r.tags)
-    .catch(r => r.response.data);
+      .then(r => r.tags)
+      .catch(r => r.response.data);
   }
 
-  addTag (list = this.list, segment, email_address) {
+  addTag(list = this.list, segment, email_address) {
     const data = { email_address };
     return axios({
       method: 'post',
-      url: `${ this.api }/lists/${ list }/segments/${ segment }/members`,
+      url: `${this.api}/lists/${list}/segments/${segment}/members`,
       auth: this.auth,
       data,
     })
-    .catch(r => r.response.data);
+      .catch(r => r.response.data);
   }
 
-  deleteTag (list = this.list, segment, subscriber) {
+  deleteTag(list = this.list, segment, subscriber) {
     return axios({
       method: 'delete',
-      url: `${ this.api }/lists/${ list }/segments/${ segment }/members/${ subscriber }`,
+      url: `${this.api}/lists/${list}/segments/${segment}/members/${subscriber}`,
       auth: this.auth,
     })
-    .catch(r => r.response.data);
+      .catch(r => r.response.data);
   }
 }
 
