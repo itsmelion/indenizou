@@ -1,5 +1,7 @@
 .Auth-common {
-  background: $indenizou;
+  background-color: $indenizou;
+  background-image: url(../images/passport.jpg);
+  background-size: cover;
   @extend .flex;
   @extend .column;
   @extend [align="center center"];
@@ -7,5 +9,18 @@
   form {
     background-color: white;
     @extend .p2;
+    @extend .column;
+    @extend [align="center center"];
+    @include shadow;
+    padding-top: 0;
+    margin-top: -2rem;
+    border-radius: $radius;
   }
+}
+
+.Auth-logo {
+  max-width: 8rem;
+  max-height: 8rem;
+  height: auto;
+  width: 100%;
 }

@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from 'actions';
+import Logo from './Logo';
 
 class SignIn extends PureComponent {
   onSubmit = (formProps) => {
@@ -19,25 +20,27 @@ class SignIn extends PureComponent {
     return (
       <section className="Auth-common SignIn">
         <form onSubmit={handleSubmit(this.onSubmit)}>
+          {Logo}
+
           <fieldset>
-            <label htmlFor="email">Email</label>
             <Field
               id="email"
               name="email"
-              type="text"
+              type="email"
               component="input"
-              autoComplete="none"
+              autoComplete="email"
+              placeholder="Email"
             />
           </fieldset>
 
           <fieldset>
-            <label htmlFor="password">Password</label>
             <Field
               id="password"
+              placeholder="Senha"
               name="password"
               type="password"
               component="input"
-              autoComplete="none"
+              autoComplete="password"
             />
           </fieldset>
           <sub>{auth.errorMessage}</sub>
