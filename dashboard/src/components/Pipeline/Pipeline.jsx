@@ -6,13 +6,21 @@ import style from './Pipeline.module.scss';
 const API = process.env.REACT_APP_API_URL;
 
 class Pipeline extends PureComponent {
+  signal = axios.CancelToken.source();
+
   state = { clients: null, pipeline: [] };
 
   componentDidMount() {
-    axios.get(`${API}/pipelines`)
-      .then(({ data: pipeline }) => axios.get(`${API}/clients`)
+    const options = { cancelToken: this.signal.token };
+
+    return axios.get(`${API}/pipelines`, options)
+      .then(({ data: pipeline }) => axios.get(`${API}/clients`, options)
         .then(({ data }) => this.setState(({ clients: data, pipeline }))))
       .catch(e => new Error(e));
+  }
+
+  componentWillUnmount() {
+    this.signal.cancel();
   }
 
   render() {
