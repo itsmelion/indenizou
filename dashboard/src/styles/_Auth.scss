@@ -1,0 +1,11 @@
+.Auth-common {
+  background: $indenizou;
+  @extend .flex;
+  @extend .column;
+  @extend [align="center center"];
+
+  form {
+    background-color: white;
+    @extend .p2;
+  }
+}

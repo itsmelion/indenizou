@@ -32,7 +32,7 @@ render(
         <Topbar />
         <Switch>
           {/* <Route exact path="/" component={Home} /> */}
-          <Route exact path="/" component={Clientes} />
+          <Route exact path="/" component={SignIn} />
           <Route path="/signup" component={SignUp} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signout" component={SignOut} />
