@@ -16,7 +16,7 @@ const Lists = require('./handlers/subscriptions');
 const ChimpHooks = require('./handlers/mailchimp.hooks');
 const ChatbotHooks = require('./handlers/chatbot.hooks');
 const Authentication = require('./handlers/authentication');
-// const Accounts = require('./handlers/users');
+const Accounts = require('./handlers/users');
 
 // Middlewares
 const authBot = require('./middlewares/authChatbot');
@@ -51,10 +51,9 @@ app.post('/hooks/email', ChimpHooks.chimpEventsHandler);
 // Accounts
 app.post('/signin', requireSignin, Authentication.signin);
 app.post('/signup', Authentication.signup);
-// app.post('/accounts', Accounts.createUser);
-// app.get('/accounts/:userID/settings', Accounts.userSettings);
+app.get('/accounts/:userID', requireAuth, Accounts.user);
 app.get('/protected', requireAuth, (req, res) => res.json({ hi: 'there' }));
 
 server.listen(process.env.PORT, process.env.HOST, () => {
-  log.info(`🖥️ Indenizou EMAILS up at: ${process.env.HOST}:${process.env.PORT}`);
+  log.info(`🖥️ Indenizou API up at: ${process.env.HOST}:${process.env.PORT}`);
 });

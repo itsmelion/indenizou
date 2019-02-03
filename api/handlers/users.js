@@ -1,14 +1,11 @@
 const Boom = require('boom');
 const Users = require('../models/user.model');
 
-exports.userSettings = async (req, res) => {
-  const _id = req.params.user;
-  const user = await Users.findOne({ _id }).lean();
-  return res.json(user);
-};
+exports.user = ({ params }, res) => Users
+  .findById(params.userID, (err, user) => {
+    if (err) return res.status(500).json(Boom.internal(err));
 
-exports.createUser = async (req, res) => {
-  const user = await Users.create(req.body)
-    .catch(e => res.status(400).json(Boom.badRequest(e)));
-  return res.status(201).json(user.id);
-};
+    if (!user) return res.status(404).json(Boom.notFound('User not Found'));
+
+    return res.json(user);
+  });
