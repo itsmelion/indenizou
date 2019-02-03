@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const log = require('./log');
 
 const app = express();
@@ -14,14 +15,21 @@ const mongoParams = { useNewUrlParser: true, useCreateIndex: true };
 const Lists = require('./handlers/subscriptions');
 const ChimpHooks = require('./handlers/mailchimp.hooks');
 const ChatbotHooks = require('./handlers/chatbot.hooks');
+const Authentication = require('./handlers/authentication');
 // const Accounts = require('./handlers/users');
 
 // Middlewares
 const authBot = require('./middlewares/authChatbot');
+const passportService = require('./libs/passport');
+
+const requireAuth = passport.authenticate('jwt', { session: false });
+const requireSignin = passport.authenticate('local', { session: false });
 
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 app.use(cors());
+passport.use(passportService.jwtLogin);
+passport.use(passportService.localLogin);
 
 mongoose.connect(process.env.DB_URL, mongoParams);
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -40,9 +48,12 @@ app.get('/pipelines', Lists.status);
 app.get('/hooks/email', (req, res) => res.status(200).send('OK'));
 app.post('/hooks/email', ChimpHooks.chimpEventsHandler);
 
-// Users
+// Accounts
+app.post('/signin', requireSignin, Authentication.signin);
+app.post('/signup', Authentication.signup);
 // app.post('/accounts', Accounts.createUser);
 // app.get('/accounts/:userID/settings', Accounts.userSettings);
+app.get('/protected', requireAuth, (req, res) => res.json({ hi: 'there' }));
 
 server.listen(process.env.PORT, process.env.HOST, () => {
   log.info(`🖥️ Indenizou EMAILS up at: ${process.env.HOST}:${process.env.PORT}`);

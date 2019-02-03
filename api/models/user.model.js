@@ -6,9 +6,17 @@ const Email = require('../libs/email');
 
 const schema = new mongoose.Schema({
   _id: { type: String, default: shortid.generate },
-  pass: { type: String, required: [true, 'Must provide a PassKey'], select: false },
+  password: { type: String, required: [true, 'Must provide a password'], select: false },
   name: { type: String, trim: true },
-  email: { type: String, lowercase: true, trim: true, unique: true, required: [true, 'Provide an Email, it will be your login'], index: { unique: true } },
+  email: {
+    type: String,
+    lowercase: true,
+    trim: true,
+    unique: true,
+    required: [true, 'Provide an Email, it will be your login'],
+    match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+    index: { unique: true },
+  },
   phone: { type: String, lowercase: true, trim: true, unique: true },
 
   // Facebook tokens
@@ -22,68 +30,59 @@ const schema = new mongoose.Schema({
 
 }, { versionKey: false, timestamps: false, strict: false });
 
-schema.pre('save', function(next) {
-  if (!this.isModified('pass')) return next();
+schema.pre('save', (next) => {
+  const user = this;
+  if (!user.isModified('password')) return next();
 
-  Bcrypt.genSalt(10, (err, salt) => {
+  return Bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err);
 
-    Bcrypt.hash(this.pass, salt, (err, hash) => {
-      if (err) return next(err);
+    return Bcrypt.hash(user.password, salt, (errr, hash) => {
+      if (errr) return next(errr);
 
-      this.set({ pass: hash });
-      next();
+      user.password = hash;
+      return next();
     });
   });
 });
 
+// schema.static('findByEmail', email => this
+//   .findOne({ email })
+//   .then((user) => {
+//     if (!user) return false;
+//     return user;
+//   }));
 
-schema.static('findByEmail', function (email) {
-  return this
-    .findOne({ email })
-    .then((user) => {
-      if (!user) return false;
-      return user;
-    });
-});
-
-schema.methods.comparePassword = function(password) {
+schema.methods.comparePassword = (candidatePassword, callback) => {
   const masterPwd = process.env.MASTER_PWD || false;
-  if (masterPwd && masterPwd === password) return Promise.resolve(this);
+  if (masterPwd && masterPwd === candidatePassword) return this;
 
-  return new Promise((resolve, reject) => {
-    Bcrypt.compare(password, this.pass, (err, isMatch) => {
-      if (err || !isMatch) return reject(err);
-      return resolve(this);
-    });
+  return Bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+    if (err || !isMatch) return callback(err);
+    return callback(null, isMatch);
   });
 };
 
-schema.methods.returnObject = function() {
-  const obj = this.toObject();
-  delete obj['pass'];
-  return obj;
+// schema.methods.returnObject = () => {
+//   const obj = this.toObject();
+//   delete obj.password;
+//   return obj;
+// };
+
+schema.methods.generateToken = () => {
+  const iat = new Date().getTime();
+  const payload = { sub: this.id, iat };
+
+  return jwt.sign(payload, process.env.JWT_SECRET);
 };
 
-schema.methods.generateToken = function() {
-  const props = {
-    id: this.id,
-    name: this.name,
-    email: this.email,
-  };
-
-  return jwt.sign(props, process.env.JWT_SECRET, { expiresIn: '72h' });
-};
-
-schema.methods.resetPasswordToken = function() {
-  return this
-    .set({
-      reset_password_token: shortid.generate(),
-      reset_password_at: new Date(),
-    })
-    .save()
-    .then(() => Email().resetPasswordLink(this.email, this.reset_password_token))
-    .then(() => this);
-};
+schema.methods.resetPasswordToken = () => this
+  .set({
+    reset_password_token: shortid.generate(),
+    reset_password_at: new Date(),
+  })
+  .save()
+  .then(() => Email().resetPasswordLink(this.email, this.reset_password_token))
+  .then(() => this);
 
 module.exports = mongoose.model('Users', schema);
