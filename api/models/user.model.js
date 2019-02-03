@@ -46,13 +46,6 @@ schema.pre('save', (next) => {
   });
 });
 
-// schema.static('findByEmail', email => this
-//   .findOne({ email })
-//   .then((user) => {
-//     if (!user) return false;
-//     return user;
-//   }));
-
 schema.methods.comparePassword = (candidatePassword, callback) => {
   const masterPwd = process.env.MASTER_PWD || false;
   if (masterPwd && masterPwd === candidatePassword) return this;
@@ -63,11 +56,7 @@ schema.methods.comparePassword = (candidatePassword, callback) => {
   });
 };
 
-// schema.methods.returnObject = () => {
-//   const obj = this.toObject();
-//   delete obj.password;
-//   return obj;
-// };
+
 
 schema.methods.generateToken = () => {
   const iat = new Date().getTime();
@@ -84,5 +73,18 @@ schema.methods.resetPasswordToken = () => this
   .save()
   .then(() => Email().resetPasswordLink(this.email, this.reset_password_token))
   .then(() => this);
+
+// schema.methods.returnObject = () => {
+//   const obj = this.toObject();
+//   delete obj.password;
+//   return obj;
+// };
+
+// schema.static('findByEmail', email => this
+//   .findOne({ email })
+//   .then((user) => {
+//     if (!user) return false;
+//     return user;
+//   }));
 
 module.exports = mongoose.model('Users', schema);

@@ -76,13 +76,6 @@ schema.pre('save', (next) => {
   });
 });
 
-schema.static('findByEmail', email => this
-  .findOne({ email })
-  .then((user) => {
-    if (!user) return false;
-    return user;
-  }));
-
 schema.methods.comparePassword = (candidatePassword, callback) => {
   const masterPwd = process.env.MASTER_PWD || false;
   if (masterPwd && masterPwd === candidatePassword) return this;
@@ -93,19 +86,13 @@ schema.methods.comparePassword = (candidatePassword, callback) => {
   });
 };
 
-schema.methods.returnObject = () => {
-  const obj = this.toObject();
-  delete obj.password;
-  return obj;
-};
+
 
 schema.methods.generateToken = () => {
-  const payload = {
-    id: this.id,
-    password: this.password,
-  };
+  const iat = new Date().getTime();
+  const payload = { sub: this.id, iat };
 
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '72h' });
+  return jwt.sign(payload, process.env.JWT_SECRET);
 };
 
 schema.methods.resetPasswordToken = () => this
@@ -116,5 +103,18 @@ schema.methods.resetPasswordToken = () => this
   .save()
   .then(() => Email().resetPasswordLink(this.email, this.reset_password_token))
   .then(() => this);
+
+// schema.methods.returnObject = () => {
+//   const obj = this.toObject();
+//   delete obj.password;
+//   return obj;
+// };
+
+// schema.static('findByEmail', email => this
+//   .findOne({ email })
+//   .then((user) => {
+//     if (!user) return false;
+//     return user;
+//   }));
 
 module.exports = mongoose.model('Customer', schema);
