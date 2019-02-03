@@ -19,6 +19,7 @@ const schema = new mongoose.Schema({
     index: { unique: true },
   },
   phone: { type: String, lowercase: true, trim: true, unique: true },
+  avatarUrl: { type: String, trim: true },
 
   // Facebook tokens
   facebook_short_access_token: { type: String, trim: true },
