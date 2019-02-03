@@ -60,61 +60,46 @@ const schema = new mongoose.Schema({
 
 }, { versionKey: false, timestamps: true });
 
-schema.pre('save', (next) => {
-  const user = this;
-  if (!user.isModified('password')) return next();
-
+schema.pre('save', function save(next) {
   return Bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err);
 
-    return Bcrypt.hash(user.password, salt, (errr, hash) => {
+    return Bcrypt.hash(this.password, salt, (errr, hash) => {
       if (errr) return next(errr);
 
-      user.password = hash;
+      this.password = hash;
       return next();
     });
   });
 });
 
-schema.methods.comparePassword = (candidatePassword, callback) => {
+schema.methods.comparePassword = function comparePassword(candidatePassword, callback) {
   const masterPwd = process.env.MASTER_PWD || false;
   if (masterPwd && masterPwd === candidatePassword) return this;
 
   return Bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-    if (err || !isMatch) return callback(err);
+    if (err) return callback(err);
+
     return callback(null, isMatch);
   });
 };
 
-
-
-schema.methods.generateToken = () => {
+schema.methods.generateToken = function generateToken() {
   const iat = new Date().getTime();
   const payload = { sub: this.id, iat };
 
   return jwt.sign(payload, process.env.JWT_SECRET);
 };
 
-schema.methods.resetPasswordToken = () => this
-  .set({
-    reset_password_token: shortid.generate(),
-    reset_password_at: new Date(),
-  })
-  .save()
-  .then(() => Email().resetPasswordLink(this.email, this.reset_password_token))
-  .then(() => this);
-
-// schema.methods.returnObject = () => {
-//   const obj = this.toObject();
-//   delete obj.password;
-//   return obj;
-// };
-
-// schema.static('findByEmail', email => this
-//   .findOne({ email })
-//   .then((user) => {
-//     if (!user) return false;
-//     return user;
-//   }));
+schema.methods.resetPasswordToken = function resetPasswordToken() {
+  return this
+    .set({
+      reset_password_token: shortid.generate(),
+      reset_password_at: new Date(),
+    })
+    .save()
+    .then(() => Email().resetPasswordLink(this.email, this.reset_password_token))
+    .then(() => this);
+};
 
 module.exports = mongoose.model('Customer', schema);

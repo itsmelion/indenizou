@@ -27,7 +27,7 @@ exports.localLogin = new LocalStrategy(localOptions, (email, password, done) => 
 
       return done(null, user);
     });
-  }));
+  }).select('password'));
 
 // Create JWT strategy
 // See if the user ID in the payload exists in our database
