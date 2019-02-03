@@ -32,6 +32,13 @@ const schema = new mongoose.Schema({
 
 }, { versionKey: false, timestamps: false, strict: false });
 
+const transformID = {
+  virtuals: true,
+  // eslint-disable-next-line no-underscore-dangle, no-param-reassign
+  transform: function deleteID(doc, ret) { delete ret._id; },
+};
+schema.set('toJSON', transformID);
+
 schema.pre('save', function save(next) {
   return Bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err);

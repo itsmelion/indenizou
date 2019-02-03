@@ -36,7 +36,7 @@ class Pipeline extends PureComponent {
 
             <ol>
               {clients[step] && clients[step].map(
-                client => <ClientItem client={client} key={client._id} />,
+                client => <ClientItem client={client} key={client.id} />,
               )}
             </ol>
           </section>
