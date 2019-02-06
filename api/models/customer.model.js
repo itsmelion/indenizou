@@ -49,6 +49,20 @@ const schema = new mongoose.Schema({
     abuse: { type: Boolean, default: false },
   },
 
+  files: {
+    type: Array,
+
+    children: {
+      type: Object,
+
+      children: {
+        url: { type: String, trim: true },
+        name: String,
+        submittedAt: Date,
+      },
+    },
+  },
+
   // Facebook tokens
   facebook_short_access_token: { type: String, trim: true },
   facebook_access_token: { type: String, trim: true },
@@ -66,8 +80,11 @@ const transformID = {
   transform: function deleteID(doc, ret) { delete ret._id; },
 };
 schema.set('toJSON', transformID);
+schema.set('toObject', transformID);
 
 schema.pre('save', function save(next) {
+  if (!this.password) return next();
+
   return Bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err);
 

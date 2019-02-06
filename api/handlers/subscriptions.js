@@ -28,13 +28,18 @@ exports.subscribe = async (req, res) => {
 };
 
 exports.subscribers = async (req, res) => {
-  const customer = await Customer.find().lean();
+  const customers = await Customer.find();
+  return res.json(customers);
+};
+
+exports.customer = async ({ params }, res) => {
+  const customer = await Customer.findById(params.id);
   return res.json(customer);
 };
 
 exports.byStatus = async (req, res) => {
-  const customer = await Customer.find().lean();
-  return res.json(groupBy(customer, 'status'));
+  const customers = await Customer.find();
+  return res.json(groupBy(customers, 'status'));
 };
 
 exports.status = (req, res) => res.json(config.pipelines);
