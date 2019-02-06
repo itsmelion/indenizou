@@ -10,8 +10,10 @@ class Pipeline extends PureComponent {
 
   state = { clients: null, pipeline: [] };
 
+  headers = { Authorization: localStorage.getItem('token') };
+
   componentDidMount() {
-    const options = { cancelToken: this.signal.token };
+    const options = { cancelToken: this.signal.token, headers: this.headers };
 
     return axios.get(`${API}/pipelines`, options)
       .then(({ data: pipeline }) => axios.get(`${API}/clients`, options)

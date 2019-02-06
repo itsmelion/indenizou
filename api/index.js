@@ -17,6 +17,7 @@ const ChimpHooks = require('./handlers/mailchimp.hooks');
 const ChatbotHooks = require('./handlers/chatbot.hooks');
 const Authentication = require('./handlers/authentication');
 const Accounts = require('./handlers/users');
+const Files = require('./handlers/files');
 
 // Middlewares
 const authBot = require('./middlewares/authChatbot');
@@ -39,10 +40,13 @@ app.post('/chatbot', authBot, ChatbotHooks.saveData);
 app.post('/chatbot/user', authBot, ChatbotHooks.saveData);
 app.post('/chatbot/indicacao', authBot, ChatbotHooks.saveData);
 
-app.post('/subscribe', Lists.subscribe);
-app.get('/subscribers', Lists.subscribers);
-app.get('/clients', Lists.byStatus);
 app.get('/pipelines', Lists.status);
+app.post('/subscribe', Lists.subscribe);
+app.get('/subscribers', requireAuth, Lists.subscribers);
+app.get('/clients', requireAuth, Lists.byStatus);
+app.get('/customer/:id', requireAuth, Lists.customer);
+app.put('/customer/:id', requireAuth, Lists.customer);
+app.post('/customer/:id/files', requireAuth, Files.save);
 
 // ChimpHooks
 app.get('/hooks/email', (req, res) => res.status(200).send('OK'));
