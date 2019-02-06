@@ -30,7 +30,7 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 # Bundle app source
 COPY . /usr/src/app
 
-ARG PORT=1801
+ARG PORT=1800
 ENV PORT $PORT
 EXPOSE $PORT
 

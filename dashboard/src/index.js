@@ -16,6 +16,9 @@ import Topbar from './components/Topbar/Topbar';
 import SignUp from './components/Auth/SignUp';
 import SignIn from './components/Auth/SignIn';
 import SignOut from './components/Auth/SignOut';
+import ShowCustomer from './components/ShowCustomer/ShowCustomer';
+import EditCustomer from './components/EditCustomer/EditCustomer';
+
 // import Home from './pages/Home';
 import Clientes from './pages/Clientes';
 
@@ -38,6 +41,8 @@ render(
           <Route path="/signout" component={SignOut} />
           <Route path="/dashboard" component={requireAuth(Clientes)} />
           <Route path="/clientes" component={requireAuth(Clientes)} />
+          <Route path="/cliente/:id/edit" component={requireAuth(EditCustomer)} />
+          <Route path="/cliente/:id" component={ShowCustomer} />
         </Switch>
       </ScrollToTop>
     </Router>

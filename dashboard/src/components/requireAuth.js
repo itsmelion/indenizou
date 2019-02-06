@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 export default (ChildComponent) => {
-  class ComposedComponent extends Component {
+  class ComposedComponent extends PureComponent {
     componentDidMount() {
       this.shouldNavigateAway();
     }
@@ -21,8 +21,8 @@ export default (ChildComponent) => {
     }
   }
 
-  function mapStateToProps(state) {
-    return { auth: state.auth.authenticated };
+  function mapStateToProps({ auth }) {
+    return { auth: auth.authenticated };
   }
 
   return connect(mapStateToProps)(ComposedComponent);

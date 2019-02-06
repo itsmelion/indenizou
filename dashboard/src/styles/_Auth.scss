@@ -16,6 +16,17 @@
     margin-top: -2rem;
     border-radius: $radius;
   }
+
+  input {
+    font-size: 1.15rem;
+    border: 1pt solid $black3;
+    padding: .5rem 1rem;
+    margin-top: .25rem;
+    margin-bottom: .25rem;
+    border-radius: $radius * 3;
+    outline: none;
+    font-weight: 600;
+  }
 }
 
 .Auth-logo {

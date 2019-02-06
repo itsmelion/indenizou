@@ -22,30 +22,27 @@ class SignIn extends PureComponent {
         <form onSubmit={handleSubmit(this.onSubmit)}>
           {Logo}
 
-          <fieldset>
-            <Field
-              id="email"
-              name="email"
-              type="email"
-              component="input"
-              autoComplete="email"
-              placeholder="Email"
-            />
-          </fieldset>
+          <Field
+            id="email"
+            name="email"
+            type="email"
+            component="input"
+            autoComplete="email"
+            placeholder="Email"
+          />
 
-          <fieldset>
-            <Field
-              id="password"
-              placeholder="Senha"
-              name="password"
-              type="password"
-              component="input"
-              autoComplete="password"
-            />
-          </fieldset>
+          <Field
+            id="password"
+            placeholder="Senha"
+            name="password"
+            type="password"
+            component="input"
+            autoComplete="password"
+          />
+
           <sub>{auth.errorMessage}</sub>
 
-          <button type="submit">Sign In</button>
+          <button className="mt1 button" type="submit">Sign In</button>
         </form>
       </section>
     );

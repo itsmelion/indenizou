@@ -1,11 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faPowerOff } from '@fortawesome/free-solid-svg-icons';
 import { ReactComponent as Logo } from './logo.svg';
 import './Topbar.scss';
 
-const Topbar = () => (
+const Topbar = ({ authenticated }) => (
   <nav hide-print="" id="topbar">
     <div className="contain row nowrap" align="between center">
       <NavLink
@@ -19,12 +20,24 @@ const Topbar = () => (
       </NavLink>
 
       <ul flex="" align="end" mobile-align="between" className="tabs">
-        <NavLink to="/clientes">
-          <FontAwesomeIcon icon={faUsers} /> Clientes
-        </NavLink>
+        {authenticated && (
+          <>
+            <NavLink to="/clientes">
+              <FontAwesomeIcon icon={faUsers} /> Clientes
+            </NavLink>
+
+            <NavLink to="/signout">
+              <FontAwesomeIcon icon={faPowerOff} /> Sair
+            </NavLink>
+          </>
+        )}
       </ul>
     </div>
   </nav>
 );
 
-export default Topbar;
+function mapStateToProps({ auth: { authenticated } }) {
+  return { authenticated };
+}
+
+export default connect(mapStateToProps)(Topbar);
