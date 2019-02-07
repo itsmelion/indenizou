@@ -19,8 +19,8 @@ export const signIn = (formProps, callback) => async (dispatch) => {
   try {
     const { data } = await axios.post(`${API}/signin`, formProps);
 
-    dispatch({ type: AUTH_USER, payload: data.token });
     localStorage.setItem('token', data.token);
+    dispatch({ type: AUTH_USER, payload: data.token });
     callback();
   } catch (e) {
     dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
