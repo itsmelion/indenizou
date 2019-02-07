@@ -30,3 +30,10 @@
 .modal-open {
   overflow-y: hidden;
 }
+
+.yellow, .warn { color: $yellow; }
+.red, .danger, .error { color: $red; }
+
+@media #{$mobile} {
+  #root { margin-bottom: 3.25rem; }
+}

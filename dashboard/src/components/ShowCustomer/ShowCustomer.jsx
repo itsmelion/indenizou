@@ -1,27 +1,23 @@
 import React, { PureComponent } from 'react';
 import axios from 'axios';
+import { getCustomer } from 'api';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import style from './ShowCustomer.module.scss';
-
-const API = process.env.REACT_APP_API_URL;
 
 class ShowCustomer extends PureComponent {
   state = { customer: null };
 
   signal = axios.CancelToken.source();
 
-  headers = { Authorization: localStorage.getItem('token') };
-
   componentDidMount() {
     const { match } = this.props;
-    const options = { cancelToken: this.signal.token, headers: this.headers };
+    const options = { cancelToken: this.signal.token };
 
-    return axios.get(`${API}/customer/${match.params.id}`, options)
-      .then(({ data }) => this.setState(({ customer: data })))
-      .catch(e => new Error(e));
+    return getCustomer(match.params.id, options)
+      .then(customer => this.setState(({ customer })));
   }
 
   componentWillUnmount() {
@@ -35,6 +31,9 @@ class ShowCustomer extends PureComponent {
     return (
       <main>
         <header row="" align="start end" className={style.header}>
+          {customer.profilePicture && (
+            <img className={style.avatar} src={customer.profilePicture} alt="profile" />
+          )}
           <div align="start center" contain="" className="row pv1">
             <h2 className={style.name}>{customer.name}</h2>
             <div className={style.status}>{customer.status}</div>
@@ -42,31 +41,70 @@ class ShowCustomer extends PureComponent {
         </header>
 
         <div row="" contain="" className={style.sections}>
-          <section className={style.data} flex="auto">
-            <div className="mv1">
-              <h6>Email:</h6>
-              <a className="link" href={`mailto:${customer.email}`}>
-                {customer.email}
-              </a>
-            </div>
+          <section column="" flex="auto">
+            <section className={style.data}>
+              <div className="mb1">
+                <div className={style.outro}>
+                  <h3>{customer.assunto}</h3>
+                  {customer.outro && <p>{customer.outro}</p>}
+                </div>
+              </div>
 
-            <div className="mv1">
-              <h6>Telefone:</h6>
-              <a className="link" href={`tel:${customer.phone}`}>
-                {customer.phone}
-              </a>
-            </div>
+              <div className="mv1">
+                <h6>Email:</h6>
+                <a className="link" href={`mailto:${customer.email}`}>
+                  {customer.email}
+                </a>
+              </div>
 
-            <div className="mv1">
-              <h6>Prefere contato via:</h6>
-              {customer.contactby}
-              {customer.contactby === 'whatsapp'
-                && <FontAwesomeIcon fixedWidth icon={faWhatsapp} />}
-            </div>
+              <div className="mv1">
+                <h6>Telefone:</h6>
+                <a className="link" href={`tel:${customer.phone}`}>
+                  {customer.phone}
+                </a>
+              </div>
 
-            <Link className="button" to={`/cliente/${customer.id}/edit`}>
-              <FontAwesomeIcon icon={faEdit} /> Editar Dados
-            </Link>
+              <div className="mv1">
+                <h6>Prefere contato via:</h6>
+                {customer.contactby}
+                {customer.contactby === 'whatsapp'
+                  && <FontAwesomeIcon fixedWidth icon={faWhatsapp} />}
+              </div>
+
+              <Link className="button" to={`/cliente/${customer.id}/edit`}>
+                <FontAwesomeIcon icon={faEdit} /> Editar Dados
+              </Link>
+            </section>
+
+            <article className={style.mailchimp}>
+              <h4 className="mb2">
+                Inscrição de email:
+                <sub>&nbsp;(Mailchimp)</sub>
+              </h4>
+
+              {customer.mailchimp.abuse && (
+                <p className="bold warn">
+                  <FontAwesomeIcon icon={faExclamationTriangle} />
+                  &nbsp;Reportado como Abuso ou Spam
+                </p>
+              )}
+
+              {customer.mailchimp.status && (
+                <div className="mv1">
+                  <h6>Status:</h6>
+                  <p>{customer.mailchimp.status}</p>
+                </div>
+              )}
+
+              {!!customer.mailchimp.tags.length && (
+                <div className="mv1">
+                  <h6>Tags:</h6>
+                  <ul className={style.tags}>
+                    {customer.mailchimp.tags.map(tag => <li key={tag}>{tag}, &nbsp;</li>)}
+                  </ul>
+                </div>
+              )}
+            </article>
           </section>
 
           <section className={style.files} flex="auto">

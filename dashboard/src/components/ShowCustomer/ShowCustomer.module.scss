@@ -1,3 +1,4 @@
+@import '~flamework/vars';
 @import 'styles/vars.scss';
 
 .header {
@@ -20,10 +21,37 @@
 .data {
   margin-top: -2rem;
   padding: 2rem;
+  max-width: 40rem;
   border-radius: $radius;
   background-color: white;
 }
 
+.mailchimp {
+  padding: 2rem;
+  max-width: 40rem;
+  border-radius: $radius;
+  background-color: white;
+  margin-bottom: 5rem;
+  margin-top: 1rem;
+}
+
 .files {
   padding: 2rem;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 90pt;
+  height: 90pt;
+  object-fit: cover;
+  object-position: center;
+  @include shadow;
+}
+
+.outro {
+  h3 { font-weight: bold; }
+  p {
+    font-size: 1.1rem;
+    font-style: italic
+  }
 }
