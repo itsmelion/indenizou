@@ -22,8 +22,25 @@
   padding: 2rem;
   border-radius: $radius;
   background-color: white;
+
+  > div > h6 {
+    margin-left: 1rem;
+  }
 }
 
 .files {
   padding: 2rem;
+}
+
+.radio {
+  line-height: 1;
+  margin: .5rem 0;
+  span {
+    display: inline-block;
+  }
+  input {
+    margin-right: .5rem;
+    width: 1.05rem;
+    height: 1.05rem;
+  }
 }

@@ -1,7 +1,9 @@
+/* eslint-disable lines-between-class-members */
 import React, { PureComponent } from 'react';
 import axios from 'axios';
 import { getCustomer, saveCustomer } from 'api';
 import { Link } from 'react-router-dom';
+import PhoneInput from 'react-phone-number-input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import style from './EditCustomer.module.scss';
@@ -22,6 +24,8 @@ class EditCustomer extends PureComponent {
   componentWillUnmount() { this.signal.cancel(); }
 
   contactByHandler = e => this.changeState('contactby', e.target.value);
+  emailHandler = e => this.changeState('email', e.target.value);
+  phoneHandler = phone => this.changeState('phone', phone);
 
   changeState(key, value) {
     const { customer } = this.state;
@@ -29,12 +33,13 @@ class EditCustomer extends PureComponent {
   }
 
   save() {
-    const { match } = this.props;
+    const { match, history: h } = this.props;
     const { customer } = this.state;
     const options = { cancelToken: this.signal.token };
 
     return saveCustomer(match.params.id, customer, options)
-      .then(r => this.setState(({ customer: r })));
+      .then(({ id }) => h.push(`/clients/${id}`));
+    // .then(r => this.setState(({ customer: r })));
   }
 
   render() {
@@ -54,24 +59,44 @@ class EditCustomer extends PureComponent {
           <section className={style.data} flex="auto">
             <div className="mv1">
               <h6>Email:</h6>
-              <a className="link" href={`mailto:${customer.email}`}>
-                {customer.email}
-              </a>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                value={customer.email}
+                onChange={this.emailHandler}
+              />
             </div>
 
             <div className="mv1">
               <h6>Telefone:</h6>
-              {customer.phone}
+              <PhoneInput
+                country="BR"
+                displayInitialValueAsLocalNumber
+                autoComplete="tel"
+                national="true"
+                international={false}
+                showCountrySelect={false}
+                name="PHONE"
+                placeholder="31 92222 2222"
+                minLength="11"
+                maxLength="15"
+                id="phone"
+                type="tel"
+                value={customer.phone}
+                onChange={this.phoneHandler}
+              />
             </div>
 
             <div className="mv1">
               <h6>Prefere contato via:</h6>
-              <fieldset className="radio-group">
+              <fieldset className={style.radio}>
                 <label
+                  row=""
+                  align="start center"
                   htmlFor="whatsapp"
                   className={(customer.contactby === 'whatsapp').toString()}
                 >
-                  <span>Whatsapp</span>
                   <input
                     type="radio"
                     name="whatsapp"
@@ -80,15 +105,17 @@ class EditCustomer extends PureComponent {
                     checked={customer.contactby === 'whatsapp'}
                     onChange={this.contactByHandler}
                   />
+                  <span>Whatsapp</span>
                 </label>
               </fieldset>
 
-              <fieldset className="radio-group">
+              <fieldset className={style.radio}>
                 <label
+                  row=""
+                  align="start center"
                   htmlFor="email"
                   className={(customer.contactby === 'email').toString()}
                 >
-                  <span>Email</span>
                   <input
                     type="radio"
                     name="email"
@@ -97,6 +124,7 @@ class EditCustomer extends PureComponent {
                     checked={customer.contactby === 'email'}
                     onChange={this.contactByHandler}
                   />
+                  <span>Email</span>
                 </label>
               </fieldset>
             </div>

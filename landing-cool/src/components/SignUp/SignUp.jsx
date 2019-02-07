@@ -16,6 +16,7 @@ class SignUp extends PureComponent {
     this.email = React.createRef();
     this.description = React.createRef();
     this.name = '';
+    this.profilePicture = '';
   }
 
   state = {
@@ -33,7 +34,8 @@ class SignUp extends PureComponent {
     console.log(u);
     this.email.current.value = u.email;
     this.name = u.name;
-    u.phone && this.handlePhone(u.phone);
+    if (u.profilePicURL) this.profilePicture = u.profilePicURL;
+    if (u.phone) this.handlePhone(u.phone);
   }
 
   handleSubmit = e => {
@@ -49,6 +51,8 @@ class SignUp extends PureComponent {
       CONTACTBY: contactby ? 'whatsapp' : 'email',
       NAME: this.name,
     };
+
+    if (this.profilePicture) data.profilePicture = this.profilePicture;
 
     axios.post(url, data)
       .then(() => this.setState(({ submitted: true })))
