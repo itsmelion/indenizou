@@ -7,7 +7,7 @@
     "react-app"
   ],
   "plugins": ["import", "react"],
-  "settings": { "import/resolver": { "node": { "paths": ["src/"] } } },
+  "settings": { "import/resolver": { "node": { "paths": ["dashboard/src/"] } } },
   "env": {
     "es6": true,
     "browser": true,

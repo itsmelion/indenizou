@@ -1,0 +1,29 @@
+@import 'styles/vars.scss';
+
+.header {
+  min-height: 180pt;
+  padding-bottom: 4rem;
+  color: white;
+  background-image: url(images/user-splash.jpg);
+  background-attachment: fixed;
+}
+
+.status {
+  margin: .25rem 1rem;
+  padding: .5rem 1rem;
+  border-radius: $radius;
+  background-color: $indenizou;
+  line-height: 1;
+  text-transform: capitalize;
+}
+
+.data {
+  margin-top: -2rem;
+  padding: 2rem;
+  border-radius: $radius;
+  background-color: white;
+}
+
+.files {
+  padding: 2rem;
+}

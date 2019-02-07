@@ -13,12 +13,12 @@ const ClientItem = React.memo(({ client }) => (
         <legend className={style.tag}>{client.assunto}</legend>
       </div>
 
-      <h6><a href={`mailto:${client.email}`}>{client.email}</a></h6>
+      <h6>{client.email}</h6>
 
-      <a href={`tel:${client.phone}`}>
+      <p>
         <FontAwesomeIcon icon={faWhatsapp} />
         {client.phone}
-      </a>
+      </p>
 
       <p className={style.contactby}>
         Preferencia de contato: &nbsp;

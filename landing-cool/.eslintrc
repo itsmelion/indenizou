@@ -7,7 +7,7 @@
     "airbnb"
   ],
   "plugins": ["standard", "import", "react"],
-  "settings": { "import/resolver": { "node": { "paths": ["src/"] } } },
+  "settings": { "import/resolver": { "node": { "paths": ["landing-cool/src/"] } } },
   "env": {
     "es6": true,
     "browser": true,
