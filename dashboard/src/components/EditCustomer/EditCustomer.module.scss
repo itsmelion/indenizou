@@ -23,6 +23,17 @@
   border-radius: $radius;
   background-color: white;
 
+  select {
+    padding: .25rem .8rem;
+    outline: initial;
+  }
+
+  textarea {
+    padding: .5em;
+    border-radius: $radius;
+    width: 100%;
+  }
+
   > div > h6 {
     margin-left: 1rem;
   }

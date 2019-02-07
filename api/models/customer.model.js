@@ -21,7 +21,7 @@ const schema = new mongoose.Schema({
     index: { unique: true },
   },
   phone: { type: String, lowercase: true, trim: true, unique: true },
-  outro: { type: String },
+  outros: { type: String },
   contactby: { type: String, default: 'email', enum: ['email', 'whatsapp', 'phone'] },
   assunto: {
     type: String,

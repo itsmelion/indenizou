@@ -24,3 +24,11 @@ export const getCustomer = (id, opt) => axios.get(`/customer/${id}`, opt)
 export const saveCustomer = (id, body, opt) => axios.put(`/customer/${id}`, body, opt)
   .then(({ data }) => data)
   .catch(e => error('Erro ao salvar os dados do cliente.', e));
+
+export const getPipelines = opt => axios.get('/pipelines', opt)
+  .then(({ data }) => data)
+  .catch(e => error('Erro ao buscar as Etapas na API.', e));
+
+export const getCustomers = opt => axios.get('/subscribers', opt)
+  .then(({ data }) => data)
+  .catch(e => error('Erro em solicitar lista de clientes.', e));

@@ -44,9 +44,9 @@ class ShowCustomer extends PureComponent {
           <section column="" flex="auto">
             <section className={style.data}>
               <div className="mb1">
-                <div className={style.outro}>
+                <div className={style.outros}>
                   <h3>{customer.assunto}</h3>
-                  {customer.outro && <p>{customer.outro}</p>}
+                  {customer.outros && <p>{customer.outros}</p>}
                 </div>
               </div>
 

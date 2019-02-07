@@ -1,24 +1,22 @@
 import React, { PureComponent } from 'react';
 import axios from 'axios';
+import { getPipelines, getCustomers } from 'api';
 import ClientItem from 'components/ClientItem/ClientItem';
 import style from './Pipeline.module.scss';
-
-const API = process.env.REACT_APP_API_URL;
 
 class Pipeline extends PureComponent {
   signal = axios.CancelToken.source();
 
   state = { clients: null, pipeline: [] };
 
-  headers = { Authorization: localStorage.getItem('token') };
-
   componentDidMount() {
-    const options = { cancelToken: this.signal.token, headers: this.headers };
+    const options = { cancelToken: this.signal.token };
 
-    return axios.get(`${API}/pipelines`, options)
-      .then(({ data: pipeline }) => axios.get(`${API}/clients`, options)
-        .then(({ data }) => this.setState(({ clients: data, pipeline }))))
-      .catch(e => new Error(e));
+    return getPipelines(options)
+      .then(
+        pipeline => getCustomers(options)
+          .then(clients => this.setState(({ clients, pipeline })))
+      );
   }
 
   componentWillUnmount() {

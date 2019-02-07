@@ -10,14 +10,16 @@ a.link:hover:not(.button) {
   color: $alliance;
 }
 
-input {
+input, select, textarea {
   font-size: 1.1rem;
-  border: 1pt solid $black3;
   padding: .25rem .8rem;
   margin-top: .2rem;
   margin-bottom: .2rem;
   border-radius: $radius * 2;
+  border: 1.5pt solid $black3;
   outline: none;
+
+  &:focus { border-color: $indenizou; }
 }
 
 code {

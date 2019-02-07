@@ -1,21 +1,24 @@
 /* eslint-disable lines-between-class-members */
 import React, { PureComponent } from 'react';
 import axios from 'axios';
-import { getCustomer, saveCustomer } from 'api';
-import { Link } from 'react-router-dom';
+import { getCustomer, saveCustomer, getPipelines } from 'api';
 import PhoneInput from 'react-phone-number-input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import style from './EditCustomer.module.scss';
 
+const assuntos = ['cancelamento', 'atraso', 'overbooking', 'extravio de bagagem', 'outros'];
+
 class EditCustomer extends PureComponent {
-  state = { customer: null };
+  state = { customer: null, pipelines: [] };
 
   signal = axios.CancelToken.source();
 
   componentDidMount() {
     const { match } = this.props;
     const options = { cancelToken: this.signal.token };
+
+    getPipelines(options).then(pipelines => this.setState(({ pipelines })))
 
     return getCustomer(match.params.id, options)
       .then(customer => this.setState(({ customer })));
@@ -24,7 +27,11 @@ class EditCustomer extends PureComponent {
   componentWillUnmount() { this.signal.cancel(); }
 
   contactByHandler = e => this.changeState('contactby', e.target.value);
+  outrosHandler = e => this.changeState('outros', e.target.value);
   emailHandler = e => this.changeState('email', e.target.value);
+  assuntoHandler = e => this.changeState('assunto', e.target.value);
+  pipelineHandler = e => this.changeState('status', e.target.value);
+  nameHandler = e => this.changeState('name', e.target.value);
   phoneHandler = phone => this.changeState('phone', phone);
 
   changeState(key, value) {
@@ -43,7 +50,7 @@ class EditCustomer extends PureComponent {
   }
 
   render() {
-    const { customer } = this.state;
+    const { customer, pipelines } = this.state;
     if (!customer) return null;
 
     return (
@@ -57,12 +64,57 @@ class EditCustomer extends PureComponent {
 
         <div row="" contain="" className={style.sections}>
           <section className={style.data} flex="auto">
+            <div className="mb1">
+              <h6 className="ml1">Etapa:</h6>
+
+              <select flex="none" value={customer.status} onChange={this.pipelineHandler}>
+                {pipelines.map(stage => (
+                  <option key={stage} value={stage}>{stage}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mv1">
+              <div column="" align="start start" className={style.outro}>
+                <h6>Assunto:</h6>
+
+                <select flex="none" value={customer.assunto} onChange={this.assuntoHandler}>
+                  {assuntos.map(assunto => (
+                    <option key={assunto} value={assunto}>{assunto}</option>
+                  ))}
+                </select>
+
+                {(customer.outros || customer.assunto === 'outros') && (
+                  <textarea
+                    flex=""
+                    name="outros"
+                    id="outros"
+                    value={customer.outros}
+                    onChange={this.outrosHandler}
+                  />
+                )}
+              </div>
+            </div>
+
+            <div className="mv1">
+              <h6>Nome:</h6>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                value={customer.name}
+                onChange={this.nameHandler}
+                autoComplete="off"
+              />
+            </div>
+
             <div className="mv1">
               <h6>Email:</h6>
               <input
                 id="email"
                 type="email"
                 name="email"
+                autoComplete="off"
                 value={customer.email}
                 onChange={this.emailHandler}
               />
@@ -73,11 +125,11 @@ class EditCustomer extends PureComponent {
               <PhoneInput
                 country="BR"
                 displayInitialValueAsLocalNumber
-                autoComplete="tel"
+                autoComplete="off"
                 national="true"
                 international={false}
                 showCountrySelect={false}
-                name="PHONE"
+                name="phone"
                 placeholder="31 92222 2222"
                 minLength="11"
                 maxLength="15"
@@ -129,9 +181,9 @@ class EditCustomer extends PureComponent {
               </fieldset>
             </div>
 
-            <Link className="button" to={`/clientes/${customer.id}/edit`}>
+            <button type="button" className="mt2 button" onClick={this.save}>
               <FontAwesomeIcon fixedWidth icon={faSave} /> Salvar
-            </Link>
+            </button>
           </section>
 
           <section className={style.files} flex="auto">
