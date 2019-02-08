@@ -25,14 +25,14 @@ const schema = new mongoose.Schema({
   contactby: { type: String, default: 'email', enum: ['email', 'whatsapp', 'phone'] },
   assunto: {
     type: String,
-    enum: ['cancelamento', 'atraso', 'overbooking', 'extravio de bagagem', 'outros'],
+    enum: config.assuntos,
     required: [true, 'É necessário fornecer o assunto'],
   },
 
   status: {
     type: String,
     enum: config.pipelines,
-    required: [true, 'É necessário fornecer a etapa do pipeline'],
+    required: [true, 'É necessário fornecer "status" (etapa do pipeline)'],
   },
 
   mailchimp: {
@@ -44,7 +44,7 @@ const schema = new mongoose.Schema({
     status: {
       type: String,
       enum: ['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional'],
-      required: [isProd, 'É necessário fornecer o status de inscricao'],
+      required: [isProd, 'É necessário fornecer o status de inscricao (mailchimp)'],
     },
     abuse: { type: Boolean, default: false },
   },
