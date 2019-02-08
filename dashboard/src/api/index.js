@@ -29,6 +29,6 @@ export const getPipelines = opt => axios.get('/pipelines', opt)
   .then(({ data }) => data)
   .catch(e => error('Erro ao buscar as Etapas na API.', e));
 
-export const getCustomers = opt => axios.get('/subscribers', opt)
+export const getCustomers = opt => axios.get('/clients', opt)
   .then(({ data }) => data)
   .catch(e => error('Erro em solicitar lista de clientes.', e));

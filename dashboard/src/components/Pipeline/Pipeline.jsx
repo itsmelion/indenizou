@@ -13,10 +13,8 @@ class Pipeline extends PureComponent {
     const options = { cancelToken: this.signal.token };
 
     return getPipelines(options)
-      .then(
-        pipeline => getCustomers(options)
-          .then(clients => this.setState(({ clients, pipeline })))
-      );
+      .then(pipeline => getCustomers(options)
+        .then(clients => this.setState(({ clients, pipeline }))));
   }
 
   componentWillUnmount() {
@@ -26,7 +24,7 @@ class Pipeline extends PureComponent {
   render() {
     const { clients, pipeline } = this.state;
 
-    if (!pipeline && !clients) return null;
+    if (!pipeline.length && !clients) return null;
 
     return (
       <main row="nowrap" className={style.container}>

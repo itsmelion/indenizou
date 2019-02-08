@@ -8,7 +8,7 @@ const ClientItem = React.memo(({ client }) => (
   <li>
     <Link className={style.card} to={`/cliente/${client.id}`}>
       <div row="" align="between start">
-        <b>{client.name || 'Sem nome'}</b>
+        <b>{client.name}</b>
 
         <legend className={style.tag}>{client.assunto}</legend>
       </div>

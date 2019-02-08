@@ -44,6 +44,7 @@ app.get('/pipelines', Lists.status);
 app.post('/subscribe', Lists.subscribe);
 app.get('/subscribers', requireAuth, Lists.subscribers);
 app.get('/clients', requireAuth, Lists.byStatus);
+app.get('/customers', requireAuth, Lists.byStatus);
 app.get('/customer/:id', requireAuth, Lists.customer);
 app.put('/customer/:id', requireAuth, Lists.customer);
 app.post('/customer/:id/files', requireAuth, Files.save);
