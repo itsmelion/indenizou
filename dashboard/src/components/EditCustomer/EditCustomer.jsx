@@ -5,9 +5,12 @@ import { getCustomer, saveCustomer, getPipelines } from 'api';
 import PhoneInput from 'react-phone-number-input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
+import FileUpload from 'components/FileUpload/FileUpload';
 import style from './EditCustomer.module.scss';
 
-const assuntos = ['cancelamento', 'atraso', 'overbooking', 'extravio de bagagem', 'outros'];
+const assuntos = [
+  'cancelamento', 'atraso', 'overbooking', 'extravio de bagagem', 'outros',
+];
 
 class EditCustomer extends PureComponent {
   state = { customer: null, pipelines: [] };
@@ -188,7 +191,8 @@ class EditCustomer extends PureComponent {
 
           <section className={style.files} flex="auto">
             <h3>Documentos</h3>
-            Files
+
+            <FileUpload />
           </section>
         </div>
       </main>
