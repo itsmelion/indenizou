@@ -5,8 +5,11 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const log = require('./log');
+const multer = require('multer');
+const Multer = multer({ dest: 'uploads/' });
 
+const log = require('./log');
+// const config = require('./config');
 const app = express();
 const server = http.createServer(app);
 const mongoParams = { useNewUrlParser: true, useCreateIndex: true };
@@ -26,6 +29,9 @@ const passportService = require('./libs/passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 
+// app.use(config.fileParser.routes, bodyParser.json(config.fileParser.config));
+// app.use(config.fileParser.routes, bodyParser.urlencoded(config.fileParser.config));
+
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 app.use(cors());
@@ -41,6 +47,7 @@ app.post('/chatbot/user', authBot, ChatbotHooks.saveData);
 app.post('/chatbot/indicacao', authBot, ChatbotHooks.saveData);
 
 app.get('/pipelines', Lists.status);
+
 app.post('/subscribe', Lists.subscribe);
 app.get('/subscribers', requireAuth, Lists.subscribers);
 app.get('/clients', requireAuth, Lists.byStatus);
@@ -48,7 +55,10 @@ app.get('/customers', requireAuth, Lists.byStatus);
 app.get('/customer/:id', requireAuth, Lists.customer);
 app.put('/customer/:id', requireAuth, Lists.customer);
 app.delete('/customer/:id', requireAuth, Lists.deleteCustomer);
-app.post('/customer/:id/files', requireAuth, Files.save);
+
+app.post('/customer/:id/files', requireAuth, multer.array(), Files.save);
+app.delete('/customer/:id/files/:file', requireAuth, Files.delete);
+
 
 // ChimpHooks
 app.get('/hooks/email', (req, res) => res.status(200).send('OK'));

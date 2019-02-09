@@ -17,22 +17,37 @@ const error = (msg, err, cb) => {
   return cb && cb();
 };
 
-export const getCustomer = (id, opt) => axios.get(`/customer/${id}`, opt)
+export const getCustomer = (id, opt) => axios
+  .get(`/customer/${id}`, opt)
   .then(({ data }) => data)
   .catch(e => error('Erro em solicitar os dados do cliente.', e));
 
-export const saveCustomer = (id, body, opt) => axios.put(`/customer/${id}`, body, opt)
+export const saveCustomer = (id, body, opt) => axios
+  .put(`/customer/${id}`, body, opt)
   .then(({ data }) => data)
   .catch(e => error('Erro ao salvar os dados do cliente.', e));
 
-export const deleteCustomer = (id, opt) => axios.delete(`/customer/${id}`, opt)
+export const deleteCustomer = (id, opt) => axios
+  .delete(`/customer/${id}`, opt)
   .then(({ data }) => data)
   .catch(e => error('Erro ao deletar cliente.', e));
 
-export const getPipelines = opt => axios.get('/pipelines', opt)
+export const getPipelines = opt => axios
+  .get('/pipelines', opt)
   .then(({ data }) => data)
   .catch(e => error('Erro ao buscar as Etapas na API.', e));
 
-export const getCustomers = opt => axios.get('/clients', opt)
+export const getCustomers = opt => axios
+  .get('/clients', opt)
   .then(({ data }) => data)
   .catch(e => error('Erro em solicitar lista de clientes.', e));
+
+export const uploadFiles = (id, files = [], opt) => axios
+  .post(`/customer/${id}/files`, files[0], opt)
+  .then(({ data }) => data)
+  .catch(e => error('Erro no upload dos arquivos.', e));
+
+export const deleteFile = (id, file, opt) => axios
+  .delete(`/customer/${id}/files/${file}`, opt)
+  .then(({ data }) => data)
+  .catch(e => error('Erro ao tentar deletar o arquivo.', e));
