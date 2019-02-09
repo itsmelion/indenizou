@@ -25,6 +25,10 @@ export const saveCustomer = (id, body, opt) => axios.put(`/customer/${id}`, body
   .then(({ data }) => data)
   .catch(e => error('Erro ao salvar os dados do cliente.', e));
 
+export const deleteCustomer = (id, opt) => axios.delete(`/customer/${id}`, opt)
+  .then(({ data }) => data)
+  .catch(e => error('Erro ao deletar cliente.', e));
+
 export const getPipelines = opt => axios.get('/pipelines', opt)
   .then(({ data }) => data)
   .catch(e => error('Erro ao buscar as Etapas na API.', e));

@@ -1,10 +1,10 @@
 /* eslint-disable lines-between-class-members */
 import React, { PureComponent } from 'react';
 import axios from 'axios';
-import { getCustomer, saveCustomer, getPipelines } from 'api';
+import { getCustomer, saveCustomer, getPipelines, deleteCustomer } from 'api';
 import PhoneInput from 'react-phone-number-input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
 import FileUpload from 'components/FileUpload/FileUpload';
 import style from './EditCustomer.module.scss';
 
@@ -37,19 +37,30 @@ class EditCustomer extends PureComponent {
   nameHandler = e => this.changeState('name', e.target.value);
   phoneHandler = phone => this.changeState('phone', phone);
 
-  changeState(key, value) {
-    const { customer } = this.state;
-    this.setState(({ customer: { ...customer, [key]: value } }));
+  deleteCustomer = () => {
+    const { match, history: h } = this.props;
+    const options = { cancelToken: this.signal.token };
+    // eslint-disable-next-line no-alert
+    const prompt = window.confirm('Deletar esse Cliente? essa ação é irreversível.');
+
+    if (!prompt) return 0;
+
+    return deleteCustomer(match.params.id, options)
+      .then(() => h.push('/clients'));
   }
 
-  save() {
+  save = () => {
     const { match, history: h } = this.props;
     const { customer } = this.state;
     const options = { cancelToken: this.signal.token };
 
     return saveCustomer(match.params.id, customer, options)
       .then(({ id }) => h.push(`/clients/${id}`));
-    // .then(r => this.setState(({ customer: r })));
+  }
+
+  changeState(key, value) {
+    const { customer } = this.state;
+    this.setState(({ customer: { ...customer, [key]: value } }));
   }
 
   render() {
@@ -59,9 +70,23 @@ class EditCustomer extends PureComponent {
     return (
       <main>
         <header row="" align="start end" className={style.header}>
-          <div align="start center" contain="" className="row pv1">
-            <h2 className={style.name}>{customer.name}</h2>
-            <div className={style.status}>{customer.status}</div>
+          <div className="contain row nowrap mobile-wrap" align="start center">
+            <div flex="auto" align="start center" className="row pv1">
+              <h2 className={style.name}>{customer.name}</h2>
+              <div className={style.status}>{customer.status}</div>
+            </div>
+
+            <span flex="" />
+
+            <div flex="none">
+              <button
+                type="button"
+                className="button danger m1"
+                title="Deletar Cliente"
+                onClick={this.deleteCustomer}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </div>
           </div>
         </header>
 
@@ -184,9 +209,19 @@ class EditCustomer extends PureComponent {
               </fieldset>
             </div>
 
-            <button type="button" className="mt2 button" onClick={this.save}>
-              <FontAwesomeIcon fixedWidth icon={faSave} /> Salvar
-            </button>
+            <div row="nowrap" align="between" className="mt2">
+              <button type="button" className="button" onClick={this.save}>
+                <FontAwesomeIcon icon={faSave} /> Salvar
+              </button>
+
+              <button
+                type="button"
+                className="button danger"
+                title="Deletar Cliente"
+                onClick={this.deleteCustomer}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </div>
           </section>
 
           <section className={style.files} flex="auto">

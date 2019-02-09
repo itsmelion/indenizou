@@ -37,6 +37,13 @@ exports.customer = async ({ params }, res) => {
   return res.json(customer);
 };
 
+exports.deleteCustomer = async ({ params, body }, res) => {
+  return Customer.findByIdAndDelete(params.id || body.id, (err, query) => {
+    if (err) return res.status(500).json(Boom.internal('Failed to delete client', err));
+    return res.json(query);
+  });
+};
+
 exports.byStatus = async (req, res) => {
   const customers = await Customer.find();
   return res.json(groupBy(customers, 'status'));

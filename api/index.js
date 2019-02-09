@@ -47,6 +47,7 @@ app.get('/clients', requireAuth, Lists.byStatus);
 app.get('/customers', requireAuth, Lists.byStatus);
 app.get('/customer/:id', requireAuth, Lists.customer);
 app.put('/customer/:id', requireAuth, Lists.customer);
+app.delete('/customer/:id', requireAuth, Lists.deleteCustomer);
 app.post('/customer/:id/files', requireAuth, Files.save);
 
 // ChimpHooks
