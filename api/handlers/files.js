@@ -7,7 +7,7 @@ exports.save = ({ params, files }, res) => Customer
 
     if (!user) return res.status(404).json(Boom.notFound('User not Found'));
 
-    return res.json({ user, files });
+    return res.send(files);
   });
 
 exports.delete = ({ params }, res) => Customer
@@ -16,5 +16,5 @@ exports.delete = ({ params }, res) => Customer
 
     if (!user) return res.status(404).json(Boom.notFound('User not Found'));
 
-    return res.json(user);
+    return res.send(user);
   });

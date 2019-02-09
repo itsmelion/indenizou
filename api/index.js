@@ -6,12 +6,13 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const multer = require('multer');
-const Multer = multer({ dest: 'uploads/' });
+
 
 const log = require('./log');
 // const config = require('./config');
 const app = express();
 const server = http.createServer(app);
+const Multer = multer({ dest: 'uploads/' });
 const mongoParams = { useNewUrlParser: true, useCreateIndex: true };
 
 // Handlers
@@ -56,7 +57,7 @@ app.get('/customer/:id', requireAuth, Lists.customer);
 app.put('/customer/:id', requireAuth, Lists.customer);
 app.delete('/customer/:id', requireAuth, Lists.deleteCustomer);
 
-app.post('/customer/:id/files', requireAuth, multer.array(), Files.save);
+app.post('/customer/:id/files', requireAuth, Multer.array('files'), Files.save);
 app.delete('/customer/:id/files/:file', requireAuth, Files.delete);
 
 
@@ -68,7 +69,6 @@ app.post('/hooks/email', ChimpHooks.chimpEventsHandler);
 app.post('/signin', requireSignin, Authentication.signin);
 app.post('/signup', Authentication.signup);
 app.get('/accounts/:userID', requireAuth, Accounts.user);
-app.get('/protected', requireAuth, (req, res) => res.json({ hi: 'there' }));
 
 server.listen(process.env.PORT, process.env.HOST, () => {
   log.info(`🖥️ Indenizou API up at: ${process.env.HOST}:${process.env.PORT}`);

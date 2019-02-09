@@ -42,12 +42,17 @@ export const getCustomers = opt => axios
   .then(({ data }) => data)
   .catch(e => error('Erro em solicitar lista de clientes.', e));
 
-export const uploadFiles = (id, files = [], opt) => axios
-  .post(`/customer/${id}/files`, files[0], opt)
-  .then(({ data }) => data)
-  .catch(e => error('Erro no upload dos arquivos.', e));
+export const uploadFiles = (id, fileList = [], opt) => {
+  const files = new FormData();
+  files.append('files', fileList[0]);
+
+  return axios
+    .post(`/customer/${id}/files`, files, opt)
+    .then(({ data }) => data)
+    .catch(e => error('Erro no upload dos arquivos.', e));
+}
 
 export const deleteFile = (id, file, opt) => axios
   .delete(`/customer/${id}/files/${file}`, opt)
   .then(({ data }) => data)
-  .catch(e => error('Erro ao tentar deletar o arquivo.', e));
+  .catch(e => error('Erro ao tentar deletar} o arquivo.', e));

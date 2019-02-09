@@ -23,6 +23,7 @@ class FileUpload extends PureComponent {
     files = flatMap(files);
 
     const options = {
+      'Content-Type': 'multipart/form-data',
       cancelToken: this.signal.token,
       onUploadProgress: (progressEvt) => {
         const percentage = Math.round((progressEvt.loaded * 100) / progressEvt.total);
