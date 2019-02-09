@@ -24,7 +24,6 @@ class Pipeline extends PureComponent {
 
   render() {
     const { clients, pipeline } = this.state;
-
     if (!pipeline.length && !clients) return null;
 
     return (

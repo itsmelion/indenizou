@@ -15,7 +15,6 @@
   },
   "rules": {
     "object-curly-newline": "warn",
-    "import/no-unresolved": "warn",
-    "react/jsx-closing-bracket-location": "off"
+    "import/no-unresolved": "warn"
   }
 }

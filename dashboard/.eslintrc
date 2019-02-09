@@ -30,9 +30,10 @@
     "no-param-reassign": "warn",
     "max-len": ["warn", { "code": 90 }],
     "no-console": ["warn", { "allow": ["warn", "info"] }],
+    "class-methods-use-this": 0,
     "react/prop-types": 0,
     "react/jsx-one-expression-per-line": 0,
-    "class-methods-use-this": 0
+    "react/jsx-closing-bracket-location": [1, "after-props"]
   },
   "globals": {
     "window": false,

@@ -1,7 +1,9 @@
 /* eslint-disable lines-between-class-members */
 import React, { PureComponent } from 'react';
 import axios from 'axios';
-import { getCustomer, saveCustomer, getPipelines, deleteCustomer } from 'api';
+import {
+  getCustomer, saveCustomer, getPipelines, deleteCustomer,
+} from 'api';
 import PhoneInput from 'react-phone-number-input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +23,7 @@ class EditCustomer extends PureComponent {
     const { match } = this.props;
     const options = { cancelToken: this.signal.token };
 
-    getPipelines(options).then(pipelines => this.setState(({ pipelines })))
+    getPipelines(options).then(pipelines => this.setState(({ pipelines })));
 
     return getCustomer(match.params.id, options)
       .then(customer => this.setState(({ customer })));
@@ -118,8 +120,7 @@ class EditCustomer extends PureComponent {
                     name="outros"
                     id="outros"
                     value={customer.outros}
-                    onChange={this.outrosHandler}
-                  />
+                    onChange={this.outrosHandler} />
                 )}
               </div>
             </div>
@@ -132,8 +133,7 @@ class EditCustomer extends PureComponent {
                 name="name"
                 value={customer.name}
                 onChange={this.nameHandler}
-                autoComplete="off"
-              />
+                autoComplete="off" />
             </div>
 
             <div className="mv1">
@@ -144,8 +144,7 @@ class EditCustomer extends PureComponent {
                 name="email"
                 autoComplete="off"
                 value={customer.email}
-                onChange={this.emailHandler}
-              />
+                onChange={this.emailHandler} />
             </div>
 
             <div className="mv1">
@@ -164,8 +163,7 @@ class EditCustomer extends PureComponent {
                 id="phone"
                 type="tel"
                 value={customer.phone}
-                onChange={this.phoneHandler}
-              />
+                onChange={this.phoneHandler} />
             </div>
 
             <div className="mv1">
@@ -175,16 +173,14 @@ class EditCustomer extends PureComponent {
                   row=""
                   align="start center"
                   htmlFor="whatsapp"
-                  className={(customer.contactby === 'whatsapp').toString()}
-                >
+                  className={(customer.contactby === 'whatsapp').toString()}>
                   <input
                     type="radio"
                     name="whatsapp"
                     id="whatsapp"
                     value="whatsapp"
                     checked={customer.contactby === 'whatsapp'}
-                    onChange={this.contactByHandler}
-                  />
+                    onChange={this.contactByHandler} />
                   <span>Whatsapp</span>
                 </label>
               </fieldset>
@@ -194,16 +190,14 @@ class EditCustomer extends PureComponent {
                   row=""
                   align="start center"
                   htmlFor="email"
-                  className={(customer.contactby === 'email').toString()}
-                >
+                  className={(customer.contactby === 'email').toString()}>
                   <input
                     type="radio"
                     name="email"
                     id="email"
                     value="email"
                     checked={customer.contactby === 'email'}
-                    onChange={this.contactByHandler}
-                  />
+                    onChange={this.contactByHandler} />
                   <span>Email</span>
                 </label>
               </fieldset>
@@ -211,7 +205,8 @@ class EditCustomer extends PureComponent {
 
             <div row="nowrap" align="between" className="mt2">
               <button type="button" className="button" onClick={this.save}>
-                <FontAwesomeIcon icon={faSave} /> Salvar
+                <FontAwesomeIcon icon={faSave} />
+                <span> Salvar</span>
               </button>
 
               <button
