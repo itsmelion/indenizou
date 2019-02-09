@@ -36,7 +36,7 @@ class ShowCustomer extends PureComponent {
           )}
           <div align="start center" contain="" className="row pv1">
             <h2 className={style.name}>{customer.name}</h2>
-            <div className={style.status}>{customer.status}</div>
+            <div className={`cap ${style.status}`}>{customer.status}</div>
           </div>
         </header>
 

@@ -14,7 +14,8 @@ class Pipeline extends PureComponent {
 
     return getPipelines(options)
       .then(pipeline => getCustomers(options)
-        .then(clients => this.setState(({ clients, pipeline }))));
+        .then(clients => this.setState(({ clients })))
+        .then(() => this.setState(({ pipeline }))));
   }
 
   componentWillUnmount() {
@@ -30,7 +31,7 @@ class Pipeline extends PureComponent {
       <main row="nowrap" className={style.container}>
         {pipeline.map(step => (
           <section flex="auto" key={step}>
-            <h4 className="mb1" style={{ textTransform: 'capitalize' }}>{step}</h4>
+            <h4 className="mb1 cap" style={{ textTransform: 'capitalize' }}>{step}</h4>
 
             <ol>
               {clients[step] && clients[step].map(
