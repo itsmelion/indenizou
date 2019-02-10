@@ -28,7 +28,7 @@ class Pipeline extends PureComponent {
     console.log('rule', (!pipeline.length && !clients));
     console.log('pipeline', pipeline);
     console.log('clients', clients);
-    if (!pipeline.length && !clients) return null;
+    if (!pipeline.length || !clients) return null;
 
     return (
       <main row="nowrap" className={style.container}>

@@ -12,7 +12,6 @@ const log = require('./log');
 // const config = require('./config');
 const app = express();
 const server = http.createServer(app);
-const Multer = multer({ dest: 'uploads/' });
 const mongoParams = { useNewUrlParser: true, useCreateIndex: true };
 
 // Handlers
@@ -29,6 +28,7 @@ const passportService = require('./libs/passport');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
+const Multer = multer({ storage: Files.storage });
 
 // app.use(config.fileParser.routes, bodyParser.json(config.fileParser.config));
 // app.use(config.fileParser.routes, bodyParser.urlencoded(config.fileParser.config));
