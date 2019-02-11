@@ -2,12 +2,13 @@ import React, { PureComponent } from 'react';
 import axios from 'axios';
 import { flatMap } from 'lodash';
 import { uploadFiles } from 'api';
+import FileListItem from 'components/FileListItem/FileListItem';
 import style from './FileUpload.module.scss';
 
 class FileUpload extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { progress: 0 };
+    this.state = { files: [], progress: 0 };
     this.fileInput = React.createRef();
     this.signal = axios.CancelToken.source();
   }
@@ -31,11 +32,12 @@ class FileUpload extends PureComponent {
       },
     };
 
-    // this.setState({ files });
-    // this.handleFiles(files);
     return uploadFiles(userID, files, options);
   }
 
+  /**
+   * @description Handle image preview of files
+   */
   // handleFiles(files) {
   //   return files.map((file) => {
   //     if (!file.type.startsWith('image/')) return 0;
@@ -53,7 +55,7 @@ class FileUpload extends PureComponent {
   // }
 
   render() {
-    const { progress } = this.state;
+    const { files, progress } = this.state;
     const isLoading = progress && progress < 100;
     return (
       <div className={style.container}>
@@ -76,6 +78,10 @@ class FileUpload extends PureComponent {
             </div>
           )}
         </form>
+
+        <section className={style.filesList}>
+          {!!files.length && files.map(file => <FileListItem file={file} />)}
+        </section>
       </div>
     );
   }
