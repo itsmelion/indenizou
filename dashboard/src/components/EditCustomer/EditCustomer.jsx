@@ -222,7 +222,7 @@ class EditCustomer extends PureComponent {
           <section className={style.files} flex="auto">
             <h3>Documentos</h3>
 
-            <FileUpload userID={customer.id} />
+            <FileUpload userID={customer.id} files={customer.files} />
           </section>
         </div>
       </main>

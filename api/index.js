@@ -7,9 +7,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const multer = require('multer');
 
-
-const log = require('./log');
-// const config = require('./config');
 const app = express();
 const server = http.createServer(app);
 const mongoParams = { useNewUrlParser: true, useCreateIndex: true };
@@ -25,6 +22,7 @@ const Files = require('./handlers/files');
 // Middlewares
 const authBot = require('./middlewares/authChatbot');
 const passportService = require('./libs/passport');
+// const queryId = require('./middlewares/queryId');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
@@ -42,13 +40,14 @@ passport.use(passportService.localLogin);
 mongoose.connect(process.env.DB_URL, mongoParams);
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+app.get('/pipelines', Lists.status);
+
 // Chatbot
 app.post('/chatbot', authBot, ChatbotHooks.saveData);
 app.post('/chatbot/user', authBot, ChatbotHooks.saveData);
 app.post('/chatbot/indicacao', authBot, ChatbotHooks.saveData);
 
-app.get('/pipelines', Lists.status);
-
+// Customers | Clients
 app.post('/subscribe', Lists.subscribe);
 app.get('/subscribers', requireAuth, Lists.subscribers);
 app.get('/clients', requireAuth, Lists.byStatus);
@@ -57,9 +56,10 @@ app.get('/customer/:id', requireAuth, Lists.customer);
 app.put('/customer/:id', requireAuth, Lists.customer);
 app.delete('/customer/:id', requireAuth, Lists.deleteCustomer);
 
+// Files
+app.use('/uploads', express.static('uploads'));
 app.post('/customer/:id/files', requireAuth, Multer.array('files'), Files.save);
 app.delete('/customer/:id/files/:fileId', requireAuth, Files.delete);
-
 
 // ChimpHooks
 app.get('/hooks/email', (req, res) => res.status(200).send('OK'));
@@ -71,5 +71,5 @@ app.post('/signup', Authentication.signup);
 app.get('/accounts/:userID', requireAuth, Accounts.user);
 
 server.listen(process.env.PORT, process.env.HOST, () => {
-  log.info(`🖥️ Indenizou API up at: ${process.env.HOST}:${process.env.PORT}`);
+  console.info(`🖥️ Indenizou API up at: ${process.env.HOST}:${process.env.PORT}`);
 });

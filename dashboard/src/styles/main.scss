@@ -8,11 +8,14 @@
 }
 
 .button, .button:link, .button:any-link {
-  background-color: $indenizou;
   color: white;
   border-radius: $radius;
   font-weight: 600;
   letter-spacing: unset;
+}
+
+.button.red {
+  background-color: white;
 }
 
 .ReactModal__Content {

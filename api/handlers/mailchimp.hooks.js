@@ -1,6 +1,5 @@
 /* eslint-disable no-use-before-define */
 const Boom = require('boom');
-const log = require('../log');
 const Customer = require('../models/customer.model');
 
 exports.chimpEventsHandler = async ({ body }, res) => {
@@ -53,7 +52,7 @@ async function saveData(data, res) {
   const opt = { new: true, upsert: true };
   const query = data.id ? { id: data.mailchimp.id } : { email: data.email || data.old_email };
   const notFound = (e) => {
-    log.error('Customer not Found');
+    console.error('Customer not Found');
     return res.status(404).json(Boom.notFound('Customer not Found', e));
   };
 
@@ -67,7 +66,7 @@ async function saveData(data, res) {
 
   const savedCustomer = await customer.set({ ...customer, ...data }).save()
     .catch((e) => {
-      log.error('Internal Error at saving entity on DB');
+      console.error('Internal Error at saving entity on DB');
       return res.send(Boom.internal('Internal Error at saving entity on DB', e))
     });
 

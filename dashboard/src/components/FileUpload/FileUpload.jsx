@@ -8,7 +8,7 @@ import style from './FileUpload.module.scss';
 class FileUpload extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { files: [], progress: 0 };
+    this.state = { files: props.files || [], progress: 0 };
     this.fileInput = React.createRef();
     this.signal = axios.CancelToken.source();
   }
@@ -32,7 +32,8 @@ class FileUpload extends PureComponent {
       },
     };
 
-    return uploadFiles(userID, files, options);
+    return uploadFiles(userID, files, options)
+      .then(data => this.setState(({ files: data })));
   }
 
   /**
@@ -80,7 +81,7 @@ class FileUpload extends PureComponent {
         </form>
 
         <section className={style.filesList}>
-          {!!files.length && files.map(file => <FileListItem file={file} />)}
+          {!!files.length && files.map(file => <FileListItem key={file.id} file={file} />)}
         </section>
       </div>
     );
