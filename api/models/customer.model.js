@@ -12,6 +12,7 @@ const schema = new mongoose.Schema({
   _id: { type: String, default: shortid.generate },
   password: { type: String, required: [false, 'Must provide a password'], select: false },
   name: { type: String, trim: true },
+  profilePicture: { type: String },
   email: {
     type: String,
     lowercase: true,
