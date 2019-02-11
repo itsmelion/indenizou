@@ -1,8 +1,12 @@
 {
-  "name": "@itsmelion/indenizou",
+  "name": "@indenizou/vibrant",
   "version": "1.0.0",
+  "homepage": "http://indenizou.alia.ml",
   "description": "Seu voo atrasou, foi cancelado? Sua bagagem foi danificada ou extraviada? Na indenizou.com pedir indenização é GRÁTIS! Peça já. Seus direitos aqui valem muito. Indique amigos e ganhe!",
   "main": "./src/index.js",
+  "repository": "github:indenizou/vibrant.git",
+  "author": "Christhopher Lion <christhopherleao@icloud.com>",
+  "license": "MIT",
   "scripts": {
     "up": "npm upgrade && npm prune && npm dedupe",
     "build": "gatsby build",
@@ -76,14 +80,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/itsmelion/portfolio.git"
-  },
-  "author": "Christhopher Lion <christhopherleao@icloud.com>",
-  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/itsmelion/indenizou/issues"
-  },
-  "homepage": "http://indenizou.alia.ml"
+    "url": "https://github.com/indenizou/vibrant/issues"
+  }
 }
