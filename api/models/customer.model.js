@@ -4,6 +4,7 @@ const Bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Email = require('../libs/email');
 const config = require('../config');
+const FilesSchema = require('./files.model');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -49,19 +50,7 @@ const schema = new mongoose.Schema({
     abuse: { type: Boolean, default: false },
   },
 
-  files: {
-    type: Array,
-
-    children: {
-      type: Object,
-
-      children: {
-        url: { type: String, trim: true },
-        name: String,
-        submittedAt: Date,
-      },
-    },
-  },
+  files: [FilesSchema],
 
   // Facebook tokens
   facebook_short_access_token: { type: String, trim: true },

@@ -9,6 +9,7 @@ const schema = new mongoose.Schema({
   _id: { type: String, default: shortid.generate },
   password: { type: String, required: [true, 'Must provide a password'], select: false },
   name: { type: String, trim: true },
+  role: { type: String, enum: ['admin', 'client'], default: 'admin', select: false },
   email: {
     type: String,
     lowercase: true,

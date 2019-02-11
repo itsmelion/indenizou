@@ -58,7 +58,7 @@ app.put('/customer/:id', requireAuth, Lists.customer);
 app.delete('/customer/:id', requireAuth, Lists.deleteCustomer);
 
 app.post('/customer/:id/files', requireAuth, Multer.array('files'), Files.save);
-app.delete('/customer/:id/files/:file', requireAuth, Files.delete);
+app.delete('/customer/:id/files/:fileId', requireAuth, Files.delete);
 
 
 // ChimpHooks
