@@ -46,13 +46,13 @@ export const getCustomers = opt => axios
 
 export const uploadFiles = (id, fileList = [], opt) => {
   const files = new FormData();
-  files.append('files', fileList[0]);
+  fileList.forEach(file => files.append('files', file));
 
   return axios
     .post(`/customer/${id}/files`, files, { ...auth(), ...opt })
     .then(({ data }) => data)
     .catch(e => error('Erro no upload dos arquivos.', e));
-}
+};
 
 export const deleteFile = (id, file, opt) => axios
   .delete(`/customer/${id}/files/${file}`, { ...auth(), ...opt })

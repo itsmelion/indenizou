@@ -1,0 +1,8 @@
+@import '~flamework/vars';
+
+.progress {
+  > div {
+    width: 0;
+    background-color: $green;
+  }
+}

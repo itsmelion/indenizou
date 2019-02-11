@@ -7,10 +7,8 @@ import style from './FileUpload.module.scss';
 class FileUpload extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { files: [] };
+    this.state = { progress: 0 };
     this.fileInput = React.createRef();
-    this.preview = React.createRef();
-    this.progress = React.createRef();
     this.signal = axios.CancelToken.source();
   }
 
@@ -18,6 +16,7 @@ class FileUpload extends PureComponent {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const { userID } = this.props;
     let { files } = this.fileInput.current;
 
     files = flatMap(files);
@@ -27,53 +26,56 @@ class FileUpload extends PureComponent {
       cancelToken: this.signal.token,
       onUploadProgress: (progressEvt) => {
         const percentage = Math.round((progressEvt.loaded * 100) / progressEvt.total);
-        this.progress.current.innerHTML = percentage;
+
+        this.setState(({ progress: percentage }));
       },
     };
 
-    this.setState({ files });
-    this.handleFiles(files);
-    return uploadFiles(this.props.userID, files, options);
+    // this.setState({ files });
+    // this.handleFiles(files);
+    return uploadFiles(userID, files, options);
   }
 
+  // handleFiles(files) {
+  //   return files.map((file) => {
+  //     if (!file.type.startsWith('image/')) return 0;
 
-  handleFiles(files) {
-    return files.map((file) => {
-      if (!file.type.startsWith('image/')) return 0;
+  //     const img = document.createElement('img');
+  //     img.file = file;
 
-      const img = document.createElement('img');
-      img.file = file;
+  //     this.preview.current.appendChild(img);
 
-      this.preview.current.appendChild(img);
-
-      const reader = new FileReader();
-      // eslint-disable-next-line no-param-reassign
-      reader.onload = (aImg => (e) => { aImg.src = e.target.result; })(img);
-      return reader.readAsDataURL(file);
-    });
-  }
+  //     const reader = new FileReader();
+  //     // eslint-disable-next-line no-param-reassign
+  //     reader.onload = (aImg => (e) => { aImg.src = e.target.result; })(img);
+  //     return reader.readAsDataURL(file);
+  //   });
+  // }
 
   render() {
-    const { files } = this.state;
-
+    const { progress } = this.state;
+    const isLoading = progress && progress < 100;
     return (
       <div className={style.container}>
         <form className="mv2" onSubmit={this.handleSubmit}>
-          <label htmlFor="file">
-            <p>Upload file</p>
-            <input ref={this.fileInput} multiple type="file" name="file" id="file" />
-          </label>
-          <br />
-          <button type="submit">Submit</button>
+          {!isLoading && (
+            <fieldset>
+              <label htmlFor="file">
+                <p>Upload file</p>
+                <input ref={this.fileInput} multiple type="file" name="file" id="file" />
+              </label>
+
+              <br />
+              <button className="button" type="submit">Enviar</button>
+            </fieldset>
+          )}
+
+          {!!isLoading && (
+            <div className={style.progress}>
+              <progress value={progress} max="100" />
+            </div>
+          )}
         </form>
-
-        {!!files.length && files.map(file => (
-          <h4 key={file.name}>{file.name}</h4>
-        ))}
-
-        <h3 ref={this.progress}>Progress ...</h3>
-
-        <div ref={this.preview} />
       </div>
     );
   }
