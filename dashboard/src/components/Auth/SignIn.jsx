@@ -8,8 +8,8 @@ import Logo from './Logo';
 
 class SignIn extends PureComponent {
   onSubmit = (formProps) => {
-    const { signIn, history: h } = this.props;
-    signIn(formProps, () => h.push('/dashboard'));
+    const { signIn } = this.props;
+    signIn(formProps, null);
   };
 
   render() {
@@ -28,8 +28,7 @@ class SignIn extends PureComponent {
             type="email"
             component="input"
             autoComplete="email"
-            placeholder="Email"
-          />
+            placeholder="Email" />
 
           <Field
             id="password"
@@ -37,8 +36,7 @@ class SignIn extends PureComponent {
             name="password"
             type="password"
             component="input"
-            autoComplete="password"
-          />
+            autoComplete="password" />
 
           <sub>{auth.errorMessage}</sub>
 

@@ -15,17 +15,15 @@ export const signUp = (formProps, callback) => async (dispatch) => {
   }
 };
 
-export const signIn = (formProps, callback) => async (dispatch) => {
-  try {
-    const { data } = await axios.post(`${API}/signin`, formProps);
-
+export const signIn = (formProps, callback) => dispatch => axios
+  .post(`${API}/signin`, formProps)
+  .then(({ data }) => {
     localStorage.setItem('token', data.token);
     dispatch({ type: AUTH_USER, payload: data.token });
-    callback();
-  } catch (e) {
-    dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
-  }
-};
+  })
+  .then(() => callback())
+  .catch(() => dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' }));
+
 
 export const signOut = () => {
   localStorage.removeItem('token');
