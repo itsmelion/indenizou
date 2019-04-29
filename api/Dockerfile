@@ -17,7 +17,6 @@ COPY package*.json yarn.lock* /usr/src/app/
 
 RUN apk --no-cache add --virtual native-deps \
 g++ gcc libgcc libstdc++ linux-headers make python && \
-yarn global add --silent node-pre-gyp node-gyp -g &&\
 yarn install --silent && \
 apk del native-deps
 
